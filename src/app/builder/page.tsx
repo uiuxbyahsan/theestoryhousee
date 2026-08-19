@@ -398,7 +398,7 @@ function LuxuryStudioBuilder() {
                   {currentTheme.scent.name}
                 </h4>
                 <p className="text-[11px] text-[#2A2A2A]/70 truncate">
-                  {currentTheme.scent.notes}
+                  {currentTheme.scent.description} ({currentTheme.scent.notes.top.join(", ")}, {currentTheme.scent.notes.mid.join(", ")})
                 </p>
               </div>
             </div>
