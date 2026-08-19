@@ -48,7 +48,7 @@ export const TemplateSelectionModal: React.FC = () => {
         
         {/* Modal Header */}
         <div className="px-6 py-5 border-b border-[#EAEAEA] flex items-center justify-between bg-[#FFFFFF] shrink-0">
-          <h2 className="font-sans font-bold text-xl sm:text-2xl text-[#1A1A1A] tracking-tight">
+          <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#3D1117] tracking-tight">
             Choose your templates
           </h2>
 

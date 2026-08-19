@@ -466,7 +466,7 @@ export default function HomePage() {
           {/* Header with Navigation Arrows */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="space-y-2">
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3D1117] tracking-tight">
                 Popular Perfumes
               </h2>
               <p className="font-sans text-xs sm:text-sm text-[#2A2A2A]/75 leading-relaxed">
@@ -532,14 +532,14 @@ export default function HomePage() {
                     <span className="text-[10px] uppercase font-bold text-[#888888] tracking-wider block truncate">
                       FOR {theme.category.toUpperCase()} • 75 ML
                     </span>
-                    <h3 className="font-sans font-bold text-xs sm:text-[13px] text-[#1A1A1A] tracking-wide uppercase truncate">
+                    <h3 className="font-sans font-bold text-xs sm:text-[13px] text-[#3D1117] tracking-wide uppercase truncate">
                       {theme.scent.name}
                     </h3>
                   </div>
 
                   <Link
                     href="/product"
-                    className="shrink-0 px-4 py-2 rounded-lg bg-[#FFFFFF] hover:bg-[#3D1117] hover:text-[#FAF6F0] text-[#1A1A1A] text-xs font-bold tracking-wide shadow-xs transition-all duration-200 border-0 hover:shadow-xs text-center whitespace-nowrap"
+                    className="shrink-0 px-4 py-2 rounded-lg bg-[#FFFFFF] hover:bg-[#3D1117] hover:text-[#FAF6F0] text-[#3D1117] text-xs font-bold tracking-wide shadow-xs transition-all duration-200 border border-[#E5DDD5]/80 hover:border-[#3D1117] text-center whitespace-nowrap"
                   >
                     Pair Scent
                   </Link>

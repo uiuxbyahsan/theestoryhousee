@@ -186,7 +186,7 @@ export default function FaqPage() {
       
       {/* HEADER: ANOTHER QUESTION? */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 pb-16 lg:pb-28">
-        <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#1A1A1A]">
+        <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#3D1117]">
           Another question?
         </h1>
         <p className="text-xs sm:text-sm text-[#2A2A2A]/80 max-w-xl mx-auto leading-relaxed">
@@ -214,7 +214,7 @@ export default function FaqPage() {
       <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pb-24 lg:pb-28">
         {FAQ_SECTIONS.map((sec, secIdx) => (
           <div key={secIdx} className="space-y-3">
-            <h2 className="font-sans font-bold text-lg sm:text-xl text-[#1A1A1A] pb-2 border-b border-[#E5DDD5]">
+            <h2 className="font-sans font-bold text-lg sm:text-xl text-[#3D1117] pb-2 border-b border-[#E5DDD5]">
               {sec.category}
             </h2>
 

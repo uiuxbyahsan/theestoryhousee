@@ -73,7 +73,7 @@ export const ScentQuickViewModal: React.FC<ScentQuickViewModalProps> = ({ theme,
 
             {/* Scent Title */}
             <div>
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A] leading-tight">
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#3D1117] leading-tight">
                 {scent.name}
               </h3>
               <p className="font-serif italic text-xs text-[#C9A769] mt-0.5">

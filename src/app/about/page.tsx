@@ -14,9 +14,9 @@ export default function AboutPage() {
       
       {/* 1. MISSION STATEMENT HEADER */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 pb-20 lg:pb-28">
-        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] leading-tight max-w-3xl mx-auto">
+        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3D1117] leading-tight max-w-3xl mx-auto">
           We&apos;re on a simple mission: <br />
-          <span className="font-normal text-[#3D1117]">
+          <span className="font-normal text-[#5C1A22]">
             To get your most beautiful trips out of your phone and turn them into objects you&apos;ll keep for life.
           </span>
         </h1>
@@ -43,7 +43,7 @@ export default function AboutPage() {
           </div>
 
           <div className="md:col-span-6 space-y-5">
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] leading-snug">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3D1117] leading-snug">
               The Story House was born from a conviction
             </h2>
             <p className="text-sm sm:text-base text-[#2A2A2A]/80 leading-relaxed font-normal">
@@ -55,7 +55,7 @@ export default function AboutPage() {
         {/* Block 2: Left Text, Right Image */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center">
           <div className="md:col-span-6 order-2 md:order-1 space-y-5">
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] leading-snug">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3D1117] leading-snug">
               We don&apos;t make photo albums. We make memories you can reopen.
             </h2>
             <p className="text-sm sm:text-base text-[#2A2A2A]/80 leading-relaxed font-normal">
@@ -89,7 +89,7 @@ export default function AboutPage() {
           </div>
 
           <div className="md:col-span-6 space-y-5">
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] leading-snug">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3D1117] leading-snug">
               We&apos;re obsessed with three things: quality, detail, and you.
             </h2>
             <p className="text-sm sm:text-base text-[#2A2A2A]/80 leading-relaxed font-normal">
