@@ -251,15 +251,6 @@ export default function FaqPage() {
         ))}
       </section>
 
-      {/* OVERSIZED WORDMARK FOOTER TEASER */}
-      <section className="pt-12 pb-0 bg-transparent overflow-hidden text-center">
-        <div className="w-full px-4">
-          <div className="font-serif text-[9.5vw] font-bold text-[#3D1117]/10 tracking-tight select-none whitespace-nowrap leading-none transform translate-y-3 sm:translate-y-5">
-            THE STORY HOUSE
-          </div>
-        </div>
-      </section>
-
     </div>
   );
 }

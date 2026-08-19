@@ -2,14 +2,24 @@
 
 import React from "react";
 import Link from "next/link";
-import { Instagram, Share2 } from "lucide-react";
+import { Instagram } from "lucide-react";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { generateGeneralWhatsAppInquiryUrl } from "@/utils/whatsapp";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#3D1117] text-[#FAF6F0] pt-14 pb-10 border-t border-[#5C1A22]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="relative bg-[#3D1117] text-[#FAF6F0] pt-14 pb-10 border-t border-[#5C1A22] mt-16 sm:mt-24 md:mt-32">
+      
+      {/* OVERSIZED "THE STORY HOUSE" WORDMARK (Sitting above footer, with 30% inside the footer) */}
+      <div className="absolute left-0 right-0 -top-10 sm:-top-16 md:-top-24 lg:-top-32 w-full overflow-hidden text-center pointer-events-none select-none z-10">
+        <div className="w-full px-2 sm:px-4">
+          <span className="font-serif text-[11.5vw] font-bold text-[#3D1117]/25 sm:text-[#3D1117]/30 tracking-tight whitespace-nowrap leading-none block transform translate-y-[30%]">
+            THE STORY HOUSE
+          </span>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
         {/* Main Footer Row */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-[#5C1A22]/70 items-start">
@@ -74,28 +84,28 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Quick Pages Links */}
-            <div className="md:col-span-3 space-y-2">
-              <span className="font-serif font-bold text-xs uppercase text-[#C9A769] tracking-wider block">
-                Explore
-              </span>
-              <div className="flex flex-col space-y-1.5 text-xs text-[#FAF6F0]/80">
-                <Link href="/" className="hover:text-[#C9A769] transition-colors">
-                  Home
-                </Link>
-                <Link href="/product" className="hover:text-[#C9A769] transition-colors">
-                  Shop all
-                </Link>
-                <Link href="/about" className="hover:text-[#C9A769] transition-colors">
-                  Who we are (About)
-                </Link>
-                <Link href="/faq" className="hover:text-[#C9A769] transition-colors">
-                  FAQ
-                </Link>
-                <Link href="/builder" className="hover:text-[#C9A769] transition-colors">
-                  Story Builder
-                </Link>
-              </div>
+          <div className="md:col-span-3 space-y-2">
+            <span className="font-serif font-bold text-xs uppercase text-[#C9A769] tracking-wider block">
+              Explore
+            </span>
+            <div className="flex flex-col space-y-1.5 text-xs text-[#FAF6F0]/80">
+              <Link href="/" className="hover:text-[#C9A769] transition-colors">
+                Home
+              </Link>
+              <Link href="/product" className="hover:text-[#C9A769] transition-colors">
+                Shop all
+              </Link>
+              <Link href="/about" className="hover:text-[#C9A769] transition-colors">
+                Who we are (About)
+              </Link>
+              <Link href="/faq" className="hover:text-[#C9A769] transition-colors">
+                FAQ
+              </Link>
+              <Link href="/builder" className="hover:text-[#C9A769] transition-colors">
+                Story Builder
+              </Link>
             </div>
+          </div>
 
           {/* Contact / Service */}
           <div className="md:col-span-3 space-y-2">
