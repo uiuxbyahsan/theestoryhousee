@@ -52,34 +52,28 @@ export default function BuildLayout({
             </Link>
           </div>
 
-          {/* Center: Step-Dot Indicator */}
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              {STEP_ROUTES.map((st) => (
-                <button
-                  key={st.step}
-                  onClick={() => router.push(st.path)}
-                  className={`transition-all duration-300 rounded-full ${
-                    st.step === currentStep
-                      ? "w-6 sm:w-8 h-2 bg-[#3D1117]"
-                      : st.step < currentStep
-                      ? "w-2 sm:w-2.5 h-2 sm:h-2.5 bg-[#C9A769] hover:opacity-80 cursor-pointer"
-                      : "w-2 sm:w-2.5 h-2 sm:h-2.5 bg-[#E5DDD5] cursor-pointer hover:bg-[#D4C8BC]"
-                  }`}
-                  aria-label={`Step ${st.step}: ${st.label}`}
-                />
-              ))}
-            </div>
-
-            <span className="text-[10px] sm:text-[11px] font-sans font-bold uppercase tracking-widest text-[#C9A769] mt-1 text-center">
-              Step {currentStep} of 5 • {currentStepObj.label}
-            </span>
+          {/* Center: Step-Dot Indicator (Only Dots) */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {STEP_ROUTES.map((st) => (
+              <button
+                key={st.step}
+                onClick={() => router.push(st.path)}
+                className={`transition-all duration-300 rounded-full ${
+                  st.step === currentStep
+                    ? "w-6 sm:w-8 h-2 bg-[#3D1117]"
+                    : st.step < currentStep
+                    ? "w-2 sm:w-2.5 h-2 sm:h-2.5 bg-[#C9A769] hover:opacity-80 cursor-pointer"
+                    : "w-2 sm:w-2.5 h-2 sm:h-2.5 bg-[#E5DDD5] cursor-pointer hover:bg-[#D4C8BC]"
+                }`}
+                aria-label={`Step ${st.step}: ${st.label}`}
+              />
+            ))}
           </div>
 
           {/* Right: Persistent Animated Live Price Header */}
           <div className="text-right">
             <span className="text-[9px] sm:text-[10px] uppercase font-bold text-[#888888] block tracking-wider">
-              Running Total
+              TOTAL
             </span>
             <div className="flex items-center justify-end font-serif font-bold text-lg sm:text-2xl text-[#3D1117] leading-none">
               <motion.span

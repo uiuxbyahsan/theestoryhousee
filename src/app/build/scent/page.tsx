@@ -38,19 +38,16 @@ export default function BuildScentPage() {
       
       {/* Page Header */}
       <div className="space-y-2 text-center sm:text-left">
-        <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#C9A769] block">
-          Step 2 • Olfactive Pairing
-        </span>
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3D1117] tracking-tight">
           Your Signature Scent
         </h1>
         <p className="text-sm sm:text-base text-[#2A2A2A]/75 max-w-2xl leading-relaxed">
           {hasScent ? (
             <>
-              Paired with <strong className="text-[#3D1117] font-semibold">{currentScentObj.name}</strong> for your <span className="font-serif font-bold text-[#3D1117]">{selectedTheme.category}</span> memory book.
+              Paired with <span className="font-semibold text-[#3D1117]">{currentScentObj.name}</span> for your {selectedTheme.category} story
             </>
           ) : (
-            "You have selected Photobook Only without signature perfume pairing."
+            "Photobook only mode (no fragrance included)."
           )}
         </p>
       </div>

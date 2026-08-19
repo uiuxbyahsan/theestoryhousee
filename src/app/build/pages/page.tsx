@@ -29,14 +29,11 @@ export default function BuildPagesPage() {
       
       {/* Page Header */}
       <div className="space-y-2 text-center sm:text-left">
-        <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#C9A769] block">
-          Step 3 • Format Architecture
-        </span>
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3D1117] tracking-tight">
           Pages & Format
         </h1>
         <p className="text-sm sm:text-base text-[#2A2A2A]/75 max-w-2xl leading-relaxed">
-          Your book includes <strong className="text-[#3D1117] font-semibold">{BASE_PAGES} base pages</strong> — add more if your journey needs extra space.
+          Your book includes {BASE_PAGES} pages — add more if your story needs the space
         </p>
       </div>
 

@@ -120,14 +120,11 @@ export default function BuildReviewPage() {
       
       {/* Page Header */}
       <div className="space-y-2 text-center sm:text-left">
-        <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#C9A769] block">
-          Step 5 • Verification & WhatsApp Hand-off
-        </span>
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3D1117] tracking-tight">
           Review Your Story
         </h1>
         <p className="text-sm sm:text-base text-[#2A2A2A]/75 max-w-2xl leading-relaxed">
-          Everything look good? Review your order summary below, then connect directly with our atelier on WhatsApp.
+          Everything look good? Let&apos;s send it to WhatsApp
         </p>
       </div>
 

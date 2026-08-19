@@ -68,14 +68,11 @@ export default function BuildPersonalizePage() {
       
       {/* Page Header */}
       <div className="space-y-2 text-center sm:text-left">
-        <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#C9A769] block">
-          Step 4 • Editorial Customization
-        </span>
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3D1117] tracking-tight">
           Personalize Your Story
         </h1>
         <p className="text-sm sm:text-base text-[#2A2A2A]/75 max-w-2xl leading-relaxed">
-          Make this copy uniquely your own with custom front cover foil stamping and delivery details.
+          Make this copy your own
         </p>
       </div>
 

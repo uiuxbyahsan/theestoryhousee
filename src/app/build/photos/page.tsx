@@ -50,14 +50,11 @@ export default function BuildPhotosPage() {
       
       {/* Page Header */}
       <div className="space-y-2 text-center sm:text-left">
-        <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#C9A769] block">
-          Step 1 • Digital Curation
-        </span>
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3D1117] tracking-tight">
           Upload Your Photos
         </h1>
         <p className="text-sm sm:text-base text-[#2A2A2A]/75 max-w-2xl leading-relaxed">
-          Choose at least <strong className="text-[#3D1117] font-semibold">{MIN_PHOTOS_REQUIRED} HD photos</strong> to bring <span className="font-serif font-bold text-[#3D1117]">&ldquo;{productName}&rdquo;</span> to life across 20 heirloom lay-flat spreads.
+          Choose at least {MIN_PHOTOS_REQUIRED} HD photos to bring <span className="font-semibold text-[#3D1117]">{productName}</span> to life
         </p>
       </div>
 
