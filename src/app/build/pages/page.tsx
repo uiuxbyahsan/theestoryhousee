@@ -38,25 +38,8 @@ export default function BuildPagesPage() {
       </div>
 
       {/* Pages Configuration Card */}
-      <div className="bg-[#FFFFFF] rounded-3xl border border-[#E5DDD5] p-6 sm:p-10 space-y-8 shadow-warm-md">
+      <div className="bg-[#FFFFFF] rounded-3xl border border-[#E5DDD5] p-6 sm:p-10 space-y-6 shadow-warm-md">
         
-        {/* Base Included Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-[#E5DDD5]">
-          <div className="flex items-center gap-4 text-center sm:text-left">
-            <div className="w-12 h-12 rounded-2xl bg-[#FAF6F0] border border-[#E5DDD5] text-[#3D1117] flex items-center justify-center shrink-0">
-              <BookOpen className="w-6 h-6 text-[#C9A769]" />
-            </div>
-            <div>
-              <span className="font-serif font-bold text-xl sm:text-2xl text-[#3D1117] block">
-                {BASE_PAGES} Pages Included in Base Heirloom
-              </span>
-              <span className="text-xs text-[#2A2A2A]/70 block mt-0.5">
-                Standard 21cm × 26cm Coffee Table Hardcover Format
-              </span>
-            </div>
-          </div>
-        </div>
-
         {/* Stepper (+ / -) to Add Extra Pages */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 p-6 rounded-2xl bg-[#FAF6F0] border border-[#E5DDD5]">
           <div className="space-y-1 text-center md:text-left">
