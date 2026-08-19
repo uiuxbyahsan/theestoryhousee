@@ -13,7 +13,7 @@ export default function AboutPage() {
     <div className="bg-[#FAF6F0] text-[#2A2A2A] pt-32 pb-0 overflow-hidden">
       
       {/* 1. MISSION STATEMENT HEADER */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 pb-20">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 pb-20 lg:pb-28">
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] leading-tight max-w-3xl mx-auto">
           We&apos;re on a simple mission: <br />
           <span className="font-normal text-[#3D1117]">
@@ -27,7 +27,7 @@ export default function AboutPage() {
       </section>
 
       {/* 2. THREE ALTERNATING STORY BLOCKS (Matching Screenshot 1) */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 sm:space-y-32 pb-24">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 sm:space-y-32 pb-24 lg:pb-28">
         
         {/* Block 1: Left Image, Right Text */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center">
@@ -101,7 +101,7 @@ export default function AboutPage() {
       </section>
 
       {/* 3. TIME TO PRINT BANNER */}
-      <section className="py-16 bg-[#FFF9EE] text-center">
+      <section className="py-16 lg:py-28 bg-[#FFF9EE] text-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#3D1117]">
             It&apos;s time to print these memories
@@ -113,7 +113,7 @@ export default function AboutPage() {
       </section>
 
       {/* 4. 4-CATEGORY CARDS */}
-      <section className="py-20 bg-[#FFFFFF]">
+      <section className="py-20 lg:py-28 bg-[#FFFFFF]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             

@@ -228,7 +228,7 @@ export default function HomePage() {
       </section>
 
       {/* 3. CO-FOUNDER QUOTE SECTION (Top border removed per user request) */}
-      <section id="story" className="py-20 bg-[#FAF6F0]">
+      <section id="story" className="py-20 lg:py-28 bg-[#FAF6F0]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
@@ -495,7 +495,7 @@ export default function HomePage() {
       </section>
 
       {/* 6. QUALITY MATTERS SECTION (All headings Cormorant) */}
-      <section className="py-20 bg-[#FAF6F0]">
+      <section className="py-20 lg:py-28 bg-[#FAF6F0]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -559,7 +559,7 @@ export default function HomePage() {
       </section>
 
       {/* 7. 3-COLUMN TRUST & SERVICE STRIP (Clean floating icons, no icon border boxes) */}
-      <section className="py-20 bg-[#3D1117] text-[#FAF6F0]">
+      <section className="py-20 lg:py-28 bg-[#3D1117] text-[#FAF6F0]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
             
@@ -613,7 +613,7 @@ export default function HomePage() {
       </section>
 
       {/* 8. INSTAGRAM / COMMUNITY SECTION ABOVE FOOTER */}
-      <section className="py-16 bg-transparent">
+      <section className="py-16 lg:py-28 bg-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">

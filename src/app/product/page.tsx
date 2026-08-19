@@ -117,7 +117,7 @@ function ProductDetailContent() {
     <div className="bg-[#FFFFFF] text-[#2A2A2A] pt-24 pb-0">
       
       {/* 2-COLUMN SECTION: Sticky Image Gallery (Left) + Simple 3-Step Purchase Panel (Right) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 bg-[#FFFFFF]">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-28 py-10 bg-[#FFFFFF]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
           {/* 1. Image Gallery (Left Column - Sticky) */}
@@ -328,7 +328,7 @@ function ProductDetailContent() {
       </section>
 
       {/* 3. GOOGLE REVIEWS STRIP */}
-      <section className="bg-[#FFFFFF] py-16">
+      <section className="bg-[#FFFFFF] py-16 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           
           <div className="flex items-center justify-between flex-wrap gap-4">
@@ -414,7 +414,7 @@ function ProductDetailContent() {
       </section>
 
       {/* 4. UGC CONTENT ROW (Real User Photos) */}
-      <section className="py-16 bg-[#FAF6F0]">
+      <section className="py-16 lg:py-28 bg-[#FAF6F0]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="flex items-center justify-between">
             <div>
@@ -468,7 +468,7 @@ function ProductDetailContent() {
       </section>
 
       {/* 5. FAQ ACCORDION */}
-      <section id="faq" className="py-16 bg-transparent">
+      <section id="faq" className="py-16 lg:py-28 bg-transparent">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center space-y-2">
             <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#C9A769]">
