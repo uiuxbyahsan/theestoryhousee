@@ -445,7 +445,7 @@ export default function HomePage() {
             {STORY_THEMES.map((theme) => (
               <div
                 key={theme.id}
-                className="snap-start shrink-0 w-[280px] sm:w-[320px] lg:w-[calc(25%-18px)] group bg-[#F4F2EE] rounded-2xl overflow-hidden p-0 flex flex-col justify-between hover:shadow-warm-md transition-all duration-300 border border-[#E5DDD5]/80 hover:border-[#3D1117]/30"
+                className="snap-start shrink-0 w-[280px] sm:w-[320px] lg:w-[calc(25%-18px)] group bg-[#F4F2EE] rounded-2xl overflow-hidden p-0 flex flex-col justify-between hover:shadow-warm-md transition-all duration-300 border-0 shadow-2xs"
               >
                 {/* Full-Bleed Perfume Bottle Image (No Padding) + Hover Quick View */}
                 <div className="relative aspect-square w-full overflow-hidden bg-white/40">
@@ -470,7 +470,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Bottom Row: Info on Left + Button on Right */}
-                <div className="p-4 sm:p-5 flex items-end justify-between gap-2 border-t border-[#E5DDD5]/60 bg-[#F4F2EE]">
+                <div className="p-4 sm:p-5 flex items-end justify-between gap-2 border-0 bg-[#F4F2EE]">
                   <div className="space-y-0.5 min-w-0">
                     <span className="text-[10px] uppercase font-bold text-[#888888] tracking-wider block truncate">
                       FOR {theme.category.toUpperCase()} • 75 ML
@@ -482,7 +482,7 @@ export default function HomePage() {
 
                   <Link
                     href="/product"
-                    className="shrink-0 px-4 py-2 rounded-lg bg-[#FFFFFF] hover:bg-[#3D1117] hover:text-[#FAF6F0] text-[#1A1A1A] text-xs font-bold tracking-wide shadow-xs transition-all duration-200 border border-[#E5DDD5] hover:border-[#3D1117] text-center whitespace-nowrap"
+                    className="shrink-0 px-4 py-2 rounded-lg bg-[#FFFFFF] hover:bg-[#3D1117] hover:text-[#FAF6F0] text-[#1A1A1A] text-xs font-bold tracking-wide shadow-xs transition-all duration-200 border-0 hover:shadow-xs text-center whitespace-nowrap"
                   >
                     Pair Scent
                   </Link>
