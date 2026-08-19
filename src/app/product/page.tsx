@@ -468,7 +468,7 @@ function ProductDetailContent() {
       </section>
 
       {/* 5. FAQ ACCORDION */}
-      <section id="faq" className="py-16 bg-[#FAF6F0]">
+      <section id="faq" className="py-16 bg-transparent">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center space-y-2">
             <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#C9A769]">
