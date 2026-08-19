@@ -121,36 +121,6 @@ export default function BuildPagesPage() {
           </span>
         </div>
 
-        {/* Craftsmanship Guarantees */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DDD5] space-y-1">
-            <span className="font-serif font-bold text-sm text-[#3D1117] block">
-              250gsm Archival Paper
-            </span>
-            <p className="text-xs text-[#2A2A2A]/70 leading-relaxed">
-              Museum-grade matte textured finish resistant to fingerprints and ambient glare.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DDD5] space-y-1">
-            <span className="font-serif font-bold text-sm text-[#3D1117] block">
-              True 180° Lay-Flat
-            </span>
-            <p className="text-xs text-[#2A2A2A]/70 leading-relaxed">
-              Full double-page panoramic spreads open completely flat without gutter loss.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DDD5] space-y-1">
-            <span className="font-serif font-bold text-sm text-[#3D1117] block">
-              Foil-Stamped Cover
-            </span>
-            <p className="text-xs text-[#2A2A2A]/70 leading-relaxed">
-              Champagne gold foil debossing on fine linen hardcover casing.
-            </p>
-          </div>
-        </div>
-
       </div>
 
       {/* ============================================================ */}

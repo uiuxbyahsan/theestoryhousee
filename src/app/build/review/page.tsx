@@ -286,7 +286,7 @@ export default function BuildReviewPage() {
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-[#888888] block">
-                Total Investment
+                TOTAL
               </span>
               <span className="text-xs text-emerald-700 font-semibold block mt-0.5">
                 Free UAE temperature-controlled delivery included
