@@ -688,18 +688,34 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="relative aspect-square rounded-2xl overflow-hidden shadow-sm">
-              <Image src="/images/photo-croatia-shell.png" alt="Community 1" fill className="object-cover hover:scale-105 transition-transform" />
-            </div>
-            <div className="relative aspect-square rounded-2xl overflow-hidden shadow-sm">
-              <Image src="/images/photo-girls-wine.png" alt="Community 2" fill className="object-cover hover:scale-105 transition-transform" />
-            </div>
-            <div className="relative aspect-square rounded-2xl overflow-hidden shadow-sm">
-              <Image src="/images/photo-lisbon-yellow.png" alt="Community 3" fill className="object-cover hover:scale-105 transition-transform" />
-            </div>
-            <div className="relative aspect-square rounded-2xl overflow-hidden shadow-sm">
-              <Image src="/images/photo-table-display.png" alt="Community 4" fill className="object-cover hover:scale-105 transition-transform" />
-            </div>
+            {[
+              { src: "/images/photo-croatia-shell.png", alt: "The Story House community photo 1" },
+              { src: "/images/photo-girls-wine.png", alt: "The Story House community photo 2" },
+              { src: "/images/photo-lisbon-yellow.png", alt: "The Story House community photo 3" },
+              { src: "/images/photo-table-display.png", alt: "The Story House community photo 4" },
+            ].map((item, idx) => (
+              <a
+                key={idx}
+                href="https://www.instagram.com/theestoryhousee/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative aspect-square rounded-2xl overflow-hidden shadow-warm-sm block cursor-pointer"
+              >
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                />
+                {/* Dark Vignette Overlay on Hover */}
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                  <span className="px-4 py-2 rounded-full bg-[#FFFFFF] text-[#3D1117] text-xs font-bold flex items-center gap-1.5 shadow-warm-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 hover:bg-[#FAF6F0]">
+                    <Instagram className="w-3.5 h-3.5 text-[#C9A769]" />
+                    <span>Follow Us</span>
+                  </span>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </section>
