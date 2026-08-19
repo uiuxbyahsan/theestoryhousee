@@ -5,14 +5,29 @@ import { X, Sparkles, Send, CheckCircle2, Droplet, Flame, HeartHandshake } from 
 import { useStory } from "@/context/StoryContext";
 import { generateGeneralWhatsAppInquiryUrl } from "@/utils/whatsapp";
 
-export const BespokeScentModal: React.FC = () => {
+interface BespokeScentModalProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export const BespokeScentModal: React.FC<BespokeScentModalProps> = ({ isOpen, onClose }) => {
   const { isCustomScentModalOpen, setIsCustomScentModalOpen } = useStory();
   const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState("");
   const [storyOccasion, setStoryOccasion] = useState("");
   const [scentMemory, setScentMemory] = useState("");
 
-  if (!isCustomScentModalOpen) return null;
+  const modalOpen = isOpen !== undefined ? isOpen : isCustomScentModalOpen;
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    } else {
+      setIsCustomScentModalOpen(false);
+    }
+    setSubmitted(false);
+  };
+
+  if (!modalOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,10 +40,7 @@ export const BespokeScentModal: React.FC = () => {
         
         {/* Close Button */}
         <button
-          onClick={() => {
-            setIsCustomScentModalOpen(false);
-            setSubmitted(false);
-          }}
+          onClick={handleClose}
           className="absolute top-5 right-5 p-2 rounded-full text-[#2A2A2A] hover:bg-[#FFFFFF] transition-colors"
         >
           <X className="w-5 h-5" />

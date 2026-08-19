@@ -32,9 +32,9 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-3 items-center">
+          <div className="flex items-center justify-between md:grid md:grid-cols-3">
             
-            {/* Left Column: Navigation Links (Home, Shop all, About, FAQ) */}
+            {/* Left Column: Navigation Links (Desktop) */}
             <nav className="hidden md:flex items-center space-x-6 text-[15px] font-medium">
               <Link
                 href="/"
@@ -71,21 +71,21 @@ export const Navbar: React.FC = () => {
             </nav>
 
             {/* Mobile Left Hamburger */}
-            <div className="flex md:hidden items-center">
+            <div className="flex md:hidden items-center w-10">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-lg hover:bg-black/10 transition-colors"
+                className="p-2 -ml-2 rounded-lg hover:bg-black/10 transition-colors"
                 aria-label="Toggle menu"
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
 
-            {/* Center Column: Logo Centered */}
-            <div className="text-center">
+            {/* Center Column: Logo Centered in One Single Line */}
+            <div className="text-center flex-1 md:flex-initial px-2">
               <Link href="/" className="inline-block group">
                 <span
-                  className={`font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight transition-colors ${
+                  className={`font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight whitespace-nowrap transition-colors ${
                     isScrolled || !isHomePage
                       ? "text-[#3D1117] group-hover:text-[#5C1A22]"
                       : "text-[#FAF6F0] group-hover:text-[#E8C896]"
@@ -96,8 +96,8 @@ export const Navbar: React.FC = () => {
               </Link>
             </div>
 
-            {/* Right Column: Clean CTA Button */}
-            <div className="flex items-center justify-end space-x-3 sm:space-x-4">
+            {/* Right Column: Clean CTA Button (or spacer on small mobile to keep logo centered) */}
+            <div className="flex items-center justify-end md:space-x-4">
               <Link
                 href="/product"
                 className="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full text-[14px] font-semibold tracking-wide bg-[#3D1117] text-[#FAF6F0] hover:bg-[#5C1A22] shadow-warm-sm transition-all duration-300 transform hover:-translate-y-0.5"
@@ -109,6 +109,8 @@ export const Navbar: React.FC = () => {
                   </span>
                 )}
               </Link>
+              {/* Invisible balancer for mobile so logo remains perfectly centered */}
+              <div className="w-10 sm:hidden" aria-hidden="true" />
             </div>
 
           </div>

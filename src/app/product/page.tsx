@@ -485,17 +485,21 @@ function ProductDetailContent() {
               return (
                 <div
                   key={index}
-                  className="bg-[#FFFFFF] rounded-2xl overflow-hidden shadow-warm-sm"
+                  className={`bg-[#FFFFFF] rounded-2xl overflow-hidden border transition-all duration-200 ${
+                    isOpen
+                      ? "border-[#C9A769]/50 shadow-warm-md"
+                      : "border-[#E5DDD5] hover:border-[#D4C8BC] shadow-warm-sm"
+                  }`}
                 >
                   <button
                     onClick={() => setActiveFaqIndex(isOpen ? null : index)}
                     className="w-full p-5 text-left font-serif font-bold text-sm sm:text-base text-[#3D1117] flex items-center justify-between gap-4 hover:text-[#5C1A22]"
                   >
                     <span>{faq.question}</span>
-                    {isOpen ? <ChevronUp className="w-4 h-4 text-[#C9A769]" /> : <ChevronDown className="w-4 h-4" />}
+                    {isOpen ? <ChevronUp className="w-4 h-4 text-[#C9A769]" /> : <ChevronDown className="w-4 h-4 text-[#2A2A2A]/40" />}
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-5 text-xs sm:text-sm text-[#2A2A2A]/80 leading-relaxed pt-1">
+                    <div className="px-5 pb-5 text-xs sm:text-sm text-[#2A2A2A]/80 leading-relaxed pt-3 border-t border-[#F5EFEB]">
                       {faq.answer}
                     </div>
                   )}

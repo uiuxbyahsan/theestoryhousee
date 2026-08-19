@@ -89,7 +89,7 @@ export default function HomePage() {
               />
             </div>
           ))}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#2A0C10]/65 via-[#3D1117]/25 to-[#2A0C10]/40 z-10 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2A0C10]/80 via-[#3D1117]/40 to-[#2A0C10]/55 z-10 pointer-events-none"></div>
         </div>
 
         <div className="relative z-20 max-w-4xl mx-auto text-center space-y-6 pt-12">
@@ -689,7 +689,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-sm">
-              <Image src="/images/photo-girl-paris.png" alt="Community 1" fill className="object-cover hover:scale-105 transition-transform" />
+              <Image src="/images/photo-croatia-shell.png" alt="Community 1" fill className="object-cover hover:scale-105 transition-transform" />
             </div>
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-sm">
               <Image src="/images/photo-girls-wine.png" alt="Community 2" fill className="object-cover hover:scale-105 transition-transform" />
