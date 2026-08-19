@@ -85,11 +85,11 @@ export default function HomePage() {
                 alt={slide.alt}
                 fill
                 priority={idx === 0}
-                className="object-cover object-center brightness-[0.72] contrast-[1.04]"
+                className="object-cover object-center brightness-[0.86] contrast-[1.02]"
               />
             </div>
           ))}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#2A0C10]/85 via-[#3D1117]/40 to-[#2A0C10]/60 z-10 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2A0C10]/65 via-[#3D1117]/25 to-[#2A0C10]/40 z-10 pointer-events-none"></div>
         </div>
 
         <div className="relative z-20 max-w-4xl mx-auto text-center space-y-6 pt-12">
