@@ -91,7 +91,7 @@ export default function BuildPersonalizePage() {
               value={bookTitle}
               onChange={(e) => setBookTitle(e.target.value)}
               placeholder="e.g. CROATIA & THE ADRIATIC"
-              className="w-full text-base sm:text-lg pl-11 pr-4 py-3 rounded-2xl border border-[#E5DDD5] bg-[#FAF6F0] focus:bg-[#FFFFFF] focus:outline-none focus:ring-2 focus:ring-[#C9A769]/50 text-[#3D1117] font-serif uppercase font-bold tracking-wider transition-all"
+              className="w-full text-base sm:text-lg pl-11 pr-4 py-3 rounded-2xl border border-[#E5DDD5] bg-[#FFFFFF] focus:outline-none focus:border-[#3D1117] focus:ring-2 focus:ring-[#C9A769]/30 text-[#3D1117] font-serif uppercase font-bold tracking-wider transition-all shadow-2xs"
             />
           </div>
           <p className="text-[11px] text-[#888888] leading-tight">
@@ -109,7 +109,7 @@ export default function BuildPersonalizePage() {
             value={dedication}
             onChange={(e) => setDedication(e.target.value)}
             placeholder="for the summer we don't want to forget"
-            className="w-full text-xs sm:text-sm px-4 py-3 rounded-2xl border border-[#E5DDD5] bg-[#FAF6F0] focus:bg-[#FFFFFF] focus:outline-none focus:ring-2 focus:ring-[#C9A769]/50 text-[#2A2A2A] italic transition-all leading-relaxed"
+            className="w-full text-xs sm:text-sm px-4 py-3 rounded-2xl border border-[#E5DDD5] bg-[#FFFFFF] focus:outline-none focus:border-[#3D1117] focus:ring-2 focus:ring-[#C9A769]/30 text-[#2A2A2A] italic transition-all leading-relaxed shadow-2xs"
           />
           <p className="text-[11px] text-[#888888] leading-tight">
             Printed on the opening parchment title flap preceding your photos.
@@ -129,7 +129,7 @@ export default function BuildPersonalizePage() {
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
               placeholder="e.g. Layla Al-Mansoor"
-              className="w-full text-sm sm:text-base pl-11 pr-4 py-3 rounded-2xl border border-[#E5DDD5] bg-[#FAF6F0] focus:bg-[#FFFFFF] focus:outline-none focus:ring-2 focus:ring-[#C9A769]/50 text-[#2A2A2A] transition-all"
+              className="w-full text-sm sm:text-base pl-11 pr-4 py-3 rounded-2xl border border-[#E5DDD5] bg-[#FFFFFF] focus:outline-none focus:border-[#3D1117] focus:ring-2 focus:ring-[#C9A769]/30 text-[#2A2A2A] transition-all shadow-2xs"
             />
           </div>
         </div>
@@ -144,7 +144,7 @@ export default function BuildPersonalizePage() {
             <select
               value={deliveryArea}
               onChange={(e) => setDeliveryArea(e.target.value)}
-              className="w-full text-sm sm:text-base pl-11 pr-10 py-3 rounded-2xl border border-[#E5DDD5] bg-[#FAF6F0] focus:bg-[#FFFFFF] focus:outline-none focus:ring-2 focus:ring-[#C9A769]/50 text-[#2A2A2A] appearance-none transition-all cursor-pointer"
+              className="w-full text-sm sm:text-base pl-11 pr-10 py-3 rounded-2xl border border-[#E5DDD5] bg-[#FFFFFF] focus:outline-none focus:border-[#3D1117] focus:ring-2 focus:ring-[#C9A769]/30 text-[#2A2A2A] appearance-none transition-all cursor-pointer shadow-2xs"
             >
               {EMIRATES_LIST.map((emirate) => (
                 <option key={emirate} value={emirate}>
