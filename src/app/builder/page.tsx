@@ -26,7 +26,9 @@ import {
   Package,
   Heart,
   ChevronRight,
-  Eye
+  Eye,
+  Info,
+  Sliders
 } from "lucide-react";
 import { 
   STORY_THEMES, 
@@ -40,6 +42,7 @@ import {
 import { COVER_TEMPLATES, CoverTemplate } from "@/data/templates";
 import { useStory, UploadedPhoto } from "@/context/StoryContext";
 import { generateWhatsAppOrderUrl } from "@/utils/whatsapp";
+import { BespokeScentModal } from "@/components/BespokeScentModal";
 
 function LuxuryStudioBuilder() {
   const searchParams = useSearchParams();
@@ -72,8 +75,18 @@ function LuxuryStudioBuilder() {
   // Wizard Steps (1: Package & Scent, 2: Inscription, 3: Pages & Photos, 4: Order)
   const [activeStep, setActiveStep] = useState<number>(1);
   const [fullName, setFullName] = useState<string>("");
-  const [activeView, setActiveView] = useState<"combo" | "book" | "scent">("combo");
+  const [foilFinish, setFoilFinish] = useState<"gold" | "bronze" | "silver">("gold");
+  const [activeView, setActiveView] = useState<"combo" | "book" | "spread" | "scent">("combo");
+  const [isBespokeModalOpen, setIsBespokeModalOpen] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Quick poetic dedication suggestions
+  const DEDICATION_PROMPTS = [
+    "For the moments that turned into forever.",
+    "Our story, written in laughter and sunlit memories.",
+    "To the journey that brought us here.",
+    "Every page a chapter we'd live a thousand times.",
+  ];
 
   // Sync initial parameters (?theme=voyage&template=tpl-1)
   useEffect(() => {
@@ -97,6 +110,9 @@ function LuxuryStudioBuilder() {
   const totalPages = BASE_PAGES + extraPages;
   const extraPrice = extraPages * EXTRA_PAGE_PRICE_AED;
   const totalPrice = currentBundle.price + extraPrice;
+
+  // Spine thickness calculation
+  const spineThicknessMm = Math.round(10 + (totalPages / 20) * 4);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -158,7 +174,7 @@ function LuxuryStudioBuilder() {
               <span className="truncate max-w-[110px] sm:max-w-[140px]">
                 {selectedTemplate?.name || "amor."}
               </span>
-              <span className="text-[10px] text-[#C68B59] font-bold uppercase underline">
+              <span className="text-[10px] text-[#C68B59] font-bold underline">
                 Change
               </span>
             </button>
@@ -214,11 +230,11 @@ function LuxuryStudioBuilder() {
           <div className="lg:col-span-6 lg:sticky lg:top-40 space-y-4">
             
             {/* View Mode Switcher */}
-            <div className="flex items-center justify-center gap-1.5 bg-white p-1 rounded-2xl border border-[#E5DDD5] max-w-xs mx-auto shadow-2xs">
+            <div className="flex items-center justify-center gap-1.5 bg-white p-1 rounded-2xl border border-[#E5DDD5] max-w-sm mx-auto shadow-2xs">
               <button
                 type="button"
                 onClick={() => setActiveView("combo")}
-                className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold transition-all ${
+                className={`flex-1 py-1.5 px-2.5 rounded-xl text-xs font-semibold transition-all ${
                   activeView === "combo" ? "bg-[#3B141C] text-[#FAF7F2] shadow-xs" : "text-[#888888] hover:text-[#2A2A2A]"
                 }`}
               >
@@ -226,21 +242,30 @@ function LuxuryStudioBuilder() {
               </button>
               <button
                 type="button"
+                onClick={() => setActiveView("book")}
+                className={`flex-1 py-1.5 px-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  activeView === "book" ? "bg-[#3B141C] text-[#FAF7F2] shadow-xs" : "text-[#888888] hover:text-[#2A2A2A]"
+                }`}
+              >
+                Cover Foil
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveView("spread")}
+                className={`flex-1 py-1.5 px-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  activeView === "spread" ? "bg-[#3B141C] text-[#FAF7F2] shadow-xs" : "text-[#888888] hover:text-[#2A2A2A]"
+                }`}
+              >
+                Inner Spreads
+              </button>
+              <button
+                type="button"
                 onClick={() => setActiveView("scent")}
-                className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold transition-all ${
+                className={`flex-1 py-1.5 px-2.5 rounded-xl text-xs font-semibold transition-all ${
                   activeView === "scent" ? "bg-[#3B141C] text-[#FAF7F2] shadow-xs" : "text-[#888888] hover:text-[#2A2A2A]"
                 }`}
               >
                 75ml Scent
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveView("book")}
-                className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold transition-all ${
-                  activeView === "book" ? "bg-[#3B141C] text-[#FAF7F2] shadow-xs" : "text-[#888888] hover:text-[#2A2A2A]"
-                }`}
-              >
-                Cover
               </button>
             </div>
 
@@ -252,7 +277,7 @@ function LuxuryStudioBuilder() {
                 <div className="relative w-full h-full flex items-center justify-center animate-in fade-in zoom-in-95 duration-200">
                   <div className="grid grid-cols-2 gap-4 w-full h-full items-center p-2">
                     {/* Photobook Half */}
-                    <div className="relative h-full w-full rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#E5DDD5] flex items-center justify-center">
+                    <div className="relative h-full w-full rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#E5DDD5] flex items-center justify-center shadow-inner">
                       <Image
                         src={selectedTemplate?.thumbnail || "/images/Amor_Mitte.webp"}
                         alt="Book Cover"
@@ -262,7 +287,9 @@ function LuxuryStudioBuilder() {
                       />
                       {bookTitle && (
                         <div className="absolute top-4 left-3 right-3 text-center pointer-events-none drop-shadow-2xs">
-                          <span className="font-serif font-bold text-[9px] uppercase tracking-widest text-[#3B141C]/80 block truncate">
+                          <span className={`font-serif font-bold text-[9px] uppercase tracking-widest block truncate ${
+                            foilFinish === "silver" ? "text-slate-500" : foilFinish === "bronze" ? "text-[#8A5A36]" : "text-[#C68B59]"
+                          }`}>
                             {bookTitle}
                           </span>
                         </div>
@@ -270,7 +297,7 @@ function LuxuryStudioBuilder() {
                     </div>
 
                     {/* Scent Bottle Half */}
-                    <div className="relative h-full w-full rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#E5DDD5] flex items-center justify-center">
+                    <div className="relative h-full w-full rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#E5DDD5] flex items-center justify-center shadow-inner">
                       <Image
                         src={currentTheme.scent.image}
                         alt={currentTheme.scent.name}
@@ -283,7 +310,52 @@ function LuxuryStudioBuilder() {
                 </div>
               )}
 
-              {/* 2. Scent Bottle View */}
+              {/* 2. Cover Artwork View with Live Foil Title & Subtitle */}
+              {activeView === "book" && (
+                <div className="relative w-full h-full flex items-center justify-center animate-in fade-in zoom-in-95 duration-200">
+                  <Image
+                    src={selectedTemplate?.thumbnail || "/images/Amor_Mitte.webp"}
+                    alt={selectedTemplate?.name || "Book Cover"}
+                    fill
+                    priority
+                    className="object-contain p-2"
+                  />
+                  {/* Real-time Foil Stamped Inscription */}
+                  <div className="absolute top-8 left-10 right-10 text-center pointer-events-none drop-shadow-xs space-y-1">
+                    <span className={`font-serif font-bold text-sm uppercase tracking-widest block truncate ${
+                      foilFinish === "silver" ? "text-slate-600" : foilFinish === "bronze" ? "text-[#8A5A36]" : "text-[#B87A38]"
+                    }`}>
+                      {bookTitle || "THE STORY HOUSE"}
+                    </span>
+                    {fullName && (
+                      <span className="font-sans text-[10px] uppercase tracking-wider text-[#3B141C]/70 block truncate">
+                        Curated by {fullName}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* 3. Inner Lay-flat Spreads View */}
+              {activeView === "spread" && (
+                <div className="relative w-full h-full flex items-center justify-center animate-in fade-in zoom-in-95 duration-200 p-2">
+                  <div className="relative w-full h-full rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#E5DDD5] shadow-inner flex items-center justify-center p-3">
+                    <Image
+                      src="/images/craftsmanship-ritual.jpg"
+                      alt="Lay-flat Spreads Preview"
+                      fill
+                      className="object-cover rounded-xl"
+                    />
+                    <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-2.5 rounded-xl border border-[#E5DDD5] text-center">
+                      <span className="text-[11px] font-serif font-bold text-[#3B141C] block">
+                        Seamless 180° Lay-flat Binding • 250gsm Archival Matte Paper
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 4. Scent Bottle View */}
               {activeView === "scent" && (
                 <div className="relative w-full h-full flex items-center justify-center animate-in fade-in zoom-in-95 duration-200">
                   <Image
@@ -296,30 +368,10 @@ function LuxuryStudioBuilder() {
                 </div>
               )}
 
-              {/* 3. Cover Artwork View */}
-              {activeView === "book" && (
-                <div className="relative w-full h-full flex items-center justify-center animate-in fade-in zoom-in-95 duration-200">
-                  <Image
-                    src={selectedTemplate?.thumbnail || "/images/Amor_Mitte.webp"}
-                    alt={selectedTemplate?.name || "Book Cover"}
-                    fill
-                    priority
-                    className="object-contain p-2"
-                  />
-                  {bookTitle && (
-                    <div className="absolute top-8 left-12 right-12 text-center pointer-events-none drop-shadow-xs">
-                      <span className="font-serif font-bold text-xs uppercase tracking-widest text-[#3B141C]/80 block truncate">
-                        {bookTitle}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
-
               {/* Top Floating Badge */}
               <div className="absolute top-4 left-4 bg-[#3B141C]/90 backdrop-blur-md text-[#FAF7F2] px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-sm">
                 <Sparkles className="w-3.5 h-3.5 text-[#C68B59]" />
-                <span>{currentBundle.name} • {totalPages} Pages</span>
+                <span>{currentBundle.name} • {totalPages} Pages ({spineThicknessMm}mm Spine)</span>
               </div>
             </div>
 
@@ -365,7 +417,7 @@ function LuxuryStudioBuilder() {
               <div className="space-y-6 animate-in fade-in duration-200">
                 
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#C68B59]">
+                  <span className="text-xs font-bold tracking-wider text-[#C68B59]">
                     Step 1 of 4
                   </span>
                   <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#3B141C] tracking-tight mt-0.5">
@@ -378,7 +430,7 @@ function LuxuryStudioBuilder() {
 
                 {/* Bundle Options */}
                 <div className="space-y-3">
-                  <label className="block text-xs uppercase font-bold tracking-wider text-[#3B141C]">
+                  <label className="block text-xs font-bold tracking-wider text-[#3B141C]">
                     1. Choose Heirloom Bundle
                   </label>
 
@@ -446,10 +498,10 @@ function LuxuryStudioBuilder() {
                 {/* Scent Formula Selection */}
                 <div className="space-y-3 pt-2">
                   <div className="flex items-center justify-between">
-                    <label className="block text-xs uppercase font-bold tracking-wider text-[#3B141C]">
+                    <label className="block text-xs font-bold tracking-wider text-[#3B141C]">
                       2. Signature Scent Formula (75ml EDP)
                     </label>
-                    <span className="text-[10px] font-bold text-[#C68B59] uppercase">
+                    <span className="text-[10px] font-bold text-[#C68B59]">
                       Fixed Atelier Pairing
                     </span>
                   </div>
@@ -464,7 +516,7 @@ function LuxuryStudioBuilder() {
                           onClick={() => setSelectedTheme(theme)}
                           className={`p-2.5 rounded-2xl text-left border transition-all flex flex-col justify-between ${
                             isSelected
-                              ? "bg-[#FAF7F2] border-2 border-[#3B141C] shadow-xs"
+                              ? "bg-[#FAF7F2] border-2 border-[#3B141C] shadow-xs ring-1 ring-[#3B141C]"
                               : "bg-white border-[#E5DDD5] hover:bg-[#FAF7F2]/50"
                           }`}
                         >
@@ -485,6 +537,17 @@ function LuxuryStudioBuilder() {
                         </button>
                       );
                     })}
+                  </div>
+
+                  {/* Bespoke Fragrance Inquiry Button */}
+                  <div className="pt-1 text-center">
+                    <button
+                      type="button"
+                      onClick={() => setIsBespokeModalOpen(true)}
+                      className="text-xs text-[#3B141C] hover:text-[#C68B59] font-medium underline inline-flex items-center gap-1"
+                    >
+                      <span>Need a custom 1-of-1 fragrance commission?</span>
+                    </button>
                   </div>
                 </div>
 
@@ -511,7 +574,7 @@ function LuxuryStudioBuilder() {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#C68B59]">
+                    <span className="text-xs font-bold tracking-wider text-[#C68B59]">
                       Step 2 of 4
                     </span>
                     <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#3B141C] tracking-tight mt-0.5">
@@ -531,11 +594,58 @@ function LuxuryStudioBuilder() {
                   These details will be hand-embossed in gold foil onto your cover, spine, and inner dedication page.
                 </p>
 
+                {/* Foil Stamping Type Selector */}
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold text-[#3B141C]">
+                    Select Foil Stamping Finish
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setFoilFinish("gold")}
+                      className={`py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                        foilFinish === "gold"
+                          ? "border-[#C68B59] bg-[#FFF9F2] text-[#8A5A36] ring-1 ring-[#C68B59]"
+                          : "border-[#E5DDD5] bg-white text-[#2A2A2A]"
+                      }`}
+                    >
+                      <span className="w-3 h-3 rounded-full bg-[#D4AF37] shrink-0"></span>
+                      <span>Warm Gold</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setFoilFinish("bronze")}
+                      className={`py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                        foilFinish === "bronze"
+                          ? "border-[#8A5A36] bg-[#FFF9F2] text-[#8A5A36] ring-1 ring-[#8A5A36]"
+                          : "border-[#E5DDD5] bg-white text-[#2A2A2A]"
+                      }`}
+                    >
+                      <span className="w-3 h-3 rounded-full bg-[#8A5A36] shrink-0"></span>
+                      <span>Aged Bronze</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setFoilFinish("silver")}
+                      className={`py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                        foilFinish === "silver"
+                          ? "border-slate-500 bg-slate-50 text-slate-800 ring-1 ring-slate-500"
+                          : "border-[#E5DDD5] bg-white text-[#2A2A2A]"
+                      }`}
+                    >
+                      <span className="w-3 h-3 rounded-full bg-slate-300 shrink-0"></span>
+                      <span>Champagne Silver</span>
+                    </button>
+                  </div>
+                </div>
+
                 {/* Input Fields */}
                 <div className="space-y-4 p-5 rounded-2xl bg-[#FAF7F2] border border-[#E5DDD5]">
                   <div>
                     <label className="block text-xs font-bold text-[#3B141C] mb-1">
-                      Your Full Name / Author
+                      Your Full Name / Story Author
                     </label>
                     <input
                       type="text"
@@ -560,9 +670,11 @@ function LuxuryStudioBuilder() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#3B141C] mb-1">
-                      Flap Inscription / Dedication Note (Optional)
-                    </label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-bold text-[#3B141C]">
+                        Flap Inscription / Dedication Note (Optional)
+                      </label>
+                    </div>
                     <textarea
                       rows={3}
                       value={dedication}
@@ -570,6 +682,20 @@ function LuxuryStudioBuilder() {
                       placeholder="For the moments that turned into forever..."
                       className="w-full text-sm px-4 py-2.5 rounded-xl border border-[#E5DDD5] bg-white focus:outline-none focus:ring-2 focus:ring-[#3B141C]/30"
                     />
+                    
+                    {/* Quick Dedication Prompts */}
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {DEDICATION_PROMPTS.map((prompt, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setDedication(prompt)}
+                          className="text-[10px] px-2 py-1 rounded-lg bg-white border border-[#E5DDD5] text-[#2A2A2A]/80 hover:bg-[#FAF7F2] hover:text-[#3B141C] transition-colors"
+                        >
+                          &quot;{prompt}&quot;
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
@@ -578,14 +704,14 @@ function LuxuryStudioBuilder() {
                   <button
                     type="button"
                     onClick={() => setActiveStep(1)}
-                    className="py-4 px-6 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3B141C] font-sans font-bold text-xs border border-[#E5DDD5] transition-colors"
+                    className="py-4 px-6 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3B141C] font-sans font-bold text-xs tracking-wide border border-[#E5DDD5] transition-colors"
                   >
                     Back
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveStep(3)}
-                    className="flex-1 py-4 px-6 rounded-full bg-[#3B141C] hover:bg-[#5C1A22] text-[#FAF7F2] font-sans font-bold text-sm flex items-center justify-center gap-2 shadow-warm-md transition-all duration-300"
+                    className="flex-1 py-4 px-6 rounded-full bg-[#3B141C] hover:bg-[#5C1A22] text-[#FAF7F2] font-sans font-bold text-sm tracking-wide flex items-center justify-center gap-2 shadow-warm-md transition-all duration-300"
                   >
                     <span>Continue to Step 3: Pages & Photos</span>
                     <ArrowRight className="w-4 h-4 text-[#C68B59]" />
@@ -603,7 +729,7 @@ function LuxuryStudioBuilder() {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#C68B59]">
+                    <span className="text-xs font-bold tracking-wider text-[#C68B59]">
                       Step 3 of 4
                     </span>
                     <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#3B141C] tracking-tight mt-0.5">
@@ -622,16 +748,21 @@ function LuxuryStudioBuilder() {
                 {/* Page Thickness Stepper */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <label className="block text-xs uppercase font-bold tracking-wider text-[#3B141C]">
-                      Pages & Spine Thickness
-                    </label>
+                    <div>
+                      <label className="block text-xs font-bold tracking-wider text-[#3B141C]">
+                        Pages & Spine Thickness ({spineThicknessMm}mm)
+                      </label>
+                      <span className="text-[11px] text-[#2A2A2A]/70">
+                        20 Base Pages Included • +18 AED per extra page
+                      </span>
+                    </div>
 
-                    <div className="flex items-center gap-2 bg-[#FAF7F2] px-3 py-1 rounded-full border border-[#E5DDD5]">
+                    <div className="flex items-center gap-2 bg-[#FAF7F2] px-3 py-1.5 rounded-full border border-[#E5DDD5]">
                       <button
                         type="button"
                         onClick={() => setExtraPages(Math.max(0, extraPages - 2))}
                         disabled={extraPages <= 0}
-                        className="w-6 h-6 rounded-full bg-white hover:bg-[#E5DDD5] disabled:opacity-30 flex items-center justify-center text-[#3B141C] font-bold shadow-2xs"
+                        className="w-7 h-7 rounded-full bg-white hover:bg-[#E5DDD5] disabled:opacity-30 flex items-center justify-center text-[#3B141C] font-bold shadow-2xs"
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
@@ -641,7 +772,7 @@ function LuxuryStudioBuilder() {
                       <button
                         type="button"
                         onClick={() => setExtraPages(Math.min(60, extraPages + 2))}
-                        className="w-6 h-6 rounded-full bg-white hover:bg-[#E5DDD5] flex items-center justify-center text-[#3D1117] font-bold shadow-2xs"
+                        className="w-7 h-7 rounded-full bg-white hover:bg-[#E5DDD5] flex items-center justify-center text-[#3B141C] font-bold shadow-2xs"
                       >
                         <Plus className="w-3.5 h-3.5" />
                       </button>
@@ -668,10 +799,10 @@ function LuxuryStudioBuilder() {
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="font-serif font-bold text-sm text-[#3B141C]">
-                        Upload Photos ({photos.length}/{MIN_PHOTOS_REQUIRED} min)
+                        Upload Photos ({photos.length}/{MIN_PHOTOS_REQUIRED} min recommended)
                       </h3>
                       <p className="text-[11px] text-[#2A2A2A]/70">
-                        Upload now or send them over WhatsApp after placing your order.
+                        Upload now or send high-res photos via WhatsApp after ordering.
                       </p>
                     </div>
 
@@ -698,7 +829,7 @@ function LuxuryStudioBuilder() {
                           onClick={loadSamplePhotos}
                           className="px-3 py-1.5 rounded-full bg-white hover:bg-[#E5DDD5] text-[11px] font-medium text-[#2A2A2A]/70 border border-[#E5DDD5]"
                         >
-                          Sample
+                          Load Sample
                         </button>
                       )}
                     </div>
@@ -760,7 +891,7 @@ function LuxuryStudioBuilder() {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#C68B59]">
+                    <span className="text-xs font-bold tracking-wider text-[#C68B59]">
                       Step 4 of 4 • Ready to Order
                     </span>
                     <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#3B141C] tracking-tight mt-0.5">
@@ -811,6 +942,11 @@ function LuxuryStudioBuilder() {
                     </div>
 
                     <div className="flex justify-between">
+                      <span className="text-[#888888]">Foil Finish:</span>
+                      <span className="font-semibold text-[#1A1A1A] capitalize">{foilFinish} Foil Stamping</span>
+                    </div>
+
+                    <div className="flex justify-between">
                       <span className="text-[#888888]">Signature Scent:</span>
                       <span className="font-semibold text-[#3B141C]">{currentTheme.scent.name} (75ml)</span>
                     </div>
@@ -820,6 +956,11 @@ function LuxuryStudioBuilder() {
                       <span className="font-semibold text-[#1A1A1A]">
                         {photos.length > 0 ? `${photos.length} uploaded` : "Send directly on WhatsApp"}
                       </span>
+                    </div>
+
+                    <div className="flex justify-between">
+                      <span className="text-[#888888]">Production & Delivery:</span>
+                      <span className="font-semibold text-[#34A853]">3–5 Business Days (UAE & GCC)</span>
                     </div>
                   </div>
                 </div>
@@ -862,7 +1003,7 @@ function LuxuryStudioBuilder() {
             {/* Bottom Total Ribbon */}
             <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E5DDD5] flex items-center justify-between">
               <div>
-                <span className="text-[10px] uppercase font-bold text-[#888888] tracking-wider block">
+                <span className="text-[10px] font-bold text-[#888888] tracking-wider block">
                   Total Investment
                 </span>
                 <span className="font-serif font-bold text-2xl text-[#3B141C]">
@@ -883,6 +1024,12 @@ function LuxuryStudioBuilder() {
 
         </div>
       </main>
+
+      {/* Bespoke Scent Inquiry Modal */}
+      <BespokeScentModal
+        isOpen={isBespokeModalOpen}
+        onClose={() => setIsBespokeModalOpen(false)}
+      />
 
     </div>
   );
