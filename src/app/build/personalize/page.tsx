@@ -159,14 +159,6 @@ export default function BuildPersonalizePage() {
           </p>
         </div>
 
-        {/* Reassurance Notice */}
-        <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DDD5] text-xs text-[#2A2A2A]/80 leading-relaxed flex items-center gap-3">
-          <Sparkles className="w-4 h-4 text-[#C9A769] shrink-0" />
-          <span>
-            No phone number or payment details are collected here — your WhatsApp account automatically connects for personal proofing.
-          </span>
-        </div>
-
       </div>
 
       {/* ============================================================ */}
