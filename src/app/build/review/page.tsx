@@ -289,7 +289,7 @@ export default function BuildReviewPage() {
                 TOTAL
               </span>
               <span className="text-xs text-emerald-700 font-semibold block mt-0.5">
-                Free UAE temperature-controlled delivery included
+                Handcrafted keepsake box & complimentary UAE delivery
               </span>
             </div>
 
