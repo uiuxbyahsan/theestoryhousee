@@ -9,22 +9,22 @@ import { generateGeneralWhatsAppInquiryUrl } from "@/utils/whatsapp";
 export const Footer: React.FC = () => {
   return (
     <div className="mt-14 sm:mt-20 md:mt-24">
-      {/* "THE STORY HOUSE" WORDMARK (Sitting on clean page background with zero line cutting through fonts) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 text-center select-none pointer-events-none overflow-hidden">
-        <span className="font-serif text-[7.5vw] md:text-[6.8vw] lg:text-[5.5rem] xl:text-[6.8rem] font-bold text-[#3D1117]/25 sm:text-[#3D1117]/30 tracking-wider whitespace-nowrap leading-none block transform translate-y-[50%]">
+      {/* "THE STORY HOUSE" WORDMARK (Scales seamlessly on mobile & desktop with zero line cutting through fonts) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-2 sm:pb-4 text-center select-none pointer-events-none overflow-hidden">
+        <span className="font-serif text-[10vw] sm:text-[8vw] md:text-[6.8vw] lg:text-[5.5rem] xl:text-[6.8rem] font-bold text-[#3D1117]/25 sm:text-[#3D1117]/30 tracking-wider whitespace-nowrap leading-none block transform translate-y-[50%]">
           THE STORY HOUSE
         </span>
       </div>
 
-      <footer className="relative bg-[#3D1117] text-[#FAF6F0] pt-12 pb-10 border-t border-[#5C1A22]">
+      <footer className="relative bg-[#3D1117] text-[#FAF6F0] pt-10 sm:pt-12 pb-8 sm:pb-10 border-t border-[#5C1A22]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
         {/* Main Footer Row */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-[#5C1A22]/70 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-7 sm:gap-8 pb-8 sm:pb-10 border-b border-[#5C1A22]/70 items-start">
           
           {/* Brand Info */}
-          <div className="md:col-span-6 space-y-3">
-            <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#FAF6F0] block">
+          <div className="md:col-span-6 space-y-2.5 sm:space-y-3">
+            <span className="font-serif text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-[#FAF6F0] block">
               The Story House
             </span>
             <p className="text-xs sm:text-sm text-[#FAF6F0]/80 leading-relaxed max-w-md">
@@ -32,24 +32,24 @@ export const Footer: React.FC = () => {
             </p>
 
             {/* Social Media Presence */}
-            <div className="pt-2 flex items-center gap-3">
+            <div className="pt-1.5 flex items-center gap-2.5 sm:gap-3">
               <a
                 href="https://www.instagram.com/theestoryhousee/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
                 aria-label="Instagram"
               >
-                <Instagram className="w-4 h-4 text-[#3D1117]" />
+                <Instagram className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3D1117]" />
               </a>
               <a
                 href="https://tiktok.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
                 aria-label="TikTok"
               >
-                <svg className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path d="M16 8.24537V15.5C16 19.0899 13.0899 22 9.5 22C5.91015 22 3 19.0899 3 15.5C3 11.9101 5.91015 9 9.5 9C10.0163 9 10.5185 9.06019 11 9.17393V12.3368C10.5454 12.1208 10.0368 12 9.5 12C7.567 12 6 13.567 6 15.5C6 17.433 7.567 19 9.5 19C11.433 19 13 17.433 13 15.5V2H16C16 4.76142 18.2386 7 21 7V10C19.1081 10 17.3696 9.34328 16 8.24537Z" />
                 </svg>
               </a>
@@ -58,10 +58,10 @@ export const Footer: React.FC = () => {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
                 aria-label="Facebook"
               >
-                <svg className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path d="M14 13.5H16.5L17.5 9.5H14V7.5C14 6.47062 14 5.5 16 5.5H17.5V2.1401C17.1743 2.09685 15.943 2 14.6429 2C11.9284 2 10 3.65686 10 6.69971V9.5H7V13.5H10V22H14V13.5Z" />
                 </svg>
               </a>
@@ -69,10 +69,10 @@ export const Footer: React.FC = () => {
                 href={generateGeneralWhatsAppInquiryUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
                 aria-label="WhatsApp"
               >
-                <WhatsAppIcon className="w-4 h-4 text-[#3D1117]" />
+                <WhatsAppIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3D1117]" />
               </a>
             </div>
           </div>
@@ -103,13 +103,13 @@ export const Footer: React.FC = () => {
 
           {/* Contact / Service */}
           <div className="md:col-span-3 space-y-2">
-            <h3 className="font-serif text-sm font-bold uppercase tracking-wider text-[#C9A769]">
+            <span className="font-serif text-xs font-bold uppercase tracking-wider text-[#C9A769] block">
               Support & Inquiries
-            </h3>
+            </span>
             <p className="text-xs text-[#FAF6F0]/80 leading-relaxed">
               Available 7 days a week for digital proofing & custom atelier orders.
             </p>
-            <p className="text-xs text-[#C9A769] font-medium pt-1">
+            <p className="text-xs text-[#C9A769] font-medium pt-0.5">
               hello@thestoryhouse.ae
             </p>
           </div>
@@ -117,9 +117,9 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Copyright */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-[#FAF6F0]/60 gap-3">
+        <div className="pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-xs text-[#FAF6F0]/60 gap-3 text-center sm:text-left">
           <p>© {new Date().getFullYear()} The Story House. All rights reserved.</p>
-          <div className="flex items-center gap-4 text-[11px]">
+          <div className="flex items-center gap-4 text-[10px] sm:text-[11px]">
             <Link href="/product#faq" className="hover:text-[#FAF6F0]">Privacy Policy</Link>
             <Link href="/product#faq" className="hover:text-[#FAF6F0]">Terms of Service</Link>
             <Link href="/product#faq" className="hover:text-[#FAF6F0]">Shipping & Returns</Link>
