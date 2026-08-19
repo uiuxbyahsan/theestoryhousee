@@ -55,10 +55,6 @@ export default function BuildPagesPage() {
               </span>
             </div>
           </div>
-
-          <span className="text-xs font-bold bg-[#F0E8DC] text-[#3D1117] px-4 py-1.5 rounded-full uppercase tracking-wider">
-            Included in Base Price
-          </span>
         </div>
 
         {/* Stepper (+ / -) to Add Extra Pages */}
