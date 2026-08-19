@@ -158,7 +158,7 @@ export default function BuildReviewPage() {
 
             <Link
               href="/product"
-              className="p-2.5 rounded-xl border border-[#E5DDD5] bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center gap-1.5 text-xs font-semibold shadow-2xs transition-all hover:scale-105"
+              className="px-3 py-1.5 rounded-full border border-[#E5DDD5] hover:border-[#3D1117] bg-[#FFFFFF] hover:bg-[#FAF6F0] text-[#3D1117] flex items-center gap-1.5 text-xs font-semibold shadow-2xs transition-all hover:scale-105"
               title="Edit Cover Template"
             >
               <Pencil className="w-3.5 h-3.5 text-[#C9A769]" />
@@ -187,7 +187,7 @@ export default function BuildReviewPage() {
 
             <Link
               href="/build/scent"
-              className="p-2.5 rounded-xl border border-[#E5DDD5] bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center gap-1.5 text-xs font-semibold shadow-2xs transition-all hover:scale-105"
+              className="px-3 py-1.5 rounded-full border border-[#E5DDD5] hover:border-[#3D1117] bg-[#FFFFFF] hover:bg-[#FAF6F0] text-[#3D1117] flex items-center gap-1.5 text-xs font-semibold shadow-2xs transition-all hover:scale-105"
               title="Edit Scent"
             >
               <Pencil className="w-3.5 h-3.5 text-[#C9A769]" />
@@ -216,7 +216,7 @@ export default function BuildReviewPage() {
 
             <Link
               href="/build/pages"
-              className="p-2.5 rounded-xl border border-[#E5DDD5] bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center gap-1.5 text-xs font-semibold shadow-2xs transition-all hover:scale-105"
+              className="px-3 py-1.5 rounded-full border border-[#E5DDD5] hover:border-[#3D1117] bg-[#FFFFFF] hover:bg-[#FAF6F0] text-[#3D1117] flex items-center gap-1.5 text-xs font-semibold shadow-2xs transition-all hover:scale-105"
               title="Edit Pages"
             >
               <Pencil className="w-3.5 h-3.5 text-[#C9A769]" />
@@ -245,7 +245,7 @@ export default function BuildReviewPage() {
 
             <Link
               href="/build/photos"
-              className="p-2.5 rounded-xl border border-[#E5DDD5] bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center gap-1.5 text-xs font-semibold shadow-2xs transition-all hover:scale-105"
+              className="px-3 py-1.5 rounded-full border border-[#E5DDD5] hover:border-[#3D1117] bg-[#FFFFFF] hover:bg-[#FAF6F0] text-[#3D1117] flex items-center gap-1.5 text-xs font-semibold shadow-2xs transition-all hover:scale-105"
               title="Edit Photos"
             >
               <Pencil className="w-3.5 h-3.5 text-[#C9A769]" />
@@ -274,7 +274,7 @@ export default function BuildReviewPage() {
 
             <Link
               href="/build/personalize"
-              className="p-2.5 rounded-xl border border-[#E5DDD5] bg-[#FAF6F0] hover:bg-[#FFFFFF] text-[#3D1117] flex items-center gap-1.5 text-xs font-semibold shadow-2xs transition-all hover:scale-105"
+              className="px-3 py-1.5 rounded-full border border-[#E5DDD5] hover:border-[#3D1117] bg-[#FFFFFF] hover:bg-[#FAF6F0] text-[#3D1117] flex items-center gap-1.5 text-xs font-semibold shadow-2xs transition-all hover:scale-105"
               title="Edit Personalization"
             >
               <Pencil className="w-3.5 h-3.5 text-[#C9A769]" />
