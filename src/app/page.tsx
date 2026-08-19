@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { 
@@ -23,10 +23,38 @@ import { useStory } from "@/context/StoryContext";
 import { STORY_THEMES, StoryTheme } from "@/data/products";
 import { ScentQuickViewModal } from "@/components/ScentQuickViewModal";
 
+const HERO_SLIDES = [
+  {
+    src: "/images/photo-table-display.png",
+    alt: "The Story House Heirloom Table Collection",
+  },
+  {
+    src: "/images/photo-croatia-shell.png",
+    alt: "Croatia Spirit Handcrafted Photobook",
+  },
+  {
+    src: "/images/photo-lisbon-yellow.png",
+    alt: "Lisbon Saudade Heirloom Photobook",
+  },
+  {
+    src: "/images/photo-girls-wine.png",
+    alt: "Memories Meant to be Reopened",
+  },
+];
+
 export default function HomePage() {
   const { setIsTemplateModalOpen } = useStory();
   const [quickViewTheme, setQuickViewTheme] = useState<StoryTheme | null>(null);
+  const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
   const scentScrollRef = useRef<HTMLDivElement>(null);
+
+  // Auto-advance hero slides every 4.5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeroSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleScrollScent = (dir: "left" | "right") => {
     if (scentScrollRef.current) {
@@ -38,20 +66,33 @@ export default function HomePage() {
   return (
     <div className="bg-[#FAF6F0] text-[#2A2A2A] overflow-hidden">
       
-      {/* 1. HERO SECTION */}
-      <section className="relative min-h-[85vh] lg:min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-[#2A0C10]">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/photo-stack-deserve.png"
-            alt="The Story House Photobooks"
-            fill
-            priority
-            className="object-cover object-center brightness-[0.78] contrast-[1.04]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#3D1117]/75 via-[#3D1117]/35 to-[#3D1117]/50"></div>
+      {/* 1. HERO SECTION WITH AUTO-CHANGING SLIDER */}
+      <section className="relative min-h-[85vh] lg:min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-[#2A0C10] overflow-hidden">
+        
+        {/* Background Auto Crossfade Slides */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {HERO_SLIDES.map((slide, idx) => (
+            <div
+              key={slide.src}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out transform transition-transform duration-1000 ${
+                idx === currentHeroSlide
+                  ? "opacity-100 scale-100"
+                  : "opacity-0 scale-105 pointer-events-none"
+              }`}
+            >
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                priority={idx === 0}
+                className="object-cover object-center brightness-[0.72] contrast-[1.04]"
+              />
+            </div>
+          ))}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2A0C10]/85 via-[#3D1117]/40 to-[#2A0C10]/60 z-10 pointer-events-none"></div>
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6 pt-12">
+        <div className="relative z-20 max-w-4xl mx-auto text-center space-y-6 pt-12">
           <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#FAF6F0] leading-[1.08] drop-shadow-md">
             Life is all about <br />
             <span className="italic font-normal text-[#E8C896]">
@@ -79,6 +120,22 @@ export default function HomePage() {
               Explore Photo Books
             </Link>
           </div>
+        </div>
+
+        {/* Slide Indicator Navigation Dots */}
+        <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center items-center gap-2">
+          {HERO_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentHeroSlide(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === currentHeroSlide
+                  ? "w-8 bg-[#E8C896]"
+                  : "w-2 bg-white/40 hover:bg-white/75"
+              }`}
+            />
+          ))}
         </div>
       </section>
 
