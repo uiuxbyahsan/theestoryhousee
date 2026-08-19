@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #FAF6F0;
+  --color-primary-dark: #3D1117;
+  --color-primary-dark-alt: #5C1A22;
+  --color-gold: #C9A769;
+  --color-gold-light: #E8C896;
+  --color-text-dark: #2A2A2A;
+  --color-text-cream: #FAF6F0;
+  --color-text-gold: #C9A769;
+  --color-btn-primary-bg: #3D1117;
+  --color-btn-primary-text: #FAF6F0;
+  --color-btn-secondary-bg: #C9A769;
+  --color-btn-secondary-text: #3D1117;
+  --color-divider: #E5DDD5;
+  --color-card-bg: #FFFFFF;
+  --color-badge-bg: #F0E8DC;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-dark);
+  font-family: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base Headings Default Typography */
+h1, h2, h3 {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Typography Helpers */
+.font-serif {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans {
+  font-family: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Custom warm scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF6F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #E8C896;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C9A769;
+}
+
+/* Utility to hide scrollbar while keeping scroll functionality on mobile */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
