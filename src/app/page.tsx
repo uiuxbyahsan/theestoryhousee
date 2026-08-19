@@ -219,7 +219,7 @@ export default function HomePage() {
               onClick={() => setIsTemplateModalOpen(true)}
               className="px-8 py-3.5 rounded-full border-2 border-[#3D1117] bg-[#FFFFFF] hover:bg-[#3D1117] hover:text-[#FAF6F0] text-[#3D1117] font-sans font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 transform hover:-translate-y-0.5 inline-flex items-center gap-2 shadow-sm"
             >
-              <span>See all cover designs</span>
+              <span>Explore categories</span>
               <ArrowRight className="w-4 h-4 text-[#C9A769]" />
             </button>
           </div>
