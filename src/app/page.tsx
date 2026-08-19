@@ -650,7 +650,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* 3: 100,000+ Happy Customers */}
+            {/* 3: 50k+ Happy Customers */}
             <div className="space-y-4 px-4 flex flex-col items-center">
               <div className="text-[#E8C896] flex items-center justify-center">
                 <svg className="w-9 h-9 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -658,7 +658,7 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3 className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#FAF6F0]">
-                100,000+ happy customers
+                50,000+ happy customers
               </h3>
               <p className="font-sans text-xs sm:text-[13px] text-[#FAF6F0]/85 leading-relaxed max-w-xs mx-auto font-normal">
                 Join our community of satisfied customers who have preserved their adventures with us. Your memories are in good hands.
