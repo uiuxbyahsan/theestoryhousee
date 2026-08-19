@@ -376,7 +376,7 @@ export default function BuildReviewPage() {
               className="w-full sm:w-auto px-5 py-3 rounded-full border border-[#E5DDD5] bg-[#FFFFFF] hover:bg-[#FAF6F0] text-[#3D1117] text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-colors order-2 sm:order-1"
             >
               <ArrowLeft className="w-4 h-4 text-[#C9A769]" />
-              <span>Back to Personalize</span>
+              <span>Back</span>
             </Link>
 
             <div className="w-full sm:w-auto flex-1 flex flex-col items-center sm:items-end gap-1.5 order-1 sm:order-2">

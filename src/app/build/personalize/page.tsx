@@ -180,7 +180,7 @@ export default function BuildPersonalizePage() {
             className="px-5 py-3 rounded-full border border-[#E5DDD5] bg-[#FFFFFF] hover:bg-[#FAF6F0] text-[#3D1117] text-xs sm:text-sm font-semibold flex items-center gap-2 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 text-[#C9A769]" />
-            <span>Back to Pages</span>
+            <span>Back</span>
           </Link>
 
           <div className="flex items-center gap-3">
