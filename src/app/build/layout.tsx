@@ -94,7 +94,9 @@ export default function BuildLayout({
       {/* ============================================================ */}
       {/* STEP PAGE CONTENT WITH ANIMATED ROUTE TRANSITION */}
       {/* ============================================================ */}
-      <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 pb-32">
+      <main className={`flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 pb-32 ${
+        pathname === "/build/scent" ? "max-w-5xl" : "max-w-4xl"
+      }`}>
         <Suspense
           fallback={
             <div className="flex items-center justify-center py-20 font-serif text-lg text-[#3D1117]">

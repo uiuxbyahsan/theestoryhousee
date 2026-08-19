@@ -6,16 +6,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
   Sparkles, 
-  RefreshCw, 
   Check, 
   ArrowLeft, 
   ArrowRight, 
   BookOpen, 
   Droplets,
-  Heart
+  Eye
 } from "lucide-react";
 import { useStory } from "@/context/StoryContext";
-import { STORY_THEMES } from "@/data/products";
+import { STORY_THEMES, StoryTheme } from "@/data/products";
+import { ScentQuickViewModal } from "@/components/ScentQuickViewModal";
 
 export default function BuildScentPage() {
   const router = useRouter();
@@ -27,212 +27,185 @@ export default function BuildScentPage() {
     setHasScent,
   } = useStory();
 
-  const [isSwapping, setIsSwapping] = useState(false);
+  const [quickViewTheme, setQuickViewTheme] = useState<StoryTheme | null>(null);
 
-  const currentScentObj = STORY_THEMES.find(
-    (t) => t.scent.name.toLowerCase() === selectedScentName.toLowerCase()
-  )?.scent || selectedTheme.scent;
+  const handleSelectScent = (scentName: string) => {
+    setSelectedScentName(scentName);
+    setHasScent(true);
+  };
+
+  const handleSelectNoScent = () => {
+    setHasScent(false);
+  };
+
+  // Curate 4 main scents for 2x2 grid (Travel, Wedding, Baby, Friendship/Kinship)
+  const displayThemes = STORY_THEMES.slice(0, 4);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       
       {/* Page Header */}
       <div className="space-y-2 text-center sm:text-left">
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3D1117] tracking-tight">
-          Your Signature Scent
+          Pair a Signature Scent
         </h1>
         <p className="text-sm sm:text-base text-[#2A2A2A]/75 max-w-2xl leading-relaxed">
-          {hasScent ? (
-            <>
-              Paired with <span className="font-semibold text-[#3D1117]">{currentScentObj.name}</span> for your {selectedTheme.category} story
-            </>
-          ) : (
-            "Photobook only mode (no fragrance included)."
-          )}
+          Choose the scent that matches your story — or skip it entirely
         </p>
       </div>
 
-      {/* Scent Presentation Card */}
-      {hasScent ? (
-        <div className="bg-[#FFFFFF] rounded-3xl border border-[#E5DDD5] p-6 sm:p-10 space-y-8 shadow-warm-md">
-          
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            {/* Flacon Image */}
-            <div className="md:col-span-5 flex justify-center">
-              <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-3xl overflow-hidden border border-[#E5DDD5] bg-[#FAF6F0] shadow-warm-sm group">
+      {/* 2-Column × 2-Row Scent Card Grid on Desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {displayThemes.map((theme) => {
+          const isRecommended = theme.id === selectedTheme.id || theme.category.toLowerCase() === selectedTheme.category.toLowerCase();
+          const isSelected = hasScent && selectedScentName.toLowerCase() === theme.scent.name.toLowerCase();
+
+          return (
+            <div
+              key={theme.id}
+              onClick={() => handleSelectScent(theme.scent.name)}
+              className={`relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 flex flex-col justify-between group ${
+                isSelected
+                  ? "bg-[#FFFFFF] border-2 border-[#3D1117] ring-4 ring-[#3D1117]/10 shadow-warm-md"
+                  : "bg-[#FFFFFF] border border-[#E5DDD5] hover:border-[#C9A769] hover:shadow-warm-sm"
+              }`}
+            >
+              {/* Recommended Badge on Top-Left */}
+              {isRecommended && (
+                <div className="absolute top-4 left-4 z-10 bg-[#FAF6F0]/95 backdrop-blur-md border border-[#C9A769] text-[#3D1117] px-3.5 py-1 rounded-full text-[11px] font-bold tracking-wide flex items-center gap-1.5 shadow-sm">
+                  <Sparkles className="w-3.5 h-3.5 text-[#C9A769]" />
+                  <span>Recommended for your story</span>
+                </div>
+              )}
+
+              {/* Scent Flacon Image Container (Exact Style from Showcase) */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#FAF6F0]">
                 <Image
-                  src={currentScentObj.image}
-                  alt={currentScentObj.name}
+                  src={theme.scent.image}
+                  alt={theme.scent.name}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3 bg-[#3D1117]/85 backdrop-blur-sm text-[#FAF6F0] px-3 py-1 rounded-full text-[11px] font-semibold flex items-center gap-1.5 shadow-xs">
-                  <Droplets className="w-3 h-3 text-[#C9A769]" />
-                  <span>75ml Eau de Parfum</span>
+
+                {/* Hover Quick View Trigger */}
+                <div className="absolute inset-0 bg-[#2A0C10]/35 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center p-4">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setQuickViewTheme(theme);
+                    }}
+                    className="px-4 py-2 rounded-full bg-white/95 hover:bg-white text-[#3D1117] font-sans font-bold text-xs tracking-wider uppercase shadow-warm-md flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 cursor-pointer hover:scale-105"
+                  >
+                    <Eye className="w-3.5 h-3.5 text-[#C9A769]" />
+                    <span>View Notes</span>
+                  </button>
                 </div>
               </div>
-            </div>
 
-            {/* Scent Info */}
-            <div className="md:col-span-7 space-y-4 text-center md:text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F0E8DC] text-[#3D1117] text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5 text-[#C9A769]" />
-                <span>Artisanal UAE Flacon</span>
-              </div>
-
-              <div>
-                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3D1117]">
-                  {currentScentObj.name}
-                </h2>
-                <p className="font-serif italic text-sm text-[#C9A769] mt-1">
-                  &ldquo;{currentScentObj.tagline}&rdquo;
-                </p>
-              </div>
-
-              <p className="text-xs sm:text-sm text-[#2A2A2A]/80 leading-relaxed font-normal">
-                {currentScentObj.description}
-              </p>
-
-              {/* Scent Actions */}
-              <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => setIsSwapping(!isSwapping)}
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-[#3D1117] bg-[#FFFFFF] hover:bg-[#FAF6F0] text-[#3D1117] text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs"
-                >
-                  <RefreshCw className="w-3.5 h-3.5 text-[#C9A769]" />
-                  <span>{isSwapping ? "Close Scent Atelier" : "Swap Scent"}</span>
-                </button>
+              {/* Card Footer: Details on Left + Select Button on Right */}
+              <div className="p-5 sm:p-6 bg-[#FFFFFF] flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 border-t border-[#E5DDD5]/80">
+                <div className="space-y-1 min-w-0 flex-1">
+                  <span className="text-[10px] sm:text-[11px] uppercase font-bold text-[#888888] tracking-widest block truncate">
+                    FOR {theme.category.toUpperCase()} • 75ML
+                  </span>
+                  <h3 className="font-sans font-bold text-base sm:text-lg text-[#3D1117] tracking-wide uppercase truncate">
+                    {theme.scent.name}
+                  </h3>
+                  <p className="text-xs text-[#2A2A2A]/70 line-clamp-1 font-normal">
+                    {theme.scent.notes.top.join(", ")} • {theme.scent.notes.mid.join(", ")}
+                  </p>
+                </div>
 
                 <button
                   type="button"
-                  onClick={() => setHasScent(false)}
-                  className="text-xs text-[#2A2A2A]/60 hover:text-red-700 underline transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelectScent(theme.scent.name);
+                  }}
+                  className={`w-full sm:w-auto px-6 py-2.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 shrink-0 flex items-center justify-center gap-1.5 ${
+                    isSelected
+                      ? "bg-[#3D1117] text-[#FAF6F0] shadow-xs"
+                      : "bg-[#FFFFFF] hover:bg-[#3D1117] hover:text-[#FAF6F0] text-[#3D1117] border border-[#E5DDD5] hover:border-[#3D1117]"
+                  }`}
                 >
-                  Remove Scent (Save 170 AED → 429 AED)
+                  {isSelected ? (
+                    <>
+                      <span>Selected</span>
+                      <Check className="w-3.5 h-3.5 text-[#C9A769]" />
+                    </>
+                  ) : (
+                    <span>Select Scent</span>
+                  )}
                 </button>
               </div>
+
             </div>
+          );
+        })}
+      </div>
+
+      {/* Divider: "— or —" */}
+      <div className="relative py-2 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+          <div className="w-full border-t border-[#E5DDD5]" />
+        </div>
+        <div className="relative px-6 bg-[#FAF6F0] text-xs font-serif font-bold uppercase tracking-widest text-[#888888]">
+          — or —
+        </div>
+      </div>
+
+      {/* Full-Width "No Scent" Card (Muted / Outline Style) */}
+      <div
+        onClick={handleSelectNoScent}
+        className={`rounded-3xl p-6 sm:p-7 cursor-pointer transition-all duration-300 flex flex-col sm:flex-row items-center justify-between gap-5 ${
+          !hasScent
+            ? "bg-[#FFFFFF] border-2 border-[#3D1117] ring-4 ring-[#3D1117]/10 shadow-warm-sm"
+            : "bg-[#FFFFFF]/70 hover:bg-[#FFFFFF] border border-[#E5DDD5] hover:border-[#C9A769]"
+        }`}
+      >
+        <div className="flex items-center gap-4 text-center sm:text-left">
+          <div className="w-14 h-14 rounded-2xl bg-[#FAF6F0] border border-[#E5DDD5] text-[#3D1117] flex items-center justify-center shrink-0">
+            <BookOpen className="w-7 h-7 text-[#888888]" />
           </div>
-
-          {/* Olfactive Notes Breakdown (3 clean rows) */}
-          <div className="pt-6 border-t border-[#E5DDD5] space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#888888] block text-center sm:text-left">
-              Olfactive Pyramid & Scent Architecture
-            </span>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DDD5] space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A769] block">
-                  Top Notes
-                </span>
-                <span className="font-serif font-bold text-sm text-[#3D1117] block">
-                  {currentScentObj.notes.top.join(" • ")}
-                </span>
-                <p className="text-[11px] text-[#2A2A2A]/70 leading-tight">First impression upon spraying.</p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DDD5] space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A769] block">
-                  Heart Notes
-                </span>
-                <span className="font-serif font-bold text-sm text-[#3D1117] block">
-                  {currentScentObj.notes.mid.join(" • ")}
-                </span>
-                <p className="text-[11px] text-[#2A2A2A]/70 leading-tight">The soul and body of the memory.</p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DDD5] space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A769] block">
-                  Base Notes
-                </span>
-                <span className="font-serif font-bold text-sm text-[#3D1117] block">
-                  {currentScentObj.notes.base.join(" • ")}
-                </span>
-                <p className="text-[11px] text-[#2A2A2A]/70 leading-tight">Long-lasting 8+ hour sillage.</p>
-              </div>
-            </div>
+          <div>
+            <h3 className="font-serif font-bold text-lg sm:text-xl text-[#3D1117]">
+              Continue with your photobook only
+            </h3>
+            <p className="text-xs sm:text-sm text-[#2A2A2A]/70 mt-0.5">
+              1× Handcrafted 20-Page Hardcover Book • No signature perfume pairing (429 AED base)
+            </p>
           </div>
+        </div>
 
-          {/* Inline Scent Swap Drawer / Grid */}
-          {isSwapping && (
-            <div className="pt-6 border-t border-[#E5DDD5] space-y-4 animate-in fade-in duration-300">
-              <div className="space-y-1">
-                <h3 className="font-serif font-bold text-lg text-[#3D1117]">
-                  Atelier Fragrance Library
-                </h3>
-                <p className="text-xs text-[#2A2A2A]/70">
-                  Select any signature formula from our master perfume ledger:
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                {STORY_THEMES.map((theme) => {
-                  const isSelected = selectedScentName.toLowerCase() === theme.scent.name.toLowerCase();
-                  return (
-                    <button
-                      key={theme.id}
-                      type="button"
-                      onClick={() => {
-                        setSelectedScentName(theme.scent.name);
-                        setIsSwapping(false);
-                      }}
-                      className={`p-3.5 rounded-2xl border text-left flex items-center gap-3 transition-all ${
-                        isSelected
-                          ? "border-[#3D1117] bg-[#F0E8DC] shadow-warm-sm ring-1 ring-[#3D1117]"
-                          : "border-[#E5DDD5] bg-[#FAF6F0] hover:border-[#C9A769] hover:bg-[#FFFFFF]"
-                      }`}
-                    >
-                      <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-[#E5DDD5] bg-white">
-                        <Image src={theme.scent.image} alt={theme.scent.name} fill className="object-cover" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <span className="font-serif font-bold text-xs sm:text-sm text-[#3D1117] block truncate">
-                          {theme.scent.name}
-                        </span>
-                        <span className="text-[10px] text-[#2A2A2A]/70 block truncate">
-                          For {theme.category}
-                        </span>
-                      </div>
-                      {isSelected && <Check className="w-4 h-4 text-[#3D1117] shrink-0" />}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleSelectNoScent();
+          }}
+          className={`w-full sm:w-auto px-6 py-3 rounded-full text-xs font-bold tracking-wide transition-all duration-200 shrink-0 flex items-center justify-center gap-1.5 ${
+            !hasScent
+              ? "bg-[#3D1117] text-[#FAF6F0] shadow-xs"
+              : "bg-[#FFFFFF] hover:bg-[#3D1117] hover:text-[#FAF6F0] text-[#3D1117] border border-[#E5DDD5] hover:border-[#3D1117]"
+          }`}
+        >
+          {!hasScent ? (
+            <>
+              <span>Selected</span>
+              <Check className="w-3.5 h-3.5 text-[#C9A769]" />
+            </>
+          ) : (
+            <span>Select Photobook Only</span>
           )}
-
-        </div>
-      ) : (
-        /* Scent Removed State with Quiet Undo Link */
-        <div className="bg-[#FFFFFF] rounded-3xl border border-[#E5DDD5] p-8 sm:p-12 text-center space-y-4 shadow-warm-sm max-w-xl mx-auto">
-          <div className="w-16 h-16 rounded-full bg-[#F0E8DC] text-[#3D1117] mx-auto flex items-center justify-center shadow-xs">
-            <BookOpen className="w-8 h-8 text-[#3D1117]" />
-          </div>
-          <h2 className="font-serif font-bold text-2xl text-[#3D1117]">
-            The Story (Photobook Only) Selected
-          </h2>
-          <p className="text-xs sm:text-sm text-[#2A2A2A]/75 max-w-md mx-auto leading-relaxed">
-            Your order includes 1× 20-Page Handcrafted Hardcover Photobook without the signature 75ml perfume flacon. The running total has been updated to <strong>429 AED</strong>.
-          </p>
-          <div className="pt-2">
-            <button
-              type="button"
-              onClick={() => setHasScent(true)}
-              className="inline-flex items-center gap-2 text-xs font-bold text-[#C9A769] bg-[#FAF6F0] border border-[#E5DDD5] hover:border-[#C9A769] px-4 py-2 rounded-full transition-all shadow-xs"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#C9A769]" />
-              <span>Add Signature Scent Back (+170 AED)</span>
-            </button>
-          </div>
-        </div>
-      )}
+        </button>
+      </div>
 
       {/* ============================================================ */}
       {/* PERSISTENT BOTTOM ACTION BAR */}
       {/* ============================================================ */}
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#FAF6F0]/95 backdrop-blur-md border-t border-[#E5DDD5] px-4 sm:px-8 py-4 shadow-warm-lg">
-        <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
           
           <Link
             href="/build/photos"
@@ -252,6 +225,14 @@ export default function BuildScentPage() {
 
         </div>
       </div>
+
+      {/* Quick View Modal */}
+      {quickViewTheme && (
+        <ScentQuickViewModal
+          theme={quickViewTheme}
+          onClose={() => setQuickViewTheme(null)}
+        />
+      )}
 
     </div>
   );
