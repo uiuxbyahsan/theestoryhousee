@@ -88,7 +88,7 @@ export default function HomePage() {
           
           {/* Google Reviews header */}
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#FAF6F0] border border-[#E5DDD5] shadow-xs">
+            <div className="inline-flex items-center gap-2.5 py-1 bg-transparent">
               <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                 <path
                   fill="#4285F4"
