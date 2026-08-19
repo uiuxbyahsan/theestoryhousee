@@ -8,18 +8,16 @@ import { generateGeneralWhatsAppInquiryUrl } from "@/utils/whatsapp";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="relative bg-[#3D1117] text-[#FAF6F0] pt-14 pb-10 border-t border-[#5C1A22] mt-12 sm:mt-18 md:mt-24">
-      
-      {/* OVERSIZED "THE STORY HOUSE" WORDMARK (90% above footer, 10% Y-axis offset inside footer) */}
-      <div className="absolute left-0 right-0 -top-12 sm:-top-18 md:-top-24 lg:-top-32 w-full overflow-hidden text-center pointer-events-none select-none z-10">
-        <div className="w-full px-2 sm:px-4">
-          <span className="font-serif text-[11.5vw] font-bold text-[#3D1117]/25 sm:text-[#3D1117]/30 tracking-tight whitespace-nowrap leading-none block transform translate-y-[10%]">
-            THE STORY HOUSE
-          </span>
-        </div>
+    <div className="mt-14 sm:mt-20 md:mt-24">
+      {/* "THE STORY HOUSE" WORDMARK (Sitting on clean page background with zero line cutting through fonts) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 text-center select-none pointer-events-none overflow-hidden">
+        <span className="font-serif text-[7.5vw] md:text-[6.8vw] lg:text-[5.5rem] xl:text-[6.8rem] font-bold text-[#3D1117]/25 sm:text-[#3D1117]/30 tracking-wider whitespace-nowrap leading-none block transform translate-y-[50%]">
+          THE STORY HOUSE
+        </span>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+      <footer className="relative bg-[#3D1117] text-[#FAF6F0] pt-12 pb-10 border-t border-[#5C1A22]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
         {/* Main Footer Row */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-[#5C1A22]/70 items-start">
@@ -130,5 +128,6 @@ export const Footer: React.FC = () => {
 
       </div>
     </footer>
+    </div>
   );
 };
