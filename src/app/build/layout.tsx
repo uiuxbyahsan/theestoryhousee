@@ -36,19 +36,14 @@ export default function BuildLayout({
       <header className="sticky top-0 z-40 bg-[#FAF6F0]/95 backdrop-blur-md border-b border-[#E5DDD5] px-4 sm:px-8 py-3.5 sm:py-4 transition-all">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
           
-          {/* Left: Back to PDP / Brand Wordmark */}
-          <div className="flex items-center gap-3">
+          {/* Left: Back to Product (Arrow Icon Only) */}
+          <div className="flex items-center">
             <Link
               href="/product"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#3D1117] hover:text-[#5C1A22] bg-[#FFFFFF] border border-[#E5DDD5] px-3 py-1.5 rounded-full shadow-xs transition-all hover:scale-105"
+              className="w-9 h-9 rounded-full bg-[#FFFFFF] hover:bg-[#FAF6F0] border border-[#E5DDD5] hover:border-[#3D1117] text-[#3D1117] flex items-center justify-center shadow-xs transition-all hover:scale-105"
+              aria-label="Back to Product"
             >
-              <ArrowLeft className="w-3.5 h-3.5 text-[#C9A769]" />
-              <span className="hidden sm:inline">Back to Product</span>
-              <span className="sm:hidden">Exit</span>
-            </Link>
-
-            <Link href="/" className="hidden md:inline-block font-serif text-lg font-bold text-[#3D1117] tracking-tight">
-              The Story House
+              <ArrowLeft className="w-4 h-4 text-[#3D1117]" />
             </Link>
           </div>
 
