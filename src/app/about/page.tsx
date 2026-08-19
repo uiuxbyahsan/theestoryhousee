@@ -197,9 +197,9 @@ export default function AboutPage() {
           <div className="pt-10 text-center">
             <Link
               href="/product"
-              className="inline-block px-10 py-4 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-bold text-sm uppercase tracking-wider shadow-warm-sm transition-all"
+              className="inline-block px-10 py-4 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-bold text-sm tracking-wide shadow-warm-sm transition-all"
             >
-              Create my photobook
+              Create My Photobook
             </Link>
           </div>
         </div>

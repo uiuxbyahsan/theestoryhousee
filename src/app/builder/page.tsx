@@ -493,7 +493,7 @@ function LuxuryStudioBuilder() {
                   <button
                     type="button"
                     onClick={() => setActiveStep(2)}
-                    className="w-full py-4 px-6 rounded-full bg-[#3B141C] hover:bg-[#5C1A22] text-[#FAF7F2] font-sans font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-warm-md transition-all duration-300 transform hover:-translate-y-0.5"
+                    className="w-full py-4 px-6 rounded-full bg-[#3B141C] hover:bg-[#5C1A22] text-[#FAF7F2] font-sans font-bold text-sm tracking-wide flex items-center justify-center gap-2 shadow-warm-md transition-all duration-300 transform hover:-translate-y-0.5"
                   >
                     <span>Continue to Step 2: Inscription</span>
                     <ArrowRight className="w-4 h-4 text-[#C68B59]" />
@@ -578,14 +578,14 @@ function LuxuryStudioBuilder() {
                   <button
                     type="button"
                     onClick={() => setActiveStep(1)}
-                    className="py-4 px-6 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3B141C] font-sans font-bold text-xs uppercase tracking-wider border border-[#E5DDD5] transition-colors"
+                    className="py-4 px-6 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3B141C] font-sans font-bold text-xs border border-[#E5DDD5] transition-colors"
                   >
                     Back
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveStep(3)}
-                    className="flex-1 py-4 px-6 rounded-full bg-[#3B141C] hover:bg-[#5C1A22] text-[#FAF7F2] font-sans font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-warm-md transition-all duration-300"
+                    className="flex-1 py-4 px-6 rounded-full bg-[#3B141C] hover:bg-[#5C1A22] text-[#FAF7F2] font-sans font-bold text-sm flex items-center justify-center gap-2 shadow-warm-md transition-all duration-300"
                   >
                     <span>Continue to Step 3: Pages & Photos</span>
                     <ArrowRight className="w-4 h-4 text-[#C68B59]" />
@@ -735,14 +735,14 @@ function LuxuryStudioBuilder() {
                   <button
                     type="button"
                     onClick={() => setActiveStep(2)}
-                    className="py-4 px-6 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3B141C] font-sans font-bold text-xs uppercase tracking-wider border border-[#E5DDD5] transition-colors"
+                    className="py-4 px-6 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3B141C] font-sans font-bold text-xs tracking-wide border border-[#E5DDD5] transition-colors"
                   >
                     Back
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveStep(4)}
-                    className="flex-1 py-4 px-6 rounded-full bg-[#3B141C] hover:bg-[#5C1A22] text-[#FAF7F2] font-sans font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-warm-md transition-all duration-300"
+                    className="flex-1 py-4 px-6 rounded-full bg-[#3B141C] hover:bg-[#5C1A22] text-[#FAF7F2] font-sans font-bold text-sm tracking-wide flex items-center justify-center gap-2 shadow-warm-md transition-all duration-300"
                   >
                     <span>Continue to Step 4: Review & Order</span>
                     <ArrowRight className="w-4 h-4 text-[#C68B59]" />
@@ -830,7 +830,7 @@ function LuxuryStudioBuilder() {
                     href={directWhatsAppUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-4 px-6 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF7F2] font-sans font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-3 shadow-warm-lg transition-all duration-300 transform hover:-translate-y-0.5 text-center"
+                    className="w-full py-4 px-6 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF7F2] font-sans font-bold text-sm tracking-wide flex items-center justify-center gap-3 shadow-warm-lg transition-all duration-300 transform hover:-translate-y-0.5 text-center"
                   >
                     <WhatsAppIcon className="w-5 h-5 text-[#25D366]" />
                     <span>Confirm & Order on WhatsApp • {totalPrice.toLocaleString()} AED</span>

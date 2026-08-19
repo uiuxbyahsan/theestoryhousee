@@ -8,12 +8,12 @@ import { generateGeneralWhatsAppInquiryUrl } from "@/utils/whatsapp";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="relative bg-[#3D1117] text-[#FAF6F0] pt-14 pb-10 border-t border-[#5C1A22] mt-16 sm:mt-24 md:mt-32">
+    <footer className="relative bg-[#3D1117] text-[#FAF6F0] pt-14 pb-10 border-t border-[#5C1A22] mt-20 sm:mt-32 md:mt-44">
       
-      {/* OVERSIZED "THE STORY HOUSE" WORDMARK (Sitting above footer, 40% inside the footer) */}
-      <div className="absolute left-0 right-0 -top-12 sm:-top-20 md:-top-28 lg:-top-36 w-full overflow-hidden text-center pointer-events-none select-none z-10">
+      {/* OVERSIZED "THE STORY HOUSE" WORDMARK (Moved higher above the footer) */}
+      <div className="absolute left-0 right-0 -top-16 sm:-top-28 md:-top-36 lg:-top-48 w-full overflow-hidden text-center pointer-events-none select-none z-10">
         <div className="w-full px-2 sm:px-4">
-          <span className="font-serif text-[11.5vw] font-bold text-[#3D1117]/25 sm:text-[#3D1117]/30 tracking-tight whitespace-nowrap leading-none block transform translate-y-[40%]">
+          <span className="font-serif text-[11.5vw] font-bold text-[#3D1117]/25 sm:text-[#3D1117]/30 tracking-tight whitespace-nowrap leading-none block transform translate-y-[15%]">
             THE STORY HOUSE
           </span>
         </div>

@@ -155,7 +155,7 @@ export const TemplateSelectionModal: React.FC = () => {
 
             <button
               onClick={handleConfirm}
-              className="flex-1 sm:flex-none px-7 py-2.5 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all"
+              className="flex-1 sm:flex-none px-7 py-2.5 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-bold text-xs tracking-wide flex items-center justify-center gap-2 shadow-sm transition-all"
             >
               <span>Continue with this cover</span>
               <ArrowRight className="w-4 h-4 text-[#C9A769]" />

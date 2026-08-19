@@ -66,9 +66,9 @@ export default function HomePage() {
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/product"
-              className="w-full sm:w-auto px-10 py-4 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-sans font-semibold text-[15px] tracking-wide uppercase border border-[#C9A769]/50 shadow-warm-lg transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-3"
+              className="w-full sm:w-auto px-10 py-4 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-sans font-semibold text-[15px] tracking-wide border border-[#C9A769]/50 shadow-warm-lg transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-3"
             >
-              <span>Create my photobook</span>
+              <span>Create My Photobook</span>
               <ArrowRight className="w-4 h-4 text-[#C9A769]" />
             </Link>
 
@@ -215,13 +215,13 @@ export default function HomePage() {
 
           {/* Explore Categories Button (Brown #3D1117) */}
           <div className="pt-4 text-center">
-            <Link
-              href="/product"
-              className="px-8 py-3.5 rounded-full border-2 border-[#3D1117] bg-[#FFFFFF] hover:bg-[#3D1117] hover:text-[#FAF6F0] text-[#3D1117] font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 transform hover:-translate-y-0.5 inline-flex items-center gap-2 shadow-sm"
+            <button
+              onClick={() => setIsTemplateModalOpen(true)}
+              className="px-8 py-3.5 rounded-full border-2 border-[#3D1117] bg-[#FFFFFF] hover:bg-[#3D1117] hover:text-[#FAF6F0] text-[#3D1117] font-sans font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 transform hover:-translate-y-0.5 inline-flex items-center gap-2 shadow-sm"
             >
-              <span>Explore categories</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+              <span>See all cover designs</span>
+              <ArrowRight className="w-4 h-4 text-[#C9A769]" />
+            </button>
           </div>
 
         </div>
@@ -352,9 +352,9 @@ export default function HomePage() {
           <div className="pt-4">
             <Link
               href="/product"
-              className="inline-block px-10 py-4 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-sans font-bold text-sm uppercase tracking-wider shadow-warm-md transition-all duration-300 transform hover:-translate-y-1"
+              className="inline-block px-10 py-4 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-sans font-bold text-sm tracking-wide shadow-warm-md transition-all duration-300 transform hover:-translate-y-1"
             >
-              Create my photobook
+              Create My Photobook
             </Link>
           </div>
 
@@ -482,9 +482,9 @@ export default function HomePage() {
 
                   <Link
                     href="/product"
-                    className="shrink-0 px-3.5 py-2 rounded-lg bg-[#FFFFFF] hover:bg-[#3D1117] hover:text-[#FAF6F0] text-[#1A1A1A] text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shadow-xs transition-all duration-200 border border-[#E5DDD5] hover:border-[#3D1117] text-center whitespace-nowrap"
+                    className="shrink-0 px-4 py-2 rounded-lg bg-[#FFFFFF] hover:bg-[#3D1117] hover:text-[#FAF6F0] text-[#1A1A1A] text-xs font-bold tracking-wide shadow-xs transition-all duration-200 border border-[#E5DDD5] hover:border-[#3D1117] text-center whitespace-nowrap"
                   >
-                    PAIR SCENT
+                    Pair Scent
                   </Link>
                 </div>
               </div>
@@ -546,9 +546,9 @@ export default function HomePage() {
               <div className="pt-3">
                 <Link
                   href="/product"
-                  className="inline-block px-10 py-4 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-sans font-bold text-sm uppercase tracking-wider shadow-warm-md transition-all duration-300 transform hover:-translate-y-1"
+                  className="inline-block px-10 py-4 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-sans font-bold text-sm tracking-wide shadow-warm-md transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  Create my photobook
+                  Create My Photobook
                 </Link>
               </div>
 

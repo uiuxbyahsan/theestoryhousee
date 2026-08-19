@@ -228,7 +228,7 @@ function ProductDetailContent() {
                     </span>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-[#C9A769] font-sans group-hover:underline uppercase tracking-wider">
+                <span className="text-xs font-bold text-[#C9A769] font-sans group-hover:underline">
                   Select Cover →
                 </span>
               </button>
@@ -263,7 +263,7 @@ function ProductDetailContent() {
             <div className="pt-2">
               <Link
                 href={`/builder?theme=${currentTheme.id}&template=${selectedTemplate?.id || "tpl-1"}`}
-                className="w-full py-4 px-6 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-3 shadow-warm-md transition-all duration-300 transform hover:-translate-y-0.5 text-center"
+                className="w-full py-4 px-6 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-bold text-sm tracking-wide flex items-center justify-center gap-3 shadow-warm-md transition-all duration-300 transform hover:-translate-y-0.5 text-center"
               >
                 <span>Start My Design Order</span>
                 <ArrowRight className="w-4 h-4 text-[#C9A769]" />
