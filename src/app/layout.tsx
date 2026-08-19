@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { BespokeScentModal } from "@/components/BespokeScentModal";
 import { TemplateSelectionModal } from "@/components/TemplateSelectionModal";
+import { DesignOrderDrawer } from "@/components/DesignOrderDrawer";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -59,6 +60,7 @@ export default function RootLayout({
           <FloatingWhatsApp />
           <BespokeScentModal />
           <TemplateSelectionModal />
+          <DesignOrderDrawer />
         </StoryProvider>
       </body>
     </html>

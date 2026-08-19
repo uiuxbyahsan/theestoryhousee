@@ -51,6 +51,17 @@ interface StoryContextType {
   setIsCustomScentModalOpen: (open: boolean) => void;
   isTemplateModalOpen: boolean;
   setIsTemplateModalOpen: (open: boolean) => void;
+  isOrderDrawerOpen: boolean;
+  setIsOrderDrawerOpen: (open: boolean) => void;
+  orderStep: number;
+  setOrderStep: (step: number) => void;
+  openDesignOrder: (step?: number) => void;
+  hasScent: boolean;
+  setHasScent: (has: boolean) => void;
+  customerName: string;
+  setCustomerName: (name: string) => void;
+  deliveryArea: string;
+  setDeliveryArea: (area: string) => void;
 }
 
 const StoryContext = createContext<StoryContextType | undefined>(undefined);
@@ -80,6 +91,16 @@ export const StoryProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [dedication, setDedication] = useState<string>("For the roads we walked together and the memories that will never fade.");
   const [isCustomScentModalOpen, setIsCustomScentModalOpen] = useState<boolean>(false);
   const [isTemplateModalOpen, setIsTemplateModalOpen] = useState<boolean>(false);
+  const [isOrderDrawerOpen, setIsOrderDrawerOpen] = useState<boolean>(false);
+  const [orderStep, setOrderStep] = useState<number>(1);
+  const [hasScent, setHasScent] = useState<boolean>(true);
+  const [customerName, setCustomerName] = useState<string>("");
+  const [deliveryArea, setDeliveryArea] = useState<string>("Dubai");
+
+  const openDesignOrder = (step = 1) => {
+    setOrderStep(step);
+    setIsOrderDrawerOpen(true);
+  };
 
   // When theme changes, sync template if needed
   useEffect(() => {
@@ -137,15 +158,16 @@ export const StoryProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setPhotos([]);
   };
 
-  const totalPriceAed = selectedBundle.price + (extraPages * EXTRA_PAGE_PRICE_AED);
+  const basePrice = hasScent ? 599 : 429;
+  const totalPriceAed = basePrice + (extraPages * EXTRA_PAGE_PRICE_AED);
 
   const whatsAppOrderUrl = generateWhatsAppOrderUrl({
-    bundleName: selectedBundle.name,
+    bundleName: hasScent ? "The Story + Scent" : "The Story (Photobook Only)",
     themeName: selectedTheme.name,
     templateName: selectedTemplate?.name,
     basePages: BASE_PAGES,
     extraPages,
-    scentName: selectedScentName,
+    scentName: hasScent ? selectedScentName : "No scent added",
     photoCount: photos.length,
     minPhotos: MIN_PHOTOS_REQUIRED,
     bookTitle,
@@ -186,6 +208,17 @@ export const StoryProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setIsCustomScentModalOpen,
         isTemplateModalOpen,
         setIsTemplateModalOpen,
+        isOrderDrawerOpen,
+        setIsOrderDrawerOpen,
+        orderStep,
+        setOrderStep,
+        openDesignOrder,
+        hasScent,
+        setHasScent,
+        customerName,
+        setCustomerName,
+        deliveryArea,
+        setDeliveryArea,
       }}
     >
       {children}
