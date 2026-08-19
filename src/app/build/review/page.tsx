@@ -390,7 +390,7 @@ export default function BuildReviewPage() {
               </button>
 
               <span className="text-[11px] text-[#888888] text-center sm:text-right font-normal">
-                You&apos;ll be redirected to WhatsApp to confirm your order — no payment happens here.
+                Redirects to WhatsApp • No payment required now
               </span>
             </div>
 
