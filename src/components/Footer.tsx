@@ -10,10 +10,10 @@ export const Footer: React.FC = () => {
   return (
     <footer className="relative bg-[#3D1117] text-[#FAF6F0] pt-14 pb-10 border-t border-[#5C1A22] mt-16 sm:mt-24 md:mt-32">
       
-      {/* OVERSIZED "THE STORY HOUSE" WORDMARK (Sitting above footer, with 30% inside the footer) */}
-      <div className="absolute left-0 right-0 -top-10 sm:-top-16 md:-top-24 lg:-top-32 w-full overflow-hidden text-center pointer-events-none select-none z-10">
+      {/* OVERSIZED "THE STORY HOUSE" WORDMARK (Sitting above footer, 40% inside the footer) */}
+      <div className="absolute left-0 right-0 -top-12 sm:-top-20 md:-top-28 lg:-top-36 w-full overflow-hidden text-center pointer-events-none select-none z-10">
         <div className="w-full px-2 sm:px-4">
-          <span className="font-serif text-[11.5vw] font-bold text-[#3D1117]/25 sm:text-[#3D1117]/30 tracking-tight whitespace-nowrap leading-none block transform translate-y-[30%]">
+          <span className="font-serif text-[11.5vw] font-bold text-[#3D1117]/25 sm:text-[#3D1117]/30 tracking-tight whitespace-nowrap leading-none block transform translate-y-[40%]">
             THE STORY HOUSE
           </span>
         </div>
