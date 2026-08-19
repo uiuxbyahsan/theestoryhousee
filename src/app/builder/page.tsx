@@ -10,7 +10,7 @@ function BuilderRedirectContent() {
   useEffect(() => {
     const theme = searchParams.get("theme") || "travel";
     const template = searchParams.get("template") || "tpl-1";
-    router.replace(`/product?theme=${theme}&template=${template}&order=open`);
+    router.replace(`/build/photos?theme=${theme}&template=${template}`);
   }, [router, searchParams]);
 
   return (

@@ -97,6 +97,69 @@ export const StoryProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [customerName, setCustomerName] = useState<string>("");
   const [deliveryArea, setDeliveryArea] = useState<string>("Dubai");
 
+  // Load from sessionStorage on mount
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem("the_story_house_order_state");
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (data.themeId) {
+          const t = STORY_THEMES.find((item) => item.id === data.themeId);
+          if (t) setSelectedTheme(t);
+        }
+        if (data.templateId) {
+          const tpl = COVER_TEMPLATES.find((item) => item.id === data.templateId);
+          if (tpl) setSelectedTemplate(tpl);
+        }
+        if (data.selectedScentName) setSelectedScentName(data.selectedScentName);
+        if (typeof data.extraPages === "number") setExtraPages(data.extraPages);
+        if (Array.isArray(data.photos)) setPhotos(data.photos);
+        if (data.bookTitle) setBookTitle(data.bookTitle);
+        if (data.bookSubtitle) setBookSubtitle(data.bookSubtitle);
+        if (data.dedication) setDedication(data.dedication);
+        if (typeof data.hasScent === "boolean") setHasScent(data.hasScent);
+        if (data.customerName) setCustomerName(data.customerName);
+        if (data.deliveryArea) setDeliveryArea(data.deliveryArea);
+      }
+    } catch (e) {
+      console.error("Failed to load session state", e);
+    }
+  }, []);
+
+  // Save to sessionStorage on state change
+  useEffect(() => {
+    try {
+      const payload = {
+        themeId: selectedTheme.id,
+        templateId: selectedTemplate?.id,
+        selectedScentName,
+        extraPages,
+        photos,
+        bookTitle,
+        bookSubtitle,
+        dedication,
+        hasScent,
+        customerName,
+        deliveryArea,
+      };
+      sessionStorage.setItem("the_story_house_order_state", JSON.stringify(payload));
+    } catch (e) {
+      // ignore storage quota errors for large blob previews
+    }
+  }, [
+    selectedTheme,
+    selectedTemplate,
+    selectedScentName,
+    extraPages,
+    photos,
+    bookTitle,
+    bookSubtitle,
+    dedication,
+    hasScent,
+    customerName,
+    deliveryArea,
+  ]);
+
   const openDesignOrder = (step = 1) => {
     setOrderStep(step);
     setIsOrderDrawerOpen(true);

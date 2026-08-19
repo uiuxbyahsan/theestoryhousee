@@ -136,7 +136,7 @@ export const ScentQuickViewModal: React.FC<ScentQuickViewModalProps> = ({ theme,
           {/* Action CTAs */}
           <div className="pt-4 border-t border-[#E5DDD5] space-y-2">
             <Link
-              href="/builder"
+              href="/build/photos"
               onClick={handleSelectAndBuild}
               className="w-full py-3 px-4 rounded-xl bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-sans font-semibold text-xs tracking-wider uppercase shadow-warm-sm transition-all flex items-center justify-center gap-2 text-center"
             >

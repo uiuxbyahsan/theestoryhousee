@@ -39,7 +39,7 @@ export const TemplateSelectionModal: React.FC = () => {
   const handleConfirm = () => {
     setSelectedTemplate(tempSelected);
     setIsTemplateModalOpen(false);
-    router.push("/builder");
+    router.push("/build/photos");
   };
 
   return (

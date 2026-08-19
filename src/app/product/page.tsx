@@ -268,14 +268,13 @@ function ProductDetailContent() {
 
             {/* PRIMARY CTA: START MY DESIGN ORDER */}
             <div className="pt-2">
-              <button
-                type="button"
-                onClick={() => openDesignOrder(1)}
+              <Link
+                href={`/build/photos?theme=${currentTheme.id}&template=${selectedTemplate?.id || "tpl-1"}`}
                 className="w-full py-4 px-6 rounded-full bg-[#3D1117] hover:bg-[#5C1A22] text-[#FAF6F0] font-bold text-sm tracking-wide flex items-center justify-center gap-3 shadow-warm-md transition-all duration-300 transform hover:-translate-y-0.5 text-center"
               >
                 <span>Start My Design Order</span>
                 <ArrowRight className="w-4 h-4 text-[#C9A769]" />
-              </button>
+              </Link>
             </div>
 
             {/* Expandable Accordions: Exact Clean Hairline List Style from User Image */}
