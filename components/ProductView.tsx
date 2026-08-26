@@ -1,0 +1,300 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { SiteShell } from "./SiteShell";
+import { Breadcrumb, WhatsAppGlyph } from "./Nav";
+import { Container, Reveal, Headline } from "./ui";
+import { ScentCard } from "./cards";
+import { TemplateModal } from "./TemplateModal";
+import { ScentBottle } from "./ScentBottle";
+import { useBuilder } from "@/lib/store";
+import { orderTotal, buildWhatsAppMessage, whatsappHref } from "@/lib/order";
+import {
+  BUNDLES,
+  SCENTS,
+  BASE_PAGES,
+  bundleById,
+  scentById,
+  templateById,
+} from "@/lib/data";
+import { FAQ_ITEMS } from "@/lib/faq";
+
+// Hand-free scent product shots (single bottles cropped from the flat-lay).
+const GALLERY = [
+  "/images/scents-flatlay.jpg",
+  "/images/scent-1.jpg",
+  "/images/scent-gold.jpg",
+  "/images/scent-2.jpg",
+  "/images/bottle-duo.jpg",
+];
+
+export function ProductView({ slug }: { slug: string }) {
+  const store = useBuilder();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [activeImg, setActiveImg] = useState(0);
+  const [showSticky, setShowSticky] = useState(false);
+
+  // Seed the builder with this product's bundle on first load.
+  useEffect(() => {
+    store.setBundle(slug);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
+
+  useEffect(() => {
+    const onScroll = () => setShowSticky(window.scrollY > 640);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const bundle = bundleById(store.bundleId) ?? bundleById(slug)!;
+  const total = orderTotal({
+    bundleId: store.bundleId,
+    scentId: store.scentId,
+    extraPages: store.extraPages,
+  });
+  const scent = store.scentId ? scentById(store.scentId) : scentById("velvet-nights");
+  const template = store.templateId ? templateById(store.templateId) : null;
+
+  const waHref = whatsappHref(
+    buildWhatsAppMessage({
+      bundleId: store.bundleId,
+      templateId: store.templateId,
+      scentId: store.scentId,
+      extraPages: store.extraPages,
+      photoCount: store.photos.length,
+    })
+  );
+
+  return (
+    <SiteShell>
+      <TemplateModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <Breadcrumb
+        trail={[
+          { label: "Home", href: "/" },
+          { label: "Shop all", href: "/shop" },
+          { label: bundle.name },
+        ]}
+      />
+
+      <Container className="grid gap-10 pb-16 lg:grid-cols-2">
+        {/* ── Gallery (sticky) ── */}
+        <div className="lg:sticky lg:top-24 lg:self-start">
+          <div className="relative aspect-square w-full overflow-hidden border border-divider bg-bg-alt">
+            <Image src={GALLERY[activeImg]} alt={bundle.name} fill className="object-cover" />
+          </div>
+          <div className="mt-3 flex gap-3">
+            {GALLERY.map((src, i) => (
+              <button
+                key={src}
+                onClick={() => setActiveImg(i)}
+                className={`relative aspect-square w-16 shrink-0 overflow-hidden border ${
+                  activeImg === i ? "border-black" : "border-divider"
+                }`}
+              >
+                <Image src={src} alt="" fill className="object-cover" />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Purchase panel ── */}
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2 text-[13px] text-text-muted">
+            <span className="text-gold">★★★★★</span> Loved by storytellers across the UAE
+          </div>
+          <h1 className="mt-2 text-[30px] font-semibold leading-tight md:text-[40px]">
+            {bundle.name.replace("Scent", "")}
+            {bundle.name.includes("Scent") && <span className="accent"> Scent</span>}
+          </h1>
+          <p className="mt-3 text-[15px] leading-relaxed text-text-muted">{bundle.blurb}</p>
+
+          <div className="mt-5 flex items-center gap-3">
+            <span className="text-[28px] font-semibold">{total} AED</span>
+            <span className="rounded-button border border-divider bg-bg-alt px-2.5 py-1 text-[12px] font-semibold text-text-dark">
+              {BASE_PAGES} Pages
+            </span>
+            {store.extraPages > 0 && (
+              <span className="text-[13px] text-text-muted">
+                incl. {store.extraPages} extra pages
+              </span>
+            )}
+          </div>
+          <div className="mt-1 flex items-center gap-1.5 text-[13px] text-text-muted">
+            <span className="text-green-600">✓</span> In stock · made to order
+          </div>
+
+          {/* Bundle tier selector */}
+          <div className="mt-6">
+            <p className="eyebrow mb-2 text-text-muted">Choose your bundle</p>
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+              {BUNDLES.map((b) => (
+                <button
+                  key={b.id}
+                  onClick={() => store.setBundle(b.id)}
+                  className={`flex flex-col items-start border p-3 text-left transition-colors ${
+                    store.bundleId === b.id ? "border-black bg-bg-alt" : "border-divider hover:border-black"
+                  }`}
+                >
+                  <span className="text-[13px] font-semibold leading-tight">{b.name}</span>
+                  <span className="mt-1 text-[13px] text-text-muted">{b.price} AED</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Cover selector */}
+          <div className="mt-5">
+            <p className="eyebrow mb-2 text-text-muted">Cover</p>
+            <button
+              onClick={() => setModalOpen(true)}
+              className="flex w-full items-center justify-between border border-divider px-4 py-3 text-[14px] transition-colors hover:border-black"
+            >
+              <span>{template ? template.name : "Choose your cover"}</span>
+              <span className="text-text-muted">Browse templates ›</span>
+            </button>
+          </div>
+
+          {/* Primary CTA */}
+          <button
+            onClick={() => setModalOpen(true)}
+            className="mt-6 flex items-center justify-center gap-2 rounded-button bg-black px-6 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-black-alt"
+          >
+            Start My Design Order
+          </button>
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2.5 flex items-center justify-center gap-2 rounded-button border border-black px-6 py-3.5 text-[14px] font-semibold transition-colors hover:bg-black hover:text-white"
+          >
+            <WhatsAppGlyph className="h-5 w-5" /> Order on WhatsApp
+          </a>
+          <p className="mt-2 text-center text-[12px] text-text-muted">
+            No payment on the site. You confirm everything on WhatsApp.
+          </p>
+
+          {/* Add more to your story (cross-sell) */}
+          <div className="mt-7">
+            <p className="eyebrow mb-2 text-text-muted">Add more to your story</p>
+            <div className="scroll-row flex gap-3 overflow-x-auto pb-2">
+              {SCENTS.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => store.setScent(store.scentId === s.id ? null : s.id)}
+                  className={`flex w-24 shrink-0 flex-col items-center border p-2 text-center transition-colors ${
+                    store.scentId === s.id ? "border-black" : "border-divider hover:border-black"
+                  }`}
+                >
+                  <ScentBottle scent={s} className="max-w-[52px]" />
+                  <span className="mt-1.5 text-[11px] font-medium leading-tight">{s.name}</span>
+                  <span className="text-[11px] text-text-muted">75ml</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Accordions */}
+          <div className="mt-7 divide-y divide-divider border-y border-divider">
+            <Accordion title="Is this made for my phone photos?">
+              Yes. Upload at least 45 HD photos straight from your phone, no
+              professional camera needed. We handle the printing and layout from
+              there.
+            </Accordion>
+            <Accordion title="Pages & format">
+              Every book starts at 20 pages, hardcover, 21cm x 26cm. Need more
+              room for your story? Add extra pages during the ordering flow.
+            </Accordion>
+            <Accordion title="Delivery. How ordering on WhatsApp works.">
+              Once you send your story details, our team confirms everything with
+              you on WhatsApp before printing. No checkout, no payment on the
+              site, just a quick conversation to get your book right.
+            </Accordion>
+          </div>
+        </div>
+      </Container>
+
+      {/* Reviews — empty state, no fabricated reviews */}
+      <section className="border-t border-divider bg-bg-alt py-16">
+        <Container className="text-center">
+          <Headline as="h2" before="Loved by our" accent="storytellers" className="text-[26px] md:text-[36px]" />
+          <p className="mx-auto mt-4 max-w-md text-[14px] text-text-muted">
+            We&apos;re just getting started. Be the first to share your story.
+            We&apos;ll feature real books and words here as they come in.
+          </p>
+        </Container>
+      </section>
+
+      {/* "Done in minutes" video */}
+      <section className="py-16">
+        <Container>
+          <Reveal className="mb-6 text-center">
+            <Headline as="h2" before="See your story" accent="come together" className="text-[26px] md:text-[36px]" />
+          </Reveal>
+          <Reveal className="mx-auto max-w-3xl">
+            <video
+              src="/images/tutorial.mp4"
+              controls
+              playsInline
+              className="w-full border border-divider"
+            />
+          </Reveal>
+        </Container>
+      </section>
+
+      {/* FAQ */}
+      <section className="border-t border-divider py-16">
+        <Container className="max-w-3xl">
+          <Reveal className="mb-6">
+            <Headline as="h2" before="Questions," accent="answered" className="text-[26px] md:text-[36px]" />
+          </Reveal>
+          <div className="divide-y divide-divider border-y border-divider">
+            {FAQ_ITEMS.map((f) => (
+              <Accordion key={f.q} title={f.q}>
+                {f.a}
+              </Accordion>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Sticky mini bar */}
+      {showSticky && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-divider bg-white/95 backdrop-blur">
+          <Container className="flex items-center justify-between gap-4 py-3">
+            <div className="min-w-0">
+              <p className="truncate text-[14px] font-medium">{bundle.name}</p>
+              <p className="text-[13px] text-text-muted">{total} AED</p>
+            </div>
+            <button
+              onClick={() => setModalOpen(true)}
+              className="shrink-0 rounded-button bg-black px-5 py-3 text-[14px] font-semibold text-white hover:bg-black-alt"
+            >
+              Start My Design Order
+            </button>
+          </Container>
+        </div>
+      )}
+    </SiteShell>
+  );
+}
+
+function Accordion({ title, children }: { title: string; children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex w-full items-center justify-between py-4 text-left text-[15px] font-medium"
+      >
+        {title}
+        <span className="text-xl text-text-muted">{open ? "−" : "+"}</span>
+      </button>
+      {open && (
+        <p className="pb-4 text-[14px] leading-relaxed text-text-muted">{children}</p>
+      )}
+    </div>
+  );
+}
+
