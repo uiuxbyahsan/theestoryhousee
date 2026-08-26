@@ -78,13 +78,13 @@ export function ProductView({ slug }: { slug: string }) {
         ]}
       />
 
-      <Container className="grid gap-10 pb-16 lg:grid-cols-2">
+      <Container className="flex flex-col gap-10 pb-16 lg:grid lg:grid-cols-2">
         {/* ── Gallery (sticky) ── */}
-        <div className="lg:sticky lg:top-24 lg:self-start">
+        <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           <div className="relative aspect-square w-full overflow-hidden border border-divider bg-bg-alt">
             <Image src={GALLERY[activeImg]} alt={bundle.name} fill className="object-cover" />
           </div>
-          <div className="mt-3 flex gap-3">
+          <div className="scroll-row mt-3 flex gap-3 overflow-x-auto">
             {GALLERY.map((src, i) => (
               <button
                 key={src}
@@ -100,7 +100,7 @@ export function ProductView({ slug }: { slug: string }) {
         </div>
 
         {/* ── Purchase panel ── */}
-        <div className="flex flex-col">
+        <div className="flex min-w-0 flex-col">
           <div className="flex items-center gap-2 text-[13px] text-text-muted">
             <span className="text-gold">★★★★★</span> Loved by storytellers across the UAE
           </div>
@@ -262,7 +262,8 @@ export function ProductView({ slug }: { slug: string }) {
       {/* Sticky mini bar */}
       {showSticky && (
         <div className="fixed inset-x-0 bottom-0 z-40 border-t border-divider bg-white/95 backdrop-blur">
-          <Container className="flex items-center justify-between gap-4 py-3">
+          {/* Right padding keeps the CTA clear of the floating WhatsApp button */}
+          <div className="mx-auto flex max-w-container items-center justify-between gap-4 py-3 pl-5 pr-[84px] sm:pl-8 sm:pr-[84px]">
             <div className="min-w-0">
               <p className="truncate text-[14px] font-medium">{bundle.name}</p>
               <p className="text-[13px] text-text-muted">{total} AED</p>
@@ -273,7 +274,7 @@ export function ProductView({ slug }: { slug: string }) {
             >
               Start My Design Order
             </button>
-          </Container>
+          </div>
         </div>
       )}
     </SiteShell>
