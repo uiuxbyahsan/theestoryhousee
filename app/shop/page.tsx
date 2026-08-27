@@ -1,8 +1,8 @@
 import { SiteShell } from "@/components/SiteShell";
 import { Breadcrumb } from "@/components/Nav";
 import { Container, Reveal, Headline } from "@/components/ui";
-import { BundleCard, BundleVisual, StoryTypeCard } from "@/components/cards";
-import { BUNDLES, STORY_TYPES } from "@/lib/data";
+import { BundleCard, BundleVisual, CategoryCard } from "@/components/cards";
+import { BUNDLES, CATEGORY_TILES } from "@/lib/data";
 
 export const metadata = { title: "Shop all | The Story House" };
 
@@ -33,12 +33,12 @@ export default function ShopPage() {
       <section className="bg-bg-alt py-16">
         <Container>
           <Reveal className="mb-8">
-            <Headline as="h2" before="Shop by" accent="story" className="text-[26px] md:text-[36px]" />
+            <Headline as="h2" before="Shop by" accent="category" className="text-[26px] md:text-[36px]" />
           </Reveal>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
-            {STORY_TYPES.map((s, i) => (
-              <Reveal key={s.theme} delay={i * 0.05}>
-                <StoryTypeCard theme={s.theme} title={s.title} copy={s.copy} />
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+            {CATEGORY_TILES.map((c, i) => (
+              <Reveal key={c.category} delay={i * 0.06}>
+                <CategoryCard category={c.category} title={c.title} copy={c.copy} scentId={c.scentId} />
               </Reveal>
             ))}
           </div>

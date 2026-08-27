@@ -4,17 +4,16 @@ import { ScentBottle } from "./ScentBottle";
 import { BookCover } from "./BookCover";
 import { TanBadge } from "./ui";
 import {
-  THEME_EMOJI,
   scentById,
   templateById,
   type Bundle,
   type Scent,
-  type Theme,
+  type Category,
 } from "@/lib/data";
 
 // Composes the right book/bottle arrangement for each bundle tier.
 export function BundleVisual({ bundle }: { bundle: Bundle }) {
-  const template = templateById("wedding-02")!; // "Two Became One"
+  const template = templateById("female-02")!; // "Two Became One"
   const scent = scentById("velvet-nights")!;
 
   if (bundle.books > 1) {
@@ -26,7 +25,7 @@ export function BundleVisual({ bundle }: { bundle: Bundle }) {
             className="absolute w-[52%]"
             style={{ left: `${18 + i * 9}%`, top: `${6 + i * 7}%`, zIndex: 3 - i }}
           >
-            <BookCover template={templateById(["baby-01", "travel-01", "wedding-01"][i])!} />
+            <BookCover template={templateById(["unisex-05", "unisex-01", "female-01"][i])!} />
           </div>
         ))}
       </div>
@@ -151,7 +150,7 @@ export function ScentCard({
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4 md:p-5">
         <span className="eyebrow text-text-muted">
-          {THEME_EMOJI[scent.theme]} For {scent.theme} · 75ml
+          For {scent.category} · 75ml
         </span>
         <h3 className="text-[17px] font-semibold">{scent.name}</h3>
         <p className="line-clamp-1 text-[13px] text-text-muted">
@@ -188,23 +187,36 @@ export function ScentCard({
   );
 }
 
-export function StoryTypeCard({
-  theme,
+// Category tile: a square scent-bottle image (matching the Seven Scents
+// card style), with the label and one-line description below.
+export function CategoryCard({
+  category,
   title,
   copy,
+  scentId,
 }: {
-  theme: Theme;
+  category: Category;
   title: string;
   copy: string;
+  scentId: string;
 }) {
+  const scent = scentById(scentId);
   return (
     <Link
       href="/shop"
-      className="group flex flex-col items-center border border-divider bg-card-bg p-6 text-center transition-colors hover:border-black"
+      className="group flex flex-col border border-divider bg-card-bg transition-colors hover:border-black"
     >
-      <span className="text-3xl">{THEME_EMOJI[theme]}</span>
-      <h3 className="mt-3 text-[16px] font-medium">{title}</h3>
-      <p className="mt-1 text-[13px] text-text-muted">{copy}</p>
+      <div className="flex aspect-square items-center justify-center overflow-hidden bg-bg-alt">
+        {scent && (
+          <div className="w-[96px]">
+            <ScentBottle scent={scent} />
+          </div>
+        )}
+      </div>
+      <div className="p-4 md:p-5">
+        <h3 className="text-[16px] font-medium">{title}</h3>
+        <p className="mt-1 line-clamp-1 text-[13px] text-text-muted">{copy}</p>
+      </div>
     </Link>
   );
 }

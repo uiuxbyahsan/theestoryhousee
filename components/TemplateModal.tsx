@@ -7,10 +7,9 @@ import { BookCover } from "./BookCover";
 import { useBuilder } from "@/lib/store";
 import {
   TEMPLATES,
-  THEMES,
-  THEME_EMOJI,
+  CATEGORIES,
   templateById,
-  type Theme,
+  type Category,
 } from "@/lib/data";
 
 // "Choose Your Cover" modal (Section 7B). Selecting a cover seeds the
@@ -27,16 +26,16 @@ export function TemplateModal({
   const setScent = useBuilder((s) => s.setScent);
 
   const [query, setQuery] = useState("");
-  const [theme, setTheme] = useState<Theme | "All">("All");
+  const [category, setCategory] = useState<Category | "All">("All");
   const [picked, setPicked] = useState<string | null>(null);
 
   const results = useMemo(() => {
     return TEMPLATES.filter((t) => {
-      const matchesTheme = theme === "All" || t.theme === theme;
+      const matchesCategory = category === "All" || t.category === category;
       const matchesQuery = t.name.toLowerCase().includes(query.toLowerCase());
-      return matchesTheme && matchesQuery;
+      return matchesCategory && matchesQuery;
     });
-  }, [query, theme]);
+  }, [query, category]);
 
   function confirm() {
     if (!picked) return;
@@ -83,12 +82,12 @@ export function TemplateModal({
                 className="w-full rounded-button border border-divider bg-white px-4 py-2.5 text-[14px] outline-none focus:border-black"
               />
               <div className="scroll-row mt-3 flex gap-2 overflow-x-auto">
-                <Tab active={theme === "All"} onClick={() => setTheme("All")}>
+                <Tab active={category === "All"} onClick={() => setCategory("All")}>
                   All
                 </Tab>
-                {THEMES.map((t) => (
-                  <Tab key={t} active={theme === t} onClick={() => setTheme(t)}>
-                    {THEME_EMOJI[t]} {t}
+                {CATEGORIES.map((c) => (
+                  <Tab key={c} active={category === c} onClick={() => setCategory(c)}>
+                    {c}
                   </Tab>
                 ))}
               </div>
@@ -108,9 +107,7 @@ export function TemplateModal({
                     <BookCover template={t} />
                   </div>
                   <p className="mt-2 text-[13px] font-semibold">{t.name}</p>
-                  <p className="text-[12px] text-text-muted">
-                    {THEME_EMOJI[t.theme]} {t.theme}
-                  </p>
+                  <p className="text-[12px] text-text-muted">{t.category}</p>
                 </button>
               ))}
               {results.length === 0 && (

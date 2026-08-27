@@ -49,12 +49,11 @@ export function Footer() {
           ]}
         />
         <FooterCol
-          title="Stories"
+          title="Categories"
           links={[
-            { href: "/shop", label: "Travel" },
-            { href: "/shop", label: "Wedding" },
-            { href: "/shop", label: "Baby" },
-            { href: "/shop", label: "Memorial" },
+            { href: "/shop", label: "Male" },
+            { href: "/shop", label: "Female" },
+            { href: "/shop", label: "Unisex" },
           ]}
         />
       </Container>

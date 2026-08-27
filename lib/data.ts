@@ -1,106 +1,98 @@
 // ─────────────────────────────────────────────────────────────
-// The Story House — product data (Section 5 of the build spec)
+// The Story House — product data.
 // Single source of truth for scents, bundles and cover templates.
 // ─────────────────────────────────────────────────────────────
 
-export type Theme =
-  | "Travel"
-  | "Wedding"
-  | "Baby"
-  | "Friendship"
-  | "Memorial";
+// Round 4: the old occasion themes (Travel/Wedding/Baby/Friendship/Memorial)
+// are replaced sitewide by three simple categories.
+export type Category = "Male" | "Female" | "Unisex";
 
-export const THEME_EMOJI: Record<Theme, string> = {
-  Travel: "✈️",
-  Wedding: "💍",
-  Baby: "👶",
-  Friendship: "🤝",
-  Memorial: "🕊️",
-};
+export const CATEGORIES: Category[] = ["Male", "Female", "Unisex"];
 
-// Each theme drives a cover-colour so <BookCover> and scent visuals stay
-// consistent without needing per-item photography.
-export const THEME_COLOR: Record<Theme, { cover: string; ink: string }> = {
-  Travel: { cover: "#1F3A34", ink: "#E9E2CF" }, // deep teal-green
-  Wedding: { cover: "#2A2A2A", ink: "#D9C9A3" }, // near-black + tan
-  Baby: { cover: "#EBE3D6", ink: "#6B5A3A" }, // warm cream
-  Friendship: { cover: "#6B5A3A", ink: "#F0E9D8" }, // tan-brown
-  Memorial: { cover: "#20242B", ink: "#C7CBD1" }, // muted slate (kept quiet)
+// Each category drives a cover-colour so <BookCover> stays consistent
+// without needing per-item cover photography.
+export const CATEGORY_COLOR: Record<Category, { cover: string; ink: string }> = {
+  Male: { cover: "#1E2229", ink: "#D9C9A3" }, // deep slate + tan foil
+  Female: { cover: "#7A4E4E", ink: "#F3E7DF" }, // deep rose-brown + cream
+  Unisex: { cover: "#2E3A34", ink: "#E9E2CF" }, // deep green-grey + cream
 };
 
 // ── Scents ────────────────────────────────────────────────────
-// NOTE: top/mid/base notes are draft placeholders — confirm with the
-// perfumer before launch (Open Item, Section 10). Never surface the
-// internal "inspired by" reference anywhere public.
+// NOTE: top/mid/base notes are draft placeholders, confirm with the
+// perfumer before launch. Never surface the internal "inspired by"
+// reference anywhere public.
 export interface Scent {
   id: string;
   name: string;
-  theme: Theme;
+  category: Category;
   tagline: string;
   notes: { top: string; mid: string; base: string };
 }
 
 export const SCENTS: Scent[] = [
   {
-    id: "souvenir",
-    name: "Souvenir",
-    theme: "Travel",
-    tagline: "Sun-warmed streets and the ache of leaving.",
-    notes: { top: "Bergamot, Sea Salt", mid: "Fig Leaf, Neroli", base: "Cedar, Amber" },
-  },
-  {
-    id: "sunlit-memories",
-    name: "Sunlit Memories",
-    theme: "Travel",
-    tagline: "Golden afternoons you never wanted to end.",
-    notes: { top: "Mandarin, Bergamot", mid: "Orange Blossom, Jasmine", base: "White Musk, Sandalwood" },
-  },
-  {
-    id: "her-story",
-    name: "Her Story",
-    theme: "Wedding",
-    tagline: "Soft petals and the promise of forever.",
-    notes: { top: "Pink Pepper, Pear", mid: "Rose, Peony", base: "Vanilla, Musk" },
-  },
-  {
-    id: "velvet-nights",
-    name: "Velvet Nights",
-    theme: "Wedding",
-    tagline: "Candlelight, slow dances, midnight vows.",
-    notes: { top: "Saffron, Plum", mid: "Rose, Oud", base: "Amber, Vanilla" },
-  },
-  {
-    id: "secret-garden",
-    name: "Secret Garden",
-    theme: "Baby",
-    tagline: "Clean cotton and the hush of first mornings.",
-    notes: { top: "White Tea, Pear", mid: "Lily, Freesia", base: "Cashmere Musk, Powder" },
-  },
-  {
     id: "his-story",
     name: "His Story",
-    theme: "Friendship",
+    category: "Male",
     tagline: "Late nights, loyalty, the ones you choose.",
     notes: { top: "Grapefruit, Cardamom", mid: "Lavender, Vetiver", base: "Leather, Tonka" },
   },
   {
     id: "royal-memories",
     name: "Royal Memories",
-    theme: "Memorial",
+    category: "Male",
     tagline: "A quiet warmth held close, always.",
     notes: { top: "Incense, Bergamot", mid: "Iris, Violet", base: "Sandalwood, Amber" },
+  },
+  {
+    id: "her-story",
+    name: "Her Story",
+    category: "Female",
+    tagline: "Soft petals and the promise of forever.",
+    notes: { top: "Pink Pepper, Pear", mid: "Rose, Peony", base: "Vanilla, Musk" },
+  },
+  {
+    id: "velvet-nights",
+    name: "Velvet Nights",
+    category: "Female",
+    tagline: "Candlelight, slow dances, midnight vows.",
+    notes: { top: "Saffron, Plum", mid: "Rose, Oud", base: "Amber, Vanilla" },
+  },
+  {
+    id: "souvenir",
+    name: "Souvenir",
+    category: "Unisex",
+    tagline: "Sun-warmed streets and the ache of leaving.",
+    notes: { top: "Bergamot, Sea Salt", mid: "Fig Leaf, Neroli", base: "Cedar, Amber" },
+  },
+  {
+    id: "sunlit-memories",
+    name: "Sunlit Memories",
+    category: "Unisex",
+    tagline: "Golden afternoons you never wanted to end.",
+    notes: { top: "Mandarin, Bergamot", mid: "Orange Blossom, Jasmine", base: "White Musk, Sandalwood" },
+  },
+  {
+    id: "secret-garden",
+    name: "Secret Garden",
+    category: "Unisex",
+    tagline: "Clean cotton and the hush of first mornings.",
+    notes: { top: "White Tea, Pear", mid: "Lily, Freesia", base: "Cashmere Musk, Powder" },
   },
 ];
 
 export const scentById = (id: string) => SCENTS.find((s) => s.id === id);
-export const scentsByTheme = (theme: Theme) =>
-  SCENTS.filter((s) => s.theme === theme);
+export const scentsByCategory = (category: Category) =>
+  SCENTS.filter((s) => s.category === category);
 
-// ── Bundles (Section 5) ───────────────────────────────────────
+// ── Bundles ───────────────────────────────────────────────────
+// Cost basis (internal, not shown): book 180 AED + perfume 70 AED (Round 4,
+// was 75) = 250 AED cost on The Story + Scent. Retail prices unchanged; the
+// Duo's two-bottle cost is still provisional at the new baseline.
 export interface Bundle {
   id: string;
   name: string;
-  price: number; // AED
+  price: number; // AED, retail
   includesScent: number; // number of 75ml perfumes included
   books: number;
   blurb: string;
@@ -146,58 +138,54 @@ export const BUNDLES: Bundle[] = [
 export const bundleById = (id: string) => BUNDLES.find((b) => b.id === id);
 
 export const BASE_PAGES = 20;
-// ⚠️ Placeholder retail rate — confirm with supplier before launch (Section 10)
+// ⚠️ Placeholder retail rate, confirm with supplier before launch.
 export const EXTRA_PAGE_PRICE = 18;
 export const MIN_PHOTOS = 45;
 
-// ── Cover templates (Section 7B) ──────────────────────────────
+// ── Cover templates ───────────────────────────────────────────
+// Existing cover designs redistributed across the three categories.
 export interface Template {
   id: string;
   name: string;
-  theme: Theme;
-  pairedScent: string; // scent id
+  category: Category;
+  pairedScent: string; // scent id (same category)
 }
 
 export const TEMPLATES: Template[] = [
-  // ✈️ Travel
-  { id: "travel-01", name: "Where We Wandered", theme: "Travel", pairedScent: "souvenir" },
-  { id: "travel-02", name: "The Journey Kept", theme: "Travel", pairedScent: "souvenir" },
-  { id: "travel-03", name: "Passport of Us", theme: "Travel", pairedScent: "sunlit-memories" },
-  { id: "travel-04", name: "Postcards Home", theme: "Travel", pairedScent: "sunlit-memories" },
-  // 💍 Wedding
-  { id: "wedding-01", name: "The Vow We Kept", theme: "Wedding", pairedScent: "her-story" },
-  { id: "wedding-02", name: "Two Became One", theme: "Wedding", pairedScent: "velvet-nights" },
-  { id: "wedding-03", name: "Our Forever Chapter", theme: "Wedding", pairedScent: "her-story" },
-  // 👶 Baby
-  { id: "baby-01", name: "Little Story", theme: "Baby", pairedScent: "secret-garden" },
-  { id: "baby-02", name: "First Light", theme: "Baby", pairedScent: "secret-garden" },
-  { id: "baby-03", name: "Tiny Chapters", theme: "Baby", pairedScent: "secret-garden" },
-  // 🤝 Friendship
-  { id: "friend-01", name: "Chosen Family", theme: "Friendship", pairedScent: "his-story" },
-  { id: "friend-02", name: "Ordinary Magic", theme: "Friendship", pairedScent: "his-story" },
-  { id: "friend-03", name: "The Unwritten Rules", theme: "Friendship", pairedScent: "his-story" },
-  // 🕊️ Memorial (kept to 2–3, gentle treatment)
-  { id: "memorial-01", name: "Held in Memory", theme: "Memorial", pairedScent: "royal-memories" },
-  { id: "memorial-02", name: "A Life Well Told", theme: "Memorial", pairedScent: "royal-memories" },
+  // Male
+  { id: "male-01", name: "Chosen Family", category: "Male", pairedScent: "his-story" },
+  { id: "male-02", name: "Ordinary Magic", category: "Male", pairedScent: "royal-memories" },
+  { id: "male-03", name: "The Unwritten Rules", category: "Male", pairedScent: "his-story" },
+  { id: "male-04", name: "Held in Memory", category: "Male", pairedScent: "royal-memories" },
+  { id: "male-05", name: "A Life Well Told", category: "Male", pairedScent: "his-story" },
+  // Female
+  { id: "female-01", name: "The Vow We Kept", category: "Female", pairedScent: "her-story" },
+  { id: "female-02", name: "Two Became One", category: "Female", pairedScent: "velvet-nights" },
+  { id: "female-03", name: "Our Forever Chapter", category: "Female", pairedScent: "her-story" },
+  { id: "female-04", name: "First Light", category: "Female", pairedScent: "velvet-nights" },
+  // Unisex
+  { id: "unisex-01", name: "Where We Wandered", category: "Unisex", pairedScent: "souvenir" },
+  { id: "unisex-02", name: "The Journey Kept", category: "Unisex", pairedScent: "sunlit-memories" },
+  { id: "unisex-03", name: "Passport of Us", category: "Unisex", pairedScent: "souvenir" },
+  { id: "unisex-04", name: "Postcards Home", category: "Unisex", pairedScent: "secret-garden" },
+  { id: "unisex-05", name: "Little Story", category: "Unisex", pairedScent: "secret-garden" },
+  { id: "unisex-06", name: "Tiny Chapters", category: "Unisex", pairedScent: "sunlit-memories" },
 ];
 
 export const templateById = (id: string) => TEMPLATES.find((t) => t.id === id);
-export const templatesByTheme = (theme: Theme) =>
-  TEMPLATES.filter((t) => t.theme === theme);
+export const templatesByCategory = (category: Category) =>
+  TEMPLATES.filter((t) => t.category === category);
 
-export const THEMES: Theme[] = [
-  "Travel",
-  "Wedding",
-  "Baby",
-  "Friendship",
-  "Memorial",
-];
-
-// Story-type entry points for the home page "Shop by story" grid
-export const STORY_TYPES: { theme: Theme; title: string; copy: string }[] = [
-  { theme: "Travel", title: "Travel", copy: "The trips that changed you." },
-  { theme: "Wedding", title: "Wedding", copy: "The day you said forever." },
-  { theme: "Baby", title: "Baby", copy: "The very first chapter." },
-  { theme: "Friendship", title: "Friendship", copy: "The family you chose." },
-  { theme: "Memorial", title: "Memorial", copy: "A life, kept close." },
+// Category entry points for the home / shop "Shop by Category" grids.
+// Each tile shows a representative scent bottle (photo style used on the
+// Seven Scents cards).
+export const CATEGORY_TILES: {
+  category: Category;
+  title: string;
+  copy: string;
+  scentId: string;
+}[] = [
+  { category: "Male", title: "Male", copy: "Bold, grounded, made to last.", scentId: "his-story" },
+  { category: "Female", title: "Female", copy: "Soft, warm, unmistakably yours.", scentId: "her-story" },
+  { category: "Unisex", title: "Unisex", copy: "For every story, whoever tells it.", scentId: "souvenir" },
 ];

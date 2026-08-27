@@ -3,8 +3,8 @@ import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
 import { Hero } from "@/components/Hero";
 import { Container, Reveal, Headline, btnPrimaryInverse, btnGhost } from "@/components/ui";
-import { BundleCard, BundleVisual, ScentCard, StoryTypeCard } from "@/components/cards";
-import { BUNDLES, SCENTS, STORY_TYPES, bundleById } from "@/lib/data";
+import { BundleCard, BundleVisual, ScentCard, CategoryCard } from "@/components/cards";
+import { BUNDLES, SCENTS, CATEGORY_TILES, bundleById } from "@/lib/data";
 
 export default function HomePage() {
   return (
@@ -28,15 +28,15 @@ export default function HomePage() {
       <section className="bg-bg-alt py-20">
         <Container>
           <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-4">
-            <Headline as="h2" before="Shop by" accent="story" className="text-[28px] md:text-[40px]" />
+            <Headline as="h2" before="Shop by" accent="category" className="text-[28px] md:text-[40px]" />
             <Link href="/shop" className={btnGhost}>
               See all bundles →
             </Link>
           </Reveal>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
-            {STORY_TYPES.map((s, i) => (
-              <Reveal key={s.theme} delay={i * 0.05}>
-                <StoryTypeCard theme={s.theme} title={s.title} copy={s.copy} />
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+            {CATEGORY_TILES.map((c, i) => (
+              <Reveal key={c.category} delay={i * 0.06}>
+                <CategoryCard category={c.category} title={c.title} copy={c.copy} scentId={c.scentId} />
               </Reveal>
             ))}
           </div>
@@ -108,7 +108,7 @@ export default function HomePage() {
           <Reveal className="mb-10 max-w-xl">
             <Headline as="h2" before="Selected" accent="packages" className="text-[28px] md:text-[40px]" />
             <p className="mt-3 text-[15px] text-text-muted">
-              Curated pairings for the occasions people reach for most.
+              Curated pairings people reach for most.
             </p>
           </Reveal>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
@@ -199,10 +199,12 @@ export default function HomePage() {
 // photography once available (one-line change).
 const PACKAGE_IMG = "/images/bottle-duo.jpg";
 
+// Curated framing of the real bundle tiers (copy comes from the canonical
+// bundle blurb via bundleId).
 const PACKAGES = [
-  { id: "pkg-wedding", name: "The Wedding Story", bundleId: "the-story-scent", copy: "The day you said forever, kept in full." },
-  { id: "pkg-baby", name: "The Baby Story", bundleId: "the-story-scent", copy: "The very first chapter, softly told." },
-  { id: "pkg-travel", name: "The Travel Story", bundleId: "the-story-scent", copy: "The trips that changed you." },
+  { id: "pkg-scent", name: "The Story + Scent", bundleId: "the-story-scent" },
+  { id: "pkg-duo", name: "The Story Duo", bundleId: "the-story-duo" },
+  { id: "pkg-family", name: "Family Pack", bundleId: "family-pack" },
 ];
 
 const STEPS = [

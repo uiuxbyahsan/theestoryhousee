@@ -41,9 +41,10 @@ export function buildWhatsAppMessage(state: OrderState): string {
   const template = state.templateId ? templateById(state.templateId) : null;
   const scent = state.scentId ? scentById(state.scentId) : null;
 
+  const category = template?.category ?? scent?.category;
   const lines: string[] = ["Hi The Story House! 👋 I'd like to order:", ""];
   lines.push(`Bundle: ${bundle?.name ?? "Not selected"}`);
-  if (template) lines.push(`Theme: ${template.theme}`);
+  if (category) lines.push(`Category: ${category}`);
   if (template) lines.push(`Template: ${template.name}`);
   lines.push(
     `Pages: ${BASE_PAGES}${state.extraPages ? ` + ${state.extraPages}` : ""}`

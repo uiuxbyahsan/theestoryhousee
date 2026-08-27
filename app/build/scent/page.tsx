@@ -7,7 +7,7 @@ import {
   SCENTS,
   templateById,
   scentById,
-  scentsByTheme,
+  scentsByCategory,
 } from "@/lib/data";
 
 export default function ScentStep() {
@@ -25,10 +25,10 @@ export default function ScentStep() {
   const template = templateId ? templateById(templateId) : null;
   const recommendedId = template?.pairedScent ?? "velvet-nights";
   const recommendedScent = scentById(recommendedId);
-  const theme = template?.theme ?? recommendedScent?.theme;
+  const category = template?.category ?? recommendedScent?.category;
 
-  const themeScents = theme ? scentsByTheme(theme) : [];
-  const otherScents = SCENTS.filter((s) => !themeScents.includes(s));
+  const categoryScents = category ? scentsByCategory(category) : [];
+  const otherScents = SCENTS.filter((s) => !categoryScents.includes(s));
 
   return (
     <BuilderChrome step={2} backHref="/build/photos" wide>
@@ -39,14 +39,14 @@ export default function ScentStep() {
         sub="Choose the scent that matches your story, or skip it entirely."
       />
 
-      {/* Theme-matched scents */}
-      {themeScents.length > 0 && (
+      {/* Category-matched scents */}
+      {categoryScents.length > 0 && (
         <>
           <h2 className="mb-4 text-[15px] font-semibold">
-            Made for your {theme} story
+            {category} scents for your story
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {themeScents.map((s) => (
+            {categoryScents.map((s) => (
               <ScentCard
                 key={s.id}
                 scent={s}

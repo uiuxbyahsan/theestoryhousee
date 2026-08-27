@@ -1,7 +1,7 @@
 import { LogoMark } from "./Logo";
-import { THEME_COLOR, type Template } from "@/lib/data";
+import { CATEGORY_COLOR, type Template } from "@/lib/data";
 
-// A styled linen-book cover generated per template — theme colour + the
+// A styled linen-book cover generated per template: category colour + the
 // template name set in the brand's mixed serif/sans treatment. Stands in
 // for cover photography and keeps the whole modal grid consistent.
 export function BookCover({
@@ -11,7 +11,7 @@ export function BookCover({
   template: Template;
   className?: string;
 }) {
-  const { cover, ink } = THEME_COLOR[template.theme];
+  const { cover, ink } = CATEGORY_COLOR[template.category];
   return (
     <div
       className={`relative aspect-[3/4] w-full overflow-hidden ${className}`}
