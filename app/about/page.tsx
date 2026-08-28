@@ -71,7 +71,7 @@ export default function AboutPage() {
           ))}
         </div>
         <Reveal className="mt-12 text-center">
-          <Link href="/build/photos" className={btnPrimary}>
+          <Link href="/shop" className={btnPrimary}>
             Begin Your Story
           </Link>
         </Reveal>

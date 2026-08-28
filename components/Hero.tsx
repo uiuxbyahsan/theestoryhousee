@@ -62,14 +62,8 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.25 }}
           className="mt-8 flex flex-col gap-3 sm:flex-row"
         >
-          <Link href="/build/photos" className={btnPrimaryInverse}>
+          <Link href="/shop" className={btnPrimaryInverse}>
             Begin Your Story
-          </Link>
-          <Link
-            href="/shop"
-            className="inline-flex items-center justify-center rounded-button border border-white/70 px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-white hover:text-black"
-          >
-            Shop all
           </Link>
         </motion.div>
       </Container>

@@ -125,7 +125,7 @@ export default function HomePage() {
             ))}
           </div>
           <Reveal className="mt-12 text-center">
-            <Link href="/build/photos" className={btnPrimaryInverse}>
+            <Link href="/shop" className={btnPrimaryInverse}>
               Begin Your Story
             </Link>
           </Reveal>
