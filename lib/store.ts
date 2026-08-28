@@ -43,7 +43,7 @@ interface BuilderState {
 }
 
 const initial = {
-  bundleId: "the-story-scent",
+  bundleId: "the-story",
   templateId: null as string | null,
   scentId: null as string | null,
   extraPages: 0,
