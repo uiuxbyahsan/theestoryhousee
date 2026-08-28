@@ -54,7 +54,7 @@ export function ScentModal({
             <div className="flex items-center justify-between border-b border-divider px-6 py-4">
               <div>
                 <span className="eyebrow text-text-muted">
-                  For {scent.category} · 80ml
+                  For {scent.category} · 80ml · {scent.price} AED
                 </span>
                 <h2 className="text-[20px] font-semibold">{scent.name}</h2>
               </div>

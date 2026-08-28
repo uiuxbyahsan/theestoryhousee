@@ -198,10 +198,15 @@ export function ScentCard({
         </button>
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4 md:p-5">
-        <span className="eyebrow flex items-center gap-1.5 text-text-muted">
-          <SparkleIcon className="h-2.5 w-2.5 text-gold" />
-          FOR {scent.category.toUpperCase()} · 80ML
-        </span>
+        <div className="flex items-center justify-between gap-2">
+          <span className="eyebrow flex items-center gap-1.5 text-text-muted">
+            <SparkleIcon className="h-2.5 w-2.5 text-gold" />
+            FOR {scent.category.toUpperCase()} · 80ML
+          </span>
+          <span className="text-[13px] font-semibold text-black">
+            {scent.price} AED
+          </span>
+        </div>
         <h3 className="text-[17px] font-semibold">{scent.name}</h3>
         <dl className="mt-auto space-y-0.5 text-[12px] text-text-muted">
           <div className="flex gap-2">
