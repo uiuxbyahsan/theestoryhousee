@@ -66,23 +66,14 @@ export function Nav() {
           <Logo />
         </Link>
 
-        {/* Right: Create Book + WhatsApp */}
-        <div className="flex items-center justify-end gap-3">
+        {/* Right: Create Book */}
+        <div className="flex items-center justify-end">
           <Link
             href="/build/photos"
             className="hidden rounded-button bg-black px-4 py-2.5 text-[14px] font-semibold text-text-white transition-colors hover:bg-black-alt sm:inline-flex"
           >
             Create Book
           </Link>
-          <a
-            href="https://wa.me/971500000000?text=Hi!%20I'd%20like%20to%20know%20more%20about%20The%20Story%20House%20%F0%9F%93%96"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Order on WhatsApp"
-            className="flex h-9 w-9 items-center justify-center text-black transition-opacity hover:opacity-60"
-          >
-            <WhatsAppGlyph className="h-6 w-6" />
-          </a>
         </div>
       </Container>
 
