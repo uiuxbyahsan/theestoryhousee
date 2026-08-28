@@ -27,11 +27,8 @@ export default function HomePage() {
       {/* Shop by story type */}
       <section className="bg-bg-alt py-20">
         <Container>
-          <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <Reveal className="mb-10">
             <Headline as="h2" before="Shop by" accent="category" className="text-[28px] md:text-[40px]" />
-            <Link href="/shop" className={btnGhost}>
-              Shop all →
-            </Link>
           </Reveal>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             {CATEGORY_TILES.map((c, i) => (
