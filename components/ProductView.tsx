@@ -186,12 +186,12 @@ export function ProductView({ slug }: { slug: string }) {
           {/* Bundle tier selector */}
           <div className="mt-6">
             <p className="eyebrow mb-2 text-text-muted">Package tier</p>
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-              {BUNDLES.map((b) => (
+            <div className="grid grid-cols-2 gap-2.5">
+              {BUNDLES.filter((b) => b.id === "the-story" || b.id === "the-story-scent").map((b) => (
                 <button
                   key={b.id}
                   onClick={() => store.setBundle(b.id)}
-                  className={`flex flex-col items-start border p-3 text-left transition-colors ${
+                  className={`flex flex-col items-start border p-3.5 text-left transition-colors ${
                     store.bundleId === b.id ? "border-black bg-bg-alt" : "border-divider hover:border-black"
                   }`}
                 >
