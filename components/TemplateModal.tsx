@@ -17,17 +17,24 @@ import {
 export function TemplateModal({
   open,
   onClose,
+  initialCategory = "All",
 }: {
   open: boolean;
   onClose: () => void;
+  initialCategory?: Category | "All";
 }) {
   const router = useRouter();
   const setTemplate = useBuilder((s) => s.setTemplate);
   const setScent = useBuilder((s) => s.setScent);
 
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<Category | "All">("All");
+  const [category, setCategory] = useState<Category | "All">(initialCategory);
   const [picked, setPicked] = useState<string | null>(null);
+
+  // Sync category when modal opens with a specific category
+  useState(() => {
+    if (open && initialCategory) setCategory(initialCategory);
+  });
 
   const results = useMemo(() => {
     return TEMPLATES.filter((t) => {

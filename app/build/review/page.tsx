@@ -89,7 +89,7 @@ export default function ReviewStep() {
 
         <dl className="divide-y divide-divider">
           <Row label="Cover" value={template?.name ?? "Not chosen"} editHref="/build/photos" />
-          <Row label="Scent" value={scent ? `${scent.name} · 75ml` : "No scent added"} editHref="/build/scent" />
+          <Row label="Scent" value={scent ? `${scent.name} · 80ml` : "No scent added"} editHref="/build/scent" />
           <Row label="Pages" value={`${BASE_PAGES}${s.extraPages ? ` + ${s.extraPages}` : ""} pages`} editHref="/build/pages" />
           <Row label="Photos" value={`${s.photos.length} uploaded`} editHref="/build/photos" />
           <Row label="Name" value={s.customerName || "Not added"} editHref="/build/personalize" />

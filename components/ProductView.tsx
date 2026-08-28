@@ -36,9 +36,17 @@ export function ProductView({ slug }: { slug: string }) {
   const [activeImg, setActiveImg] = useState(0);
   const [showSticky, setShowSticky] = useState(false);
 
-  // Seed the builder with this product's bundle on first load.
+  const targetScent = scentById(slug);
+  const isScent = !!targetScent;
+
+  // Seed the builder with this product on first load.
   useEffect(() => {
-    store.setBundle(slug);
+    if (isScent && targetScent) {
+      store.setScent(targetScent.id);
+      store.setBundle("the-story-scent");
+    } else {
+      store.setBundle(slug);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
@@ -48,13 +56,13 @@ export function ProductView({ slug }: { slug: string }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const bundle = bundleById(store.bundleId) ?? bundleById(slug)!;
+  const bundle = bundleById(store.bundleId) ?? bundleById("the-story-scent")!;
   const total = orderTotal({
     bundleId: store.bundleId,
     scentId: store.scentId,
     extraPages: store.extraPages,
   });
-  const scent = store.scentId ? scentById(store.scentId) : scentById("velvet-nights");
+  const currentScent = store.scentId ? scentById(store.scentId) : (targetScent ?? scentById("velvet-nights"));
   const template = store.templateId ? templateById(store.templateId) : null;
 
   const waHref = whatsappHref(
@@ -69,12 +77,16 @@ export function ProductView({ slug }: { slug: string }) {
 
   return (
     <SiteShell>
-      <TemplateModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <TemplateModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        initialCategory={currentScent?.category ?? "All"}
+      />
       <Breadcrumb
         trail={[
           { label: "Home", href: "/" },
           { label: "Shop all", href: "/shop" },
-          { label: bundle.name },
+          { label: targetScent ? targetScent.name : bundle.name },
         ]}
       />
 
@@ -82,7 +94,15 @@ export function ProductView({ slug }: { slug: string }) {
         {/* ── Gallery (sticky) ── */}
         <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           <div className="relative aspect-square w-full overflow-hidden border border-divider bg-bg-alt">
-            <Image src={GALLERY[activeImg]} alt={bundle.name} fill className="object-cover" />
+            {targetScent && activeImg === 0 ? (
+              <div className="flex h-full w-full items-center justify-center p-8">
+                <div className="w-[180px]">
+                  <ScentBottle scent={targetScent} />
+                </div>
+              </div>
+            ) : (
+              <Image src={GALLERY[activeImg]} alt={targetScent ? targetScent.name : bundle.name} fill className="object-cover" />
+            )}
           </div>
           <div className="scroll-row mt-3 flex gap-3 overflow-x-auto">
             {GALLERY.map((src, i) => (
@@ -104,16 +124,55 @@ export function ProductView({ slug }: { slug: string }) {
           <div className="flex items-center gap-2 text-[13px] text-text-muted">
             <span className="text-gold">★★★★★</span> Loved by storytellers across the UAE
           </div>
-          <h1 className="mt-2 text-[30px] font-semibold leading-tight md:text-[40px]">
-            {bundle.name.replace("Scent", "")}
-            {bundle.name.includes("Scent") && <span className="accent"> Scent</span>}
-          </h1>
-          <p className="mt-3 text-[15px] leading-relaxed text-text-muted">{bundle.blurb}</p>
+          
+          {targetScent ? (
+            <>
+              <p className="eyebrow mt-2 text-text-muted">
+                FOR {targetScent.category.toUpperCase()} · 80ML EAU DE PARFUM
+              </p>
+              <h1 className="mt-1 text-[30px] font-semibold leading-tight md:text-[40px]">
+                The Story + <span className="accent">{targetScent.name}</span>
+              </h1>
+              <p className="mt-3 text-[15px] italic leading-relaxed text-text-muted">
+                &ldquo;{targetScent.tagline}&rdquo;
+              </p>
+              <p className="mt-2 text-[14px] leading-relaxed text-text-muted">
+                A handcrafted 20-page hardcover photobook paired with the {targetScent.name} signature scent.
+              </p>
+
+              {/* Fragrance Notes */}
+              <div className="mt-5 border border-divider bg-bg-alt p-4">
+                <p className="eyebrow mb-2.5 text-text-muted">Fragrance Notes Breakdown</p>
+                <div className="grid grid-cols-1 gap-2 text-[13px] sm:grid-cols-3">
+                  <div>
+                    <span className="font-semibold text-black">Top:</span>{" "}
+                    <span className="text-text-muted">{targetScent.notes.top}</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-black">Mid:</span>{" "}
+                    <span className="text-text-muted">{targetScent.notes.mid}</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-black">Base:</span>{" "}
+                    <span className="text-text-muted">{targetScent.notes.base}</span>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <h1 className="mt-2 text-[30px] font-semibold leading-tight md:text-[40px]">
+                {bundle.name.replace("Scent", "")}
+                {bundle.name.includes("Scent") && <span className="accent"> Scent</span>}
+              </h1>
+              <p className="mt-3 text-[15px] leading-relaxed text-text-muted">{bundle.blurb}</p>
+            </>
+          )}
 
           <div className="mt-5 flex items-center gap-3">
             <span className="text-[28px] font-semibold">{total} AED</span>
             <span className="rounded-button border border-divider bg-bg-alt px-2.5 py-1 text-[12px] font-semibold text-text-dark">
-              {BASE_PAGES} Pages
+              {BASE_PAGES} Pages + Scent
             </span>
             {store.extraPages > 0 && (
               <span className="text-[13px] text-text-muted">
@@ -122,12 +181,12 @@ export function ProductView({ slug }: { slug: string }) {
             )}
           </div>
           <div className="mt-1 flex items-center gap-1.5 text-[13px] text-text-muted">
-            <span className="text-green-600">✓</span> In stock · made to order
+            <span className="text-green-600">✓</span> In stock · made to order in UAE
           </div>
 
           {/* Bundle tier selector */}
           <div className="mt-6">
-            <p className="eyebrow mb-2 text-text-muted">Choose your bundle</p>
+            <p className="eyebrow mb-2 text-text-muted">Package tier</p>
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
               {BUNDLES.map((b) => (
                 <button
@@ -146,12 +205,12 @@ export function ProductView({ slug }: { slug: string }) {
 
           {/* Cover selector */}
           <div className="mt-5">
-            <p className="eyebrow mb-2 text-text-muted">Cover</p>
+            <p className="eyebrow mb-2 text-text-muted">Cover Design</p>
             <button
               onClick={() => setModalOpen(true)}
               className="flex w-full items-center justify-between border border-divider px-4 py-3 text-[14px] transition-colors hover:border-black"
             >
-              <span>{template ? template.name : "Choose your cover"}</span>
+              <span>{template ? template.name : `Choose cover (${currentScent?.category ?? "Male/Female/Unisex"})`}</span>
               <span className="text-text-muted">Browse templates ›</span>
             </button>
           </div>
@@ -177,20 +236,17 @@ export function ProductView({ slug }: { slug: string }) {
 
           {/* Add more to your story (cross-sell) */}
           <div className="mt-7">
-            <p className="eyebrow mb-2 text-text-muted">Add more to your story</p>
-            <div className="scroll-row flex gap-3 overflow-x-auto pb-2">
+            <p className="eyebrow mb-3 text-text-muted">Add more to your story</p>
+            <div className="scroll-row flex gap-4 overflow-x-auto pb-3">
               {SCENTS.map((s) => (
-                <button
-                  key={s.id}
-                  onClick={() => store.setScent(store.scentId === s.id ? null : s.id)}
-                  className={`flex w-24 shrink-0 flex-col items-center border p-2 text-center transition-colors ${
-                    store.scentId === s.id ? "border-black" : "border-divider hover:border-black"
-                  }`}
-                >
-                  <ScentBottle scent={s} className="max-w-[52px]" />
-                  <span className="mt-1.5 text-[11px] font-medium leading-tight">{s.name}</span>
-                  <span className="text-[11px] text-text-muted">75ml</span>
-                </button>
+                <div key={s.id} className="w-[260px] shrink-0">
+                  <ScentCard
+                    scent={s}
+                    selected={store.scentId === s.id}
+                    onSelect={() => store.setScent(store.scentId === s.id ? null : s.id)}
+                    buttonLabel="Pair Scent"
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -223,23 +279,6 @@ export function ProductView({ slug }: { slug: string }) {
             We&apos;re just getting started. Be the first to share your story.
             We&apos;ll feature real books and words here as they come in.
           </p>
-        </Container>
-      </section>
-
-      {/* "Done in minutes" video */}
-      <section className="py-16">
-        <Container>
-          <Reveal className="mb-6 text-center">
-            <Headline as="h2" before="See your story" accent="come together" className="text-[26px] md:text-[36px]" />
-          </Reveal>
-          <Reveal className="mx-auto max-w-3xl">
-            <video
-              src="/images/tutorial.mp4"
-              controls
-              playsInline
-              className="w-full border border-divider"
-            />
-          </Reveal>
         </Container>
       </section>
 

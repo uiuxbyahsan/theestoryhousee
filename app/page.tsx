@@ -3,8 +3,8 @@ import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
 import { Hero } from "@/components/Hero";
 import { Container, Reveal, Headline, btnPrimaryInverse, btnGhost } from "@/components/ui";
-import { BundleCard, BundleVisual, ScentCard, CategoryCard } from "@/components/cards";
-import { BUNDLES, SCENTS, CATEGORY_TILES, bundleById } from "@/lib/data";
+import { ScentCard, CategoryCard } from "@/components/cards";
+import { SCENTS, CATEGORY_TILES } from "@/lib/data";
 
 export default function HomePage() {
   return (
@@ -30,37 +30,13 @@ export default function HomePage() {
           <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <Headline as="h2" before="Shop by" accent="category" className="text-[28px] md:text-[40px]" />
             <Link href="/shop" className={btnGhost}>
-              See all bundles →
+              Shop all →
             </Link>
           </Reveal>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             {CATEGORY_TILES.map((c, i) => (
               <Reveal key={c.category} delay={i * 0.06}>
                 <CategoryCard category={c.category} title={c.title} copy={c.copy} scentId={c.scentId} />
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Bundle Offers (neutral framing — no invented promo) */}
-      <section className="py-20">
-        <Container>
-          <Reveal className="mb-10 max-w-xl">
-            <Headline as="h2" before="Our" accent="bundles" className="text-[28px] md:text-[40px]" />
-            <p className="mt-3 text-[15px] text-text-muted">
-              Every order is book-first. Add a signature scent, or two, to bring
-              the story fully to life.
-            </p>
-          </Reveal>
-          <div className="grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
-            {BUNDLES.map((b, i) => (
-              <Reveal key={b.id} delay={i * 0.06}>
-                <BundleCard
-                  bundle={b}
-                  visual={<BundleVisual bundle={b} />}
-                  ctaHref={`/product/${b.id}`}
-                />
               </Reveal>
             ))}
           </div>
@@ -80,9 +56,8 @@ export default function HomePage() {
                 className="mt-3 text-[30px] md:text-[46px]"
               />
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/70">
-                Seven signature scents, each made for a different kind of memory,
-                from sun-warmed travels to slow wedding nights. Your book comes
-                paired with the one that fits your story.
+                Seven signature scents crafted for every kind of memory.
+                Your book comes paired with the one that fits your story.
               </p>
               <Link href="/build/photos" className={`${btnPrimaryInverse} mt-7`}>
                 Find your scent
@@ -98,38 +73,6 @@ export default function HomePage() {
                 />
               </div>
             </Reveal>
-          </div>
-        </Container>
-      </section>
-
-      {/* Selected Packages — editorial framing of the same bundles */}
-      <section className="py-20">
-        <Container>
-          <Reveal className="mb-10 max-w-xl">
-            <Headline as="h2" before="Selected" accent="packages" className="text-[28px] md:text-[40px]" />
-            <p className="mt-3 text-[15px] text-text-muted">
-              Curated pairings people reach for most.
-            </p>
-          </Reveal>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-            {PACKAGES.map((p, i) => (
-              <Reveal key={p.name} delay={i * 0.08}>
-                <BundleCard
-                  bundle={{
-                    id: p.id,
-                    name: p.name,
-                    // Consistent canonical bundle description (Round 3, item 4)
-                    blurb: bundleById(p.bundleId)?.blurb ?? "",
-                    price: bundleById(p.bundleId)?.price ?? 0,
-                    includesScent: 1,
-                    books: 1,
-                  }}
-                  image={PACKAGE_IMG}
-                  quickView
-                  ctaHref={`/product/${p.bundleId}`}
-                />
-              </Reveal>
-            ))}
           </div>
         </Container>
       </section>
@@ -195,20 +138,8 @@ export default function HomePage() {
   );
 }
 
-// Placeholder package/gift-box imagery. Swap PACKAGE_IMG for real package
-// photography once available (one-line change).
-const PACKAGE_IMG = "/images/bottle-duo.jpg";
-
-// Curated framing of the real bundle tiers (copy comes from the canonical
-// bundle blurb via bundleId).
-const PACKAGES = [
-  { id: "pkg-scent", name: "The Story + Scent", bundleId: "the-story-scent" },
-  { id: "pkg-duo", name: "The Story Duo", bundleId: "the-story-duo" },
-  { id: "pkg-family", name: "Family Pack", bundleId: "family-pack" },
-];
-
 const STEPS = [
-  { title: "Choose your cover and scent", copy: "Pick an occasion cover and the signature scent made for it." },
+  { title: "Choose your cover and scent", copy: "Pick a cover and the signature scent made for your story." },
   { title: "Upload your photos", copy: "Add at least 45 HD photos from your phone, Google Photos or WhatsApp." },
   { title: "Send it on WhatsApp", copy: "We finish the design with you and print it. No checkout, no fuss." },
 ];

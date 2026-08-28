@@ -7,7 +7,7 @@ export interface FaqItem {
 export const FAQ_ITEMS: FaqItem[] = [
   {
     q: "Does the scent fade over time?",
-    a: "Our 75ml signature scents are made to last like any fine fragrance. Kept away from direct heat and sunlight, a bottle stays true for years. The memory it's tied to lasts even longer.",
+    a: "Our 80ml signature scents are made to last like any fine fragrance. Kept away from direct heat and sunlight, a bottle stays true for years. The memory it's tied to lasts even longer.",
   },
   {
     q: "Can I choose a different scent than the default pairing?",
@@ -15,7 +15,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "Is it a candle or a spray?",
-    a: "It's a 75ml eau de parfum spray. Every bottle is the same premium glass flacon you see in our photos, labelled with your scent.",
+    a: "It's an 80ml eau de parfum spray. Every bottle is the same premium glass flacon you see in our photos, labelled with your scent.",
   },
   {
     q: "What if I don't have 45 photos?",

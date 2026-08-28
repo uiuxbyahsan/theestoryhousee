@@ -59,7 +59,7 @@ export default function AboutPage() {
         <div className="grid gap-6 md:grid-cols-3">
           {[
             { t: "The book", c: "A premium hardcover of your photos, designed by hand around the story you're telling." },
-            { t: "The scent", c: "A 75ml signature perfume paired to your occasion, the sense that carries memory furthest." },
+            { t: "The scent", c: "An 80ml signature perfume paired to your story, the sense that carries memory furthest." },
             { t: "The keepsake", c: "Together, something you can hold, read and smell again for years to come." },
           ].map((x, i) => (
             <Reveal key={x.t} delay={i * 0.08}>

@@ -1,8 +1,13 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ScentBottle } from "./ScentBottle";
 import { BookCover } from "./BookCover";
 import { TanBadge } from "./ui";
+import { ScentModal } from "./ScentModal";
+import { TemplateModal } from "./TemplateModal";
 import {
   scentById,
   templateById,
@@ -64,30 +69,51 @@ function EyeIcon() {
   );
 }
 
-// Sharp-cornered product card (Round 2: 4/3 landscape image, matched row
-// height, one-line description). Renders a photo (image) or a composed
-// visual node; adds a round Quick View eye icon when requested.
+function SparkleIcon({ className = "h-3 w-3" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+    </svg>
+  );
+}
+
+// Unified card design for Bundles and Packages (visually identical to Seven Scents).
+// Shows on-image eye icon, small-caps caption, bold title, one-line truncated description,
+// and price in the bottom info block slot. Whole card links to ctaHref.
 export function BundleCard({
   bundle,
   visual,
   image,
-  quickView = false,
-  ctaHref = "/product/the-story-scent",
+  caption,
+  ctaHref = `/product/${bundle.id}`,
 }: {
   bundle: Bundle;
   visual?: React.ReactNode;
   image?: string;
-  quickView?: boolean;
+  caption?: string;
   ctaHref?: string;
 }) {
+  const defaultCaption =
+    caption ??
+    (bundle.books > 1
+      ? `${bundle.books} BOOKS · FAMILY SET`
+      : bundle.includesScent === 1
+      ? "20 PAGES · BOOK + SCENT"
+      : bundle.includesScent === 2
+      ? "20 PAGES · BOOK + 2 SCENTS"
+      : "20 PAGES · BOOK ONLY");
+
   return (
-    <div className="group flex h-full flex-col border border-divider bg-card-bg">
-      <div className="relative aspect-[4/3] overflow-hidden bg-bg-alt">
-        {bundle.hero && (
-          <span className="absolute left-3 top-3 z-10">
-            <TanBadge>Most loved</TanBadge>
-          </span>
-        )}
+    <Link
+      href={ctaHref}
+      className="group relative flex h-full flex-col border border-divider bg-card-bg transition-colors hover:border-black"
+    >
+      {bundle.hero && (
+        <span className="absolute left-3 top-3 z-10">
+          <TanBadge>Most loved</TanBadge>
+        </span>
+      )}
+      <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-bg-alt">
         {image ? (
           <Image src={image} alt={bundle.name} fill className="object-cover" />
         ) : (
@@ -95,85 +121,112 @@ export function BundleCard({
             {visual}
           </div>
         )}
-        {quickView && (
-          <span className="absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-icon-button bg-white text-black shadow-md">
-            <EyeIcon />
-          </span>
-        )}
+        <span className="absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-icon-button bg-white text-black shadow-md transition-transform group-hover:scale-105">
+          <EyeIcon />
+        </span>
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4 md:p-5">
-        <h3 className="text-[16px] font-medium">{bundle.name}</h3>
-        <p className="line-clamp-3 text-[13px] leading-relaxed text-text-muted">{bundle.blurb}</p>
-        <div className="mt-auto flex items-center justify-between">
-          <span className="text-[16px]">{bundle.price} AED</span>
-          <Link
-            href={ctaHref}
-            className="rounded-button border border-black px-4 py-2 text-[13px] font-semibold transition-colors hover:bg-black hover:text-white"
-          >
-            View
-          </Link>
+        <span className="eyebrow flex items-center gap-1.5 text-text-muted">
+          <SparkleIcon className="h-2.5 w-2.5 text-gold" />
+          {defaultCaption}
+        </span>
+        <h3 className="text-[17px] font-semibold">{bundle.name}</h3>
+        <p className="line-clamp-1 text-[13px] text-text-muted">{bundle.blurb}</p>
+        <div className="mt-auto flex items-center justify-between border-t border-divider pt-3 text-[14px]">
+          <span className="text-[12px] font-semibold uppercase tracking-wider2 text-text-muted">
+            Price
+          </span>
+          <span className="text-[17px] font-semibold text-black">
+            {bundle.price} AED
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
-// Scent showcase card — reused on the home scent section and in Step 2.
+// Scent showcase card — unified design used sitewide (reference design)
 export function ScentCard({
   scent,
   selected = false,
   recommended = false,
   onSelect,
   buttonLabel = "Select",
+  onView,
+  href,
 }: {
   scent: Scent;
   selected?: boolean;
   recommended?: boolean;
   onSelect?: () => void;
   buttonLabel?: string;
+  onView?: () => void;
+  href?: string;
 }) {
-  return (
-    <div
-      className={`relative flex h-full flex-col border bg-card-bg transition-colors ${
-        selected ? "border-black" : "border-divider"
-      }`}
-    >
+  const [modalOpen, setModalOpen] = useState(false);
+  const targetHref = href ?? `/product/${scent.id}`;
+
+  function handleQuickView(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onView) {
+      onView();
+    } else {
+      setModalOpen(true);
+    }
+  }
+
+  const cardContent = (
+    <>
       {recommended && (
         <span className="absolute left-3 top-3 z-10">
           <TanBadge>Recommended for your story</TanBadge>
         </span>
       )}
-      <div className="flex aspect-[4/3] items-center justify-center overflow-hidden bg-bg-alt">
+      <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-bg-alt">
         <div className="w-[92px]">
           <ScentBottle scent={scent} />
         </div>
+        <button
+          type="button"
+          onClick={handleQuickView}
+          aria-label={`Quick view ${scent.name}`}
+          title={`Quick view ${scent.name}`}
+          className="absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-icon-button bg-white text-black shadow-md transition-transform group-hover:scale-105 hover:scale-105"
+        >
+          <EyeIcon />
+        </button>
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4 md:p-5">
-        <span className="eyebrow text-text-muted">
-          For {scent.category} · 75ml
+        <span className="eyebrow flex items-center gap-1.5 text-text-muted">
+          <SparkleIcon className="h-2.5 w-2.5 text-gold" />
+          FOR {scent.category.toUpperCase()} · 80ML
         </span>
         <h3 className="text-[17px] font-semibold">{scent.name}</h3>
         <p className="line-clamp-1 text-[13px] text-text-muted">
           {scent.tagline}
         </p>
-        <dl className="space-y-0.5 text-[12px] text-text-muted">
+        <dl className="mt-auto space-y-0.5 text-[12px] text-text-muted">
           <div className="flex gap-2">
             <dt className="w-9 shrink-0 font-semibold text-black">Top</dt>
-            <dd>{scent.notes.top}</dd>
+            <dd className="line-clamp-1">{scent.notes.top}</dd>
           </div>
           <div className="flex gap-2">
             <dt className="w-9 shrink-0 font-semibold text-black">Mid</dt>
-            <dd>{scent.notes.mid}</dd>
+            <dd className="line-clamp-1">{scent.notes.mid}</dd>
           </div>
           <div className="flex gap-2">
             <dt className="w-9 shrink-0 font-semibold text-black">Base</dt>
-            <dd>{scent.notes.base}</dd>
+            <dd className="line-clamp-1">{scent.notes.base}</dd>
           </div>
         </dl>
         {onSelect && (
           <button
-            onClick={onSelect}
-            className={`mt-auto rounded-button px-4 py-2.5 text-[13px] font-semibold transition-colors ${
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect();
+            }}
+            className={`mt-2 rounded-button px-4 py-2.5 text-[13px] font-semibold transition-colors ${
               selected
                 ? "bg-black text-white"
                 : "border border-black hover:bg-black hover:text-white"
@@ -183,32 +236,70 @@ export function ScentCard({
           </button>
         )}
       </div>
-    </div>
+    </>
+  );
+
+  return (
+    <>
+      {onSelect ? (
+        <div
+          onClick={onSelect}
+          className={`group relative flex h-full cursor-pointer flex-col border bg-card-bg transition-colors ${
+            selected ? "border-black" : "border-divider hover:border-black"
+          }`}
+        >
+          {cardContent}
+        </div>
+      ) : (
+        <Link
+          href={targetHref}
+          className={`group relative flex h-full flex-col border bg-card-bg transition-colors hover:border-black ${
+            selected ? "border-black" : "border-divider"
+          }`}
+        >
+          {cardContent}
+        </Link>
+      )}
+
+      <ScentModal
+        scent={scent}
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSelect={onSelect}
+        selected={selected}
+      />
+    </>
   );
 }
 
 // Category tile: a square scent-bottle image (matching the Seven Scents
 // card style), with the label and one-line description below.
+// Distinct from the unified product card style by design.
+// Clicking navigates to the dedicated category page (e.g. /category/male).
 export function CategoryCard({
   category,
   title,
   copy,
   scentId,
+  href,
 }: {
   category: Category;
   title: string;
   copy: string;
   scentId: string;
+  href?: string;
 }) {
   const scent = scentById(scentId);
+  const targetHref = href ?? `/shop?category=${encodeURIComponent(category)}`;
+
   return (
     <Link
-      href="/shop"
-      className="group flex flex-col border border-divider bg-card-bg transition-colors hover:border-black"
+      href={targetHref}
+      className="group flex w-full flex-col border border-divider bg-card-bg text-left transition-colors hover:border-black"
     >
       <div className="flex aspect-square items-center justify-center overflow-hidden bg-bg-alt">
         {scent && (
-          <div className="w-[96px]">
+          <div className="w-[96px] transition-transform group-hover:scale-105">
             <ScentBottle scent={scent} />
           </div>
         )}
