@@ -19,7 +19,6 @@ import {
   scentById,
   templateById,
 } from "@/lib/data";
-import { FAQ_ITEMS } from "@/lib/faq";
 
 // Hand-free scent product shots (single bottles cropped from the flat-lay).
 const GALLERY = [
@@ -270,22 +269,6 @@ export function ProductView({ slug }: { slug: string }) {
           </div>
         </div>
       </Container>
-
-      {/* FAQ */}
-      <section className="border-t border-divider py-16">
-        <Container className="max-w-3xl">
-          <Reveal className="mb-6">
-            <Headline as="h2" before="Questions," accent="answered" className="text-[26px] md:text-[36px]" />
-          </Reveal>
-          <div className="divide-y divide-divider border-y border-divider">
-            {FAQ_ITEMS.map((f) => (
-              <Accordion key={f.q} title={f.q}>
-                {f.a}
-              </Accordion>
-            ))}
-          </div>
-        </Container>
-      </section>
 
       {/* Sticky mini bar */}
       {showSticky && (
