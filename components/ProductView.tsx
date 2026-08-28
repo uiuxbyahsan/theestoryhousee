@@ -271,17 +271,6 @@ export function ProductView({ slug }: { slug: string }) {
         </div>
       </Container>
 
-      {/* Reviews — empty state, no fabricated reviews */}
-      <section className="border-t border-divider bg-bg-alt py-16">
-        <Container className="text-center">
-          <Headline as="h2" before="Loved by our" accent="storytellers" className="text-[26px] md:text-[36px]" />
-          <p className="mx-auto mt-4 max-w-md text-[14px] text-text-muted">
-            We&apos;re just getting started. Be the first to share your story.
-            We&apos;ll feature real books and words here as they come in.
-          </p>
-        </Container>
-      </section>
-
       {/* FAQ */}
       <section className="border-t border-divider py-16">
         <Container className="max-w-3xl">
