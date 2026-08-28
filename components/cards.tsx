@@ -203,9 +203,6 @@ export function ScentCard({
           FOR {scent.category.toUpperCase()} · 80ML
         </span>
         <h3 className="text-[17px] font-semibold">{scent.name}</h3>
-        <p className="line-clamp-1 text-[13px] text-text-muted">
-          {scent.tagline}
-        </p>
         <dl className="mt-auto space-y-0.5 text-[12px] text-text-muted">
           <div className="flex gap-2">
             <dt className="w-9 shrink-0 font-semibold text-black">Top</dt>

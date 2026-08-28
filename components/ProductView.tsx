@@ -132,9 +132,6 @@ export function ProductView({ slug }: { slug: string }) {
               <h1 className="mt-1 text-[30px] font-semibold leading-tight md:text-[40px]">
                 The Story + <span className="accent">{targetScent.name}</span>
               </h1>
-              <p className="mt-3 text-[15px] italic leading-relaxed text-text-muted">
-                &ldquo;{targetScent.tagline}&rdquo;
-              </p>
               <p className="mt-2 text-[14px] leading-relaxed text-text-muted">
                 A handcrafted 20-page hardcover photobook paired with the {targetScent.name} signature scent.
               </p>
