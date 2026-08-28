@@ -76,13 +76,8 @@ export function ScentModal({
                 </div>
               </div>
 
-              {/* Tagline */}
-              <p className="mt-5 text-[15px] italic text-text-muted">
-                &ldquo;{scent.tagline}&rdquo;
-              </p>
-
               {/* Notes breakdown */}
-              <div className="mt-5 border-t border-divider pt-5">
+              <div className="mt-5">
                 <h3 className="eyebrow mb-3 text-text-muted">Fragrance Notes</h3>
                 <dl className="space-y-2.5 text-[13px]">
                   <div className="flex gap-3">
@@ -98,10 +93,6 @@ export function ScentModal({
                     <dd className="text-text-muted">{scent.notes.base}</dd>
                   </div>
                 </dl>
-              </div>
-
-              <div className="mt-5 border-t border-divider pt-4 text-[12px] text-text-muted">
-                80ml Eau de Parfum spray · Crafted for The Story House in the UAE
               </div>
             </div>
 
