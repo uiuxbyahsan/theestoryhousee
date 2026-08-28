@@ -86,16 +86,28 @@ export function BuilderChrome({
           <div className="text-right">
             <p className="text-[11px] uppercase tracking-wider2 text-text-muted">Total</p>
             <AnimatePresence mode="popLayout">
-              <motion.p
-                key={total}
-                initial={{ opacity: 0, y: -6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 6 }}
-                transition={{ duration: 0.2 }}
-                className="text-[17px] font-semibold"
-              >
-                {total} AED
-              </motion.p>
+              {step === 1 || (step === 2 && nextDisabled) ? (
+                <motion.p
+                  key="unselected"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-[17px] font-semibold text-text-muted"
+                >
+                  —
+                </motion.p>
+              ) : (
+                <motion.p
+                  key={total}
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-[17px] font-semibold"
+                >
+                  {total} AED
+                </motion.p>
+              )}
             </AnimatePresence>
           </div>
         </div>
