@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
 import { Hero } from "@/components/Hero";
-import { Container, Reveal, Headline, btnPrimaryInverse, btnGhost } from "@/components/ui";
+import { Container, Reveal, Headline, btnPrimary, btnPrimaryInverse, btnGhost } from "@/components/ui";
 import { ScentCard, CategoryCard } from "@/components/cards";
 import { SCENTS, CATEGORY_TILES } from "@/lib/data";
 
