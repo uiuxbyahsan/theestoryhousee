@@ -33,7 +33,6 @@ export function ProductView({ slug }: { slug: string }) {
   const store = useBuilder();
   const [modalOpen, setModalOpen] = useState(false);
   const [activeImg, setActiveImg] = useState(0);
-  const [showSticky, setShowSticky] = useState(false);
 
   const targetScent = scentById(slug);
   const isScent = !!targetScent;
@@ -48,12 +47,6 @@ export function ProductView({ slug }: { slug: string }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
-
-  useEffect(() => {
-    const onScroll = () => setShowSticky(window.scrollY > 640);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const bundle = bundleById(store.bundleId) ?? bundleById("the-story-scent")!;
   const total = orderTotal({
@@ -266,25 +259,6 @@ export function ProductView({ slug }: { slug: string }) {
           </div>
         </div>
       </Container>
-
-      {/* Sticky mini bar */}
-      {showSticky && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-divider bg-white/95 backdrop-blur">
-          {/* Right padding keeps the CTA clear of the floating WhatsApp button */}
-          <div className="mx-auto flex max-w-container items-center justify-between gap-4 py-3 pl-5 pr-[84px] sm:pl-8 sm:pr-[84px]">
-            <div className="min-w-0">
-              <p className="truncate text-[14px] font-medium">{targetScent && store.bundleId === "the-story-scent" ? `The Story + ${targetScent.name}` : bundle.name}</p>
-              <p className="text-[13px] text-text-muted">{total} AED</p>
-            </div>
-            <button
-              onClick={() => setModalOpen(true)}
-              className="shrink-0 rounded-button bg-black px-5 py-3 text-[14px] font-semibold text-white hover:bg-black-alt"
-            >
-              Start My Design Order
-            </button>
-          </div>
-        </div>
-      )}
     </SiteShell>
   );
 }
