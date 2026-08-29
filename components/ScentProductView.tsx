@@ -316,8 +316,8 @@ export function ScentProductView({ scent }: { scent: Scent }) {
           <div className="mt-8 border-t border-divider pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="eyebrow text-text-muted">Complete Your Fragrance Set</p>
-                <h2 className="text-[17px] font-semibold text-black">Add more fragrances to your order (+70 AED each)</h2>
+                <p className="eyebrow text-text-muted">Add-on</p>
+                <h2 className="text-[17px] font-semibold text-black">Complete Your Fragrance Set</h2>
               </div>
               {addOnScentIds.length > 0 && (
                 <span className="rounded-button bg-black px-2.5 py-1 text-[12px] font-semibold text-white">
