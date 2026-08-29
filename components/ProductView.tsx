@@ -166,11 +166,13 @@ export function ProductView({ slug }: { slug: string }) {
           )}
 
           <div className="mt-5 flex items-center gap-3">
-            <span className="text-[28px] font-semibold">{total} AED</span>
-            <span className="rounded-button border border-divider bg-bg-alt px-2.5 py-1 text-[12px] font-semibold text-text-dark">
-              {BASE_PAGES} Pages + Scent
+            <span className="text-[28px] font-semibold">
+              {targetScent ? 180 : total} AED
             </span>
-            {store.extraPages > 0 && (
+            <span className="rounded-button border border-divider bg-bg-alt px-2.5 py-1 text-[12px] font-semibold text-text-dark">
+              {targetScent ? "80ml Fine Fragrance" : `${BASE_PAGES} Pages`}
+            </span>
+            {store.extraPages > 0 && !targetScent && (
               <span className="text-[13px] text-text-muted">
                 incl. {store.extraPages} extra pages
               </span>
@@ -273,8 +275,8 @@ export function ProductView({ slug }: { slug: string }) {
           {/* Right padding keeps the CTA clear of the floating WhatsApp button */}
           <div className="mx-auto flex max-w-container items-center justify-between gap-4 py-3 pl-5 pr-[84px] sm:pl-8 sm:pr-[84px]">
             <div className="min-w-0">
-              <p className="truncate text-[14px] font-medium">{bundle.name}</p>
-              <p className="text-[13px] text-text-muted">{total} AED</p>
+              <p className="truncate text-[14px] font-medium">{targetScent ? targetScent.name : bundle.name}</p>
+              <p className="text-[13px] text-text-muted">{targetScent ? 180 : total} AED</p>
             </div>
             <button
               onClick={() => setModalOpen(true)}
