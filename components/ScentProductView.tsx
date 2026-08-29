@@ -6,8 +6,11 @@ import { SiteShell } from "./SiteShell";
 import { Breadcrumb, WhatsAppGlyph } from "./Nav";
 import { Container } from "./ui";
 import { ScentBottle } from "./ScentBottle";
+import { ScentCard } from "./cards";
 import {
   type Scent,
+  SCENTS,
+  scentById,
 } from "@/lib/data";
 import {
   EMIRATES,
@@ -29,17 +32,26 @@ export function ScentProductView({ scent }: { scent: Scent }) {
   const [quantity, setQuantity] = useState(1);
   const [customerName, setCustomerName] = useState("");
   const [deliveryArea, setDeliveryArea] = useState("Dubai");
+  const [addOnScentIds, setAddOnScentIds] = useState<string[]>([]);
 
   const quantityId = useId();
   const nameId = useId();
   const deliveryId = useId();
 
-  const total = quantity * scent.price;
+  // Other scents available as add-ons
+  const otherScents = SCENTS.filter((s) => s.id !== scent.id);
+  const selectedAddOnScents = addOnScentIds
+    .map((id) => scentById(id))
+    .filter((s): s is Scent => s !== undefined);
+
+  const totalItems = quantity + addOnScentIds.length;
+  const total = totalItems * scent.price;
 
   const waMessage = buildScentWhatsAppMessage({
     scentName: scent.name,
     category: scent.category,
     quantity,
+    addOns: selectedAddOnScents.map((s) => `${s.name} (80ml)`),
     customerName: customerName.trim(),
     deliveryArea,
   });
@@ -48,6 +60,12 @@ export function ScentProductView({ scent }: { scent: Scent }) {
 
   function handleQuantityChange(delta: number) {
     setQuantity((prev) => Math.max(1, Math.min(20, prev + delta)));
+  }
+
+  function toggleAddOn(id: string) {
+    setAddOnScentIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
   }
 
   return (
@@ -177,7 +195,7 @@ export function ScentProductView({ scent }: { scent: Scent }) {
               {/* Quantity Selector */}
               <div>
                 <label htmlFor={quantityId} className="block text-[13px] font-semibold text-black">
-                  Quantity
+                  Quantity ({scent.name})
                 </label>
                 <div className="mt-1.5 flex items-center gap-3">
                   <div className="flex items-center rounded-button border border-divider bg-bg-alt">
@@ -210,10 +228,38 @@ export function ScentProductView({ scent }: { scent: Scent }) {
                     </button>
                   </div>
                   <span className="text-[13px] text-text-muted">
-                    {quantity} × 70 AED = <strong className="font-semibold text-black">{total} AED</strong>
+                    {quantity} × 70 AED = <strong className="font-semibold text-black">{quantity * scent.price} AED</strong>
                   </span>
                 </div>
               </div>
+
+              {/* Selected Add-ons Display */}
+              {selectedAddOnScents.length > 0 && (
+                <div className="rounded-md border border-divider bg-bg-alt p-3.5 text-[13px]">
+                  <div className="flex items-center justify-between font-semibold text-black">
+                    <span>Selected Add-on Fragrances (+70 AED each):</span>
+                    <span className="text-gold">+{selectedAddOnScents.length * 70} AED</span>
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {selectedAddOnScents.map((addon) => (
+                      <span
+                        key={addon.id}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-black bg-black px-2.5 py-1 text-[12px] font-medium text-white"
+                      >
+                        {addon.name}
+                        <button
+                          type="button"
+                          onClick={() => toggleAddOn(addon.id)}
+                          className="hover:opacity-75"
+                          aria-label={`Remove ${addon.name}`}
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Customer Name */}
               <div>
@@ -264,6 +310,39 @@ export function ScentProductView({ scent }: { scent: Scent }) {
                 </p>
               </div>
             </form>
+          </div>
+
+          {/* ── Multi-select Add-on Scents Row ── */}
+          <div className="mt-8 border-t border-divider pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="eyebrow text-text-muted">Complete Your Fragrance Set</p>
+                <h2 className="text-[17px] font-semibold text-black">Add more fragrances to your order (+70 AED each)</h2>
+              </div>
+              {addOnScentIds.length > 0 && (
+                <span className="rounded-button bg-black px-2.5 py-1 text-[12px] font-semibold text-white">
+                  {addOnScentIds.length} added
+                </span>
+              )}
+            </div>
+            <p className="mt-1 text-[13px] text-text-muted">
+              Select any additional 80ml fragrances below to bundle them with your order.
+            </p>
+            <div className="scroll-row mt-4 flex gap-4 overflow-x-auto pb-3">
+              {otherScents.map((s) => {
+                const isSelected = addOnScentIds.includes(s.id);
+                return (
+                  <div key={s.id} className="w-[260px] shrink-0">
+                    <ScentCard
+                      scent={s}
+                      selected={isSelected}
+                      buttonLabel="Select"
+                      onSelect={() => toggleAddOn(s.id)}
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Scent Accordions */}

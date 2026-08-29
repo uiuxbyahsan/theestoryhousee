@@ -64,25 +64,37 @@ export interface ScentOrderState {
   scentName: string;
   category: string;
   quantity: number;
+  addOns?: string[];
   customerName?: string;
   deliveryArea?: string;
 }
 
 export function buildScentWhatsAppMessage(state: ScentOrderState): string {
-  const total = state.quantity * 70;
+  const addOnsCount = state.addOns?.length ?? 0;
+  const totalQty = state.quantity + addOnsCount;
+  const total = totalQty * 70;
   const lines: string[] = [
     "Hi The Story House! 👋 I'd like to order:",
     "",
     `Scent: ${state.scentName}`,
     `Category: ${state.category}`,
     `Quantity: ${state.quantity}`,
-    `Price: ${state.quantity} × 70 AED = ${total} AED`,
+  ];
+
+  if (state.addOns && state.addOns.length > 0) {
+    lines.push(`Add-on Scents: ${state.addOns.join(", ")}`);
+    lines.push(`Price: (${state.quantity} × ${state.scentName} + ${state.addOns.length} add-on) × 70 AED = ${total} AED`);
+  } else {
+    lines.push(`Price: ${state.quantity} × 70 AED = ${total} AED`);
+  }
+
+  lines.push(
     "",
     `Name: ${state.customerName ?? ""}`,
     `Delivery area: ${state.deliveryArea ?? ""}`,
     "",
-    "Thank you!",
-  ];
+    "Thank you!"
+  );
   return lines.join("\n");
 }
 
