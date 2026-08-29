@@ -18,13 +18,15 @@ import {
   whatsappHref,
 } from "@/lib/order";
 
-// Clean perfume gallery shots
+// Clean perfume gallery shots with all photography assets
 const GALLERY = [
-  { type: "bottle", src: "" },
+  { type: "bottle", src: "", label: "3D Silhouette" },
   { type: "image", src: "/images/scents-flatlay.jpg", label: "Collection Flatlay" },
+  { type: "image", src: "/images/bottle-hero.jpg", label: "Hero Bottle Shot" },
   { type: "image", src: "/images/scent-1.jpg", label: "Fragrance Detail" },
   { type: "image", src: "/images/scent-gold.jpg", label: "Golden Notes" },
   { type: "image", src: "/images/bottle-duo.jpg", label: "Signature Pair" },
+  { type: "image", src: "/images/scent-2.jpg", label: "Perfume Note Details" },
 ];
 
 export function ScentProductView({ scent }: { scent: Scent }) {
@@ -90,15 +92,16 @@ export function ScentProductView({ scent }: { scent: Scent }) {
               </div>
             ) : (
               <Image
+                key={GALLERY[activeImg].src}
                 src={GALLERY[activeImg].src}
                 alt={`${scent.name} fragrance`}
                 fill
-                className="object-cover"
-                priority={activeImg === 1}
+                className="object-cover transition-opacity duration-300"
+                priority
               />
             )}
           </div>
-          <div className="scroll-row mt-3 flex gap-3 overflow-x-auto">
+          <div className="scroll-row mt-3 flex gap-3 overflow-x-auto pb-1">
             {GALLERY.map((item, i) => (
               <button
                 key={i}

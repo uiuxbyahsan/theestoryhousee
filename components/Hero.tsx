@@ -2,34 +2,81 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Container, btnPrimaryInverse } from "./ui";
+
+const HERO_SLIDES = [
+  {
+    src: "/images/hero.jpg",
+    alt: "Hands holding a linen photobook beside a signature scent",
+  },
+  {
+    src: "/images/scents-flatlay.jpg",
+    alt: "The Story House signature scents flatlay",
+  },
+  {
+    src: "/images/craftsmanship.jpg",
+    alt: "Artisan linen book craftsmanship",
+  },
+  {
+    src: "/images/bottle-duo.jpg",
+    alt: "Signature perfume duo",
+  },
+  {
+    src: "/images/ugc-1.png",
+    alt: "Custom designed keepsake photobook pages",
+  },
+];
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
-  // Slow parallax on the background image only (Section 4.5).
+  // Slow parallax on the background
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
+  // Auto-advance slides every 5.5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section ref={ref} className="relative h-[86vh] min-h-[560px] w-full overflow-hidden">
+    <section ref={ref} className="relative h-[86vh] min-h-[580px] w-full overflow-hidden">
+      {/* ── Animated Background Slider ── */}
       <motion.div style={{ y }} className="absolute inset-0 -bottom-[18%]">
-        <Image
-          src="/images/hero.jpg"
-          alt="Hands holding a linen photobook beside a signature scent"
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/55" />
-        {/* Centered scrim to guarantee headline legibility over bright areas */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.45)_0%,transparent_65%)]" />
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.4, ease: "easeInOut" }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={HERO_SLIDES[currentSlide].src}
+              alt={HERO_SLIDES[currentSlide].alt}
+              fill
+              priority
+              className="object-cover"
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Dark scrims for perfect text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/60" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.5)_0%,transparent_70%)]" />
       </motion.div>
 
+      {/* ── Foreground Content ── */}
       <Container className="relative flex h-full flex-col items-center justify-center text-center text-text-white">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
@@ -66,6 +113,23 @@ export function Hero() {
             Begin Your Story
           </Link>
         </motion.div>
+
+        {/* Slide Indicators */}
+        <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2">
+          {HERO_SLIDES.map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => setCurrentSlide(idx)}
+              className={`h-1.5 transition-all ${
+                currentSlide === idx
+                  ? "w-8 bg-white"
+                  : "w-2 bg-white/40 hover:bg-white/70"
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
       </Container>
     </section>
   );
