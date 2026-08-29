@@ -91,7 +91,7 @@ export default function HomePage() {
       </section>
 
       {/* How it works */}
-      <section className="bg-black py-20 text-text-white">
+      <section className="border-t border-divider bg-white py-20 text-black">
         <Container>
           <Reveal className="mb-12 text-center">
             <Headline as="h2" before="How it" accent="works" className="text-[28px] md:text-[40px]" />
@@ -100,13 +100,13 @@ export default function HomePage() {
             {STEPS.map((s, i) => (
               <Reveal key={s.title} delay={i * 0.1} className="text-center">
                 <span className="accent text-[40px] text-gold">0{i + 1}</span>
-                <h3 className="mt-2 text-[18px] font-semibold">{s.title}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-white/70">{s.copy}</p>
+                <h3 className="mt-2 text-[18px] font-semibold text-black">{s.title}</h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-text-muted">{s.copy}</p>
               </Reveal>
             ))}
           </div>
           <Reveal className="mt-12 text-center">
-            <Link href="/shop" className={btnPrimaryInverse}>
+            <Link href="/shop" className={btnPrimary}>
               Begin Your Story
             </Link>
           </Reveal>
