@@ -325,9 +325,6 @@ export function ScentProductView({ scent }: { scent: Scent }) {
                 </span>
               )}
             </div>
-            <p className="mt-1 text-[13px] text-text-muted">
-              Select any additional 80ml fragrances below to bundle them with your order.
-            </p>
             <div className="scroll-row mt-4 flex gap-4 overflow-x-auto pb-3">
               {otherScents.map((s) => {
                 const isSelected = addOnScentIds.includes(s.id);
