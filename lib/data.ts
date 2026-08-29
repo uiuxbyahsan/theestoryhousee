@@ -114,7 +114,7 @@ export const BUNDLES: Bundle[] = [
   {
     id: "the-story",
     name: "The Story",
-    price: 429,
+    price: 180,
     includesScent: 0,
     books: 1,
     blurb: "A hand-designed 20-page photobook of your own. Minimum 45 HD photos required.",
@@ -122,10 +122,10 @@ export const BUNDLES: Bundle[] = [
   {
     id: "the-story-scent",
     name: "The Story + Scent",
-    price: 599,
+    price: 250,
     includesScent: 1,
     books: 1,
-    blurb: "The 20-page book paired with one 80ml signature scent, chosen for your story. Minimum 45 HD photos required.",
+    blurb: "The 20-page book paired with one 80ml signature scent (+70 AED), chosen for your story. Minimum 45 HD photos required.",
     hero: true,
   },
   {

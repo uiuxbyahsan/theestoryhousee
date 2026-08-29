@@ -129,7 +129,7 @@ export default function ScentStep() {
               Continue with your photobook only
             </span>
             <span className="block text-[13px] text-text-muted">
-              No 80ml signature fragrance added (Photobook 429 AED)
+              No 80ml signature fragrance added (Photobook 180 AED)
             </span>
           </span>
         </span>
