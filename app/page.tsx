@@ -89,35 +89,6 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
-
-      {/* How it works */}
-      <section className="border-t border-divider bg-white py-20 text-black">
-        <Container>
-          <Reveal className="mb-12 text-center">
-            <Headline as="h2" before="How it" accent="works" className="text-[28px] md:text-[40px]" />
-          </Reveal>
-          <div className="grid gap-8 md:grid-cols-3">
-            {STEPS.map((s, i) => (
-              <Reveal key={s.title} delay={i * 0.1} className="text-center">
-                <span className="accent text-[40px] text-gold">0{i + 1}</span>
-                <h3 className="mt-2 text-[18px] font-semibold text-black">{s.title}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-text-muted">{s.copy}</p>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal className="mt-12 text-center">
-            <Link href="/shop" className={btnPrimary}>
-              Begin Your Story
-            </Link>
-          </Reveal>
-        </Container>
-      </section>
     </SiteShell>
   );
 }
-
-const STEPS = [
-  { title: "Choose your cover and scent", copy: "Pick a cover and the signature scent made for your story." },
-  { title: "Upload your photos", copy: "Add at least 45 HD photos from your phone, Google Photos or WhatsApp." },
-  { title: "Send it on WhatsApp", copy: "We finish the design with you and print it. No checkout, no fuss." },
-];
