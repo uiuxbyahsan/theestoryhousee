@@ -90,25 +90,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* UGC / social proof */}
-      <section className="py-20">
-        <Container>
-          <Reveal className="mb-8">
-            <Headline as="h2" before="From our" accent="storytellers" className="text-[28px] md:text-[40px]" />
-            <p className="mt-2 text-[14px] text-text-muted">Real books, real memories.</p>
-          </Reveal>
-        </Container>
-        <div className="scroll-row flex gap-4 overflow-x-auto px-5 pb-4 sm:px-8">
-          {["/images/ugc-1.png", "/images/ugc-2.png", "/images/ugc-3.png", "/images/ugc-4.png", "/images/ugc-5.png"].map(
-            (src, i) => (
-              <div key={src} className="relative aspect-[4/5] w-[70vw] shrink-0 overflow-hidden border border-divider sm:w-[300px]">
-                <Image src={src} alt={`Customer memory ${i + 1}`} fill className="object-cover" />
-              </div>
-            )
-          )}
-        </div>
-      </section>
-
       {/* How it works */}
       <section className="bg-black py-20 text-text-white">
         <Container>
