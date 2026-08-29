@@ -35,11 +35,20 @@ const config: Config = {
         serif: ["var(--font-playfair)", "Georgia", "serif"],
       },
       borderRadius: {
-        card: "0px", // sharp corners, no exceptions (Section 4.3)
-        button: "4px", // near-sharp solid buttons (Round 2, item 1)
-        "button-pill": "9999px", // optional pill, Seven Scents only
-        "icon-button": "9999px", // Quick View eye icon
-        badge: "2px",
+        none: "0px",
+        card: "0px",
+        button: "0px",
+        "button-pill": "0px",
+        "icon-button": "0px",
+        badge: "0px",
+        sm: "0px",
+        DEFAULT: "0px",
+        md: "0px",
+        lg: "0px",
+        xl: "0px",
+        "2xl": "0px",
+        "3xl": "0px",
+        full: "0px",
       },
       maxWidth: {
         container: "1240px",

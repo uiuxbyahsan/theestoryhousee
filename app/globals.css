@@ -57,3 +57,19 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* Sharp corners sitewide for all buttons, inputs, links styled as buttons */
+button,
+a.rounded-button,
+.rounded-button,
+.rounded-icon-button,
+.rounded-badge,
+.rounded-full,
+.rounded-lg,
+.rounded-md,
+.rounded-sm,
+input,
+select,
+textarea {
+  border-radius: 0px !important;
+}
