@@ -60,9 +60,9 @@ export default function ReviewStep() {
   }
 
   return (
-    <BuilderChrome step={5} backHref="/build/personalize" hideNext>
+    <BuilderChrome step={4} backHref="/build/personalize" hideNext>
       <StepHead
-        step={5}
+        step={4}
         before="Review your"
         accent="story"
         sub="Everything look good? Let's send it to WhatsApp."
@@ -90,7 +90,7 @@ export default function ReviewStep() {
         <dl className="divide-y divide-divider">
           <Row label="Cover" value={template?.name ?? "Not chosen"} editHref="/build/photos" />
           <Row label="Scent" value={scent ? `${scent.name} · 80ml` : "No scent added"} editHref="/build/scent" />
-          <Row label="Pages" value={`${BASE_PAGES}${s.extraPages ? ` + ${s.extraPages}` : ""} pages`} editHref="/build/pages" />
+          <Row label="Format" value={`${BASE_PAGES} pages · Hardcover`} editHref="/build/photos" />
           <Row label="Photos" value={`${s.photos.length} uploaded`} editHref="/build/photos" />
           <Row label="Name" value={s.customerName || "Not added"} editHref="/build/personalize" />
           <Row label="Delivery area" value={s.deliveryArea || "Not added"} editHref="/build/personalize" />

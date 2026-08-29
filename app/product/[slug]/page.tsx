@@ -11,7 +11,7 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const scent = scentById(params.slug);
   if (scent) {
-    return { title: `${scent.name} — 80ml Eau de Parfum & Photobook | The Story House` };
+    return { title: `${scent.name} — 80ml Eau de Parfum | The Story House` };
   }
   const bundle = bundleById(params.slug);
   return { title: `${bundle?.name ?? "Product"} | The Story House` };

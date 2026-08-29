@@ -60,6 +60,32 @@ export function buildWhatsAppMessage(state: OrderState): string {
   return lines.join("\n");
 }
 
+export interface ScentOrderState {
+  scentName: string;
+  category: string;
+  quantity: number;
+  customerName?: string;
+  deliveryArea?: string;
+}
+
+export function buildScentWhatsAppMessage(state: ScentOrderState): string {
+  const total = state.quantity * 70;
+  const lines: string[] = [
+    "Hi The Story House! 👋 I'd like to order:",
+    "",
+    `Scent: ${state.scentName}`,
+    `Category: ${state.category}`,
+    `Quantity: ${state.quantity}`,
+    `Price: ${state.quantity} × 70 AED = ${total} AED`,
+    "",
+    `Name: ${state.customerName ?? ""}`,
+    `Delivery area: ${state.deliveryArea ?? ""}`,
+    "",
+    "Thank you!",
+  ];
+  return lines.join("\n");
+}
+
 export function whatsappHref(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
@@ -79,3 +105,4 @@ export const EMIRATES = [
   "Fujairah",
   "Outside the UAE",
 ];
+

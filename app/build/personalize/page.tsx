@@ -19,9 +19,9 @@ export default function PersonalizeStep() {
   const canContinue = s.customerName.trim() !== "" && s.deliveryArea.trim() !== "";
 
   return (
-    <BuilderChrome step={4} backHref="/build/pages" nextDisabled={!canContinue}>
+    <BuilderChrome step={3} backHref="/build/scent" nextDisabled={!canContinue}>
       <StepHead
-        step={4}
+        step={3}
         before="Personalize your"
         accent="story"
         sub="Make this copy your own."

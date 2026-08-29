@@ -25,11 +25,9 @@ export function ScentModal({
 
   if (!scent) return null;
 
-  function handleStartOrder() {
-    setScent(scent?.id ?? null);
-    setBundle("the-story-scent");
+  function handleViewProduct() {
     onClose();
-    router.push("/build/photos");
+    router.push(`/product/${scent?.id}`);
   }
 
   return (
@@ -116,14 +114,14 @@ export function ScentModal({
                       : "border border-black bg-black text-white hover:bg-black-alt"
                   }`}
                 >
-                  {selected ? "Selected ✓" : "Choose this Scent"}
+                  {selected ? "Selected ✓" : "Pair with Book"}
                 </button>
               ) : (
                 <button
-                  onClick={handleStartOrder}
+                  onClick={handleViewProduct}
                   className="rounded-button border border-black bg-black px-6 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-black-alt"
                 >
-                  Pair with a Photobook
+                  Order Scent (70 AED)
                 </button>
               )}
             </div>

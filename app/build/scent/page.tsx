@@ -42,14 +42,52 @@ export default function ScentStep() {
       step={2}
       backHref="/build/photos"
       nextDisabled={!hasChosen}
-      nextLabel={hasChosen ? "Continue to Pages" : "Select an option to continue"}
+      nextLabel={hasChosen ? "Continue to Personalize" : "Select an option to continue"}
       wide
     >
+      {/* Book Only Option at the Top */}
+      <button
+        type="button"
+        onClick={() => chooseScent(null)}
+        className={`mb-8 flex w-full items-center justify-between border p-5 text-left transition-colors ${
+          hasChosen && scentId === null
+            ? "border-black bg-bg-alt ring-1 ring-black"
+            : "border-divider bg-card-bg hover:border-black"
+        }`}
+      >
+        <span className="flex items-center gap-4">
+          <span className="text-3xl">📖</span>
+          <span>
+            <span className="block text-[16px] font-semibold text-black">
+              Continue with your photobook only
+            </span>
+            <span className="block text-[13px] text-text-muted">
+              No 80ml signature fragrance added (Photobook 180 AED)
+            </span>
+          </span>
+        </span>
+        <span
+          className={`rounded-button px-4 py-2 text-[13px] font-semibold transition-colors ${
+            hasChosen && scentId === null
+              ? "bg-black text-white"
+              : "border border-divider text-black hover:border-black"
+          }`}
+        >
+          {hasChosen && scentId === null ? "Selected ✓" : "Choose Book Only"}
+        </span>
+      </button>
+
+      <div className="mb-8 flex items-center gap-4 text-[12px] font-semibold tracking-wider2 text-text-muted">
+        <span className="h-px flex-1 bg-divider" />
+        OR PAIR WITH A SIGNATURE FRAGRANCE (+70 AED)
+        <span className="h-px flex-1 bg-divider" />
+      </div>
+
       <StepHead
         step={2}
         before="Pair a signature"
         accent="scent"
-        sub="Every story comes to life with fragrance. Choose an 80ml fine perfume below, or continue book-only."
+        sub="Every story comes to life with fragrance. Choose an 80ml fine perfume below, or continue book-only above."
       />
 
       {/* Category Tabs Filter */}
@@ -106,47 +144,9 @@ export default function ScentStep() {
         ))}
       </div>
 
-      {/* Divider + No scent option */}
-      <div className="my-10 flex items-center gap-4 text-[13px] font-semibold tracking-wider2 text-text-muted">
-        <span className="h-px flex-1 bg-divider" />
-        OR PREFER NO FRAGRANCE?
-        <span className="h-px flex-1 bg-divider" />
-      </div>
-
-      <button
-        type="button"
-        onClick={() => chooseScent(null)}
-        className={`flex w-full items-center justify-between border p-6 text-left transition-colors ${
-          hasChosen && scentId === null
-            ? "border-black bg-bg-alt"
-            : "border-divider hover:border-black"
-        }`}
-      >
-        <span className="flex items-center gap-4">
-          <span className="text-3xl">📖</span>
-          <span>
-            <span className="block text-[16px] font-semibold text-black">
-              Continue with your photobook only
-            </span>
-            <span className="block text-[13px] text-text-muted">
-              No 80ml signature fragrance added (Photobook 180 AED)
-            </span>
-          </span>
-        </span>
-        <span
-          className={`rounded-button px-4 py-2 text-[13px] font-semibold ${
-            hasChosen && scentId === null
-              ? "bg-black text-white"
-              : "border border-divider text-black hover:border-black"
-          }`}
-        >
-          {hasChosen && scentId === null ? "Selected ✓" : "Choose Book Only"}
-        </span>
-      </button>
-
       {!hasChosen && (
-        <p className="mt-4 text-center text-[13px] text-text-muted">
-          Please select a signature fragrance above or click &ldquo;Choose Book Only&rdquo; to continue.
+        <p className="mt-8 text-center text-[13px] text-text-muted">
+          Please select a signature fragrance above or click &ldquo;Choose Book Only&rdquo; at the top to continue.
         </p>
       )}
     </BuilderChrome>

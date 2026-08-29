@@ -11,9 +11,8 @@ import { orderTotal } from "@/lib/order";
 const STEPS = [
   { n: 1, href: "/build/photos", label: "Photos" },
   { n: 2, href: "/build/scent", label: "Scent" },
-  { n: 3, href: "/build/pages", label: "Pages" },
-  { n: 4, href: "/build/personalize", label: "Personalize" },
-  { n: 5, href: "/build/review", label: "Review" },
+  { n: 3, href: "/build/personalize", label: "Personalize" },
+  { n: 4, href: "/build/review", label: "Review" },
 ];
 
 export function BuilderChrome({
@@ -113,7 +112,7 @@ export function BuilderChrome({
         </div>
         {/* Mobile step indicator */}
         <div className="border-t border-divider px-5 py-2 text-center text-[12px] text-text-muted md:hidden">
-          Step {step} of 5 · {STEPS[step - 1].label}
+          Step {step} of 4 · {STEPS[step - 1]?.label}
         </div>
       </header>
 

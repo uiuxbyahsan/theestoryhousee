@@ -5,10 +5,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { SiteShell } from "./SiteShell";
 import { Breadcrumb, WhatsAppGlyph } from "./Nav";
-import { Container, Reveal, Headline } from "./ui";
-import { ScentCard } from "./cards";
+import { Container } from "./ui";
+import { ScentCard, BundleVisual } from "./cards";
 import { TemplateModal } from "./TemplateModal";
-import { ScentBottle } from "./ScentBottle";
+import { BookCover } from "./BookCover";
+import { ScentProductView } from "./ScentProductView";
 import { useBuilder } from "@/lib/store";
 import { orderTotal, buildWhatsAppMessage, whatsappHref } from "@/lib/order";
 import {
@@ -18,44 +19,47 @@ import {
   bundleById,
   scentById,
   templateById,
+  type Bundle,
 } from "@/lib/data";
 
-// Hand-free scent product shots (single bottles cropped from the flat-lay).
-const GALLERY = [
-  "/images/scents-flatlay.jpg",
-  "/images/scent-1.jpg",
-  "/images/scent-gold.jpg",
-  "/images/scent-2.jpg",
-  "/images/bottle-duo.jpg",
+const BOOK_GALLERY = [
+  { type: "cover", src: "" },
+  { type: "image", src: "/images/hero.jpg", label: "Hardcover Photobook" },
+  { type: "image", src: "/images/craftsmanship.jpg", label: "Linen Craftsmanship" },
+  { type: "image", src: "/images/ugc-1.png", label: "Story Pages" },
+  { type: "image", src: "/images/ugc-2.png", label: "Keepsake Details" },
 ];
 
 export function ProductView({ slug }: { slug: string }) {
+  const targetScent = scentById(slug);
+  if (targetScent) {
+    return <ScentProductView scent={targetScent} />;
+  }
+
+  return <BookProductView slug={slug} />;
+}
+
+function BookProductView({ slug }: { slug: string }) {
   const store = useBuilder();
   const [modalOpen, setModalOpen] = useState(false);
   const [activeImg, setActiveImg] = useState(0);
 
-  const targetScent = scentById(slug);
-  const isScent = !!targetScent;
-
-  // Seed the builder with this product on first load.
+  // Seed the builder with this bundle on load
   useEffect(() => {
-    if (isScent && targetScent) {
-      store.setScent(targetScent.id);
-      store.setBundle("the-story-scent");
-    } else {
-      store.setBundle(slug);
-    }
+    store.setBundle(slug);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
-  const bundle = bundleById(store.bundleId) ?? bundleById("the-story-scent")!;
+  const bundle: Bundle = bundleById(store.bundleId) ?? bundleById(slug) ?? BUNDLES[0];
+  const template = store.templateId ? templateById(store.templateId) : templateById("female-02");
+
   const total = orderTotal({
     bundleId: store.bundleId,
     scentId: store.scentId,
     extraPages: store.extraPages,
   });
-  const currentScent = store.scentId ? scentById(store.scentId) : (targetScent ?? scentById("velvet-nights"));
-  const template = store.templateId ? templateById(store.templateId) : null;
+
+  const selectedScent = store.scentId ? scentById(store.scentId) : null;
 
   const waHref = whatsappHref(
     buildWhatsAppMessage({
@@ -72,40 +76,53 @@ export function ProductView({ slug }: { slug: string }) {
       <TemplateModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        initialCategory={currentScent?.category ?? "All"}
+        initialCategory={template?.category ?? "All"}
       />
       <Breadcrumb
         trail={[
           { label: "Home", href: "/" },
           { label: "Shop all", href: "/shop" },
-          { label: targetScent ? targetScent.name : bundle.name },
+          { label: bundle.name },
         ]}
       />
 
-      <Container className="flex flex-col gap-10 pb-16 lg:grid lg:grid-cols-2">
+      <Container className="flex flex-col gap-10 pb-16 pt-4 lg:grid lg:grid-cols-2">
         {/* ── Gallery (sticky) ── */}
         <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           <div className="relative aspect-square w-full overflow-hidden border border-divider bg-bg-alt">
-            {targetScent && activeImg === 0 ? (
+            {activeImg === 0 ? (
               <div className="flex h-full w-full items-center justify-center p-8">
-                <div className="w-[180px]">
-                  <ScentBottle scent={targetScent} />
+                <div className="h-full w-full max-w-[280px]">
+                  <BundleVisual bundle={bundle} />
                 </div>
               </div>
             ) : (
-              <Image src={GALLERY[activeImg]} alt={targetScent ? targetScent.name : bundle.name} fill className="object-cover" />
+              <Image
+                src={BOOK_GALLERY[activeImg].src}
+                alt={bundle.name}
+                fill
+                className="object-cover"
+              />
             )}
           </div>
           <div className="scroll-row mt-3 flex gap-3 overflow-x-auto">
-            {GALLERY.map((src, i) => (
+            {BOOK_GALLERY.map((item, i) => (
               <button
-                key={src}
+                key={i}
+                type="button"
                 onClick={() => setActiveImg(i)}
-                className={`relative aspect-square w-16 shrink-0 overflow-hidden border ${
-                  activeImg === i ? "border-black" : "border-divider"
+                className={`relative aspect-square w-16 shrink-0 overflow-hidden border transition-colors ${
+                  activeImg === i ? "border-black ring-1 ring-black" : "border-divider opacity-75 hover:opacity-100"
                 }`}
+                aria-label={`View image ${i + 1}`}
               >
-                <Image src={src} alt="" fill className="object-cover" />
+                {item.type === "cover" ? (
+                  <div className="flex h-full w-full items-center justify-center bg-bg-alt p-1.5">
+                    {template && <BookCover template={template} />}
+                  </div>
+                ) : (
+                  <Image src={item.src} alt="" fill className="object-cover" />
+                )}
               </button>
             ))}
           </div>
@@ -114,74 +131,43 @@ export function ProductView({ slug }: { slug: string }) {
         {/* ── Purchase panel ── */}
         <div className="flex min-w-0 flex-col">
           <div className="flex items-center gap-2 text-[13px] text-text-muted">
-            <span className="text-gold">★★★★★</span> Loved by storytellers across the UAE
+            <span className="text-gold">★★★★★</span> Hand-designed custom photobooks in the UAE
           </div>
-          
-          {targetScent ? (
-            <>
-              <p className="eyebrow mt-2 text-text-muted">
-                FOR {targetScent.category.toUpperCase()} · 80ML EAU DE PARFUM
-              </p>
-              <h1 className="mt-1 text-[30px] font-semibold leading-tight md:text-[40px]">
-                The Story + <span className="accent">{targetScent.name}</span>
-              </h1>
-              <p className="mt-2 text-[14px] leading-relaxed text-text-muted">
-                A handcrafted 20-page hardcover photobook paired with the {targetScent.name} signature scent.
-              </p>
 
-              {/* Fragrance Notes */}
-              <div className="mt-5 border border-divider bg-bg-alt p-4">
-                <p className="eyebrow mb-2.5 text-text-muted">Fragrance Notes Breakdown</p>
-                <div className="grid grid-cols-1 gap-2 text-[13px] sm:grid-cols-3">
-                  <div>
-                    <span className="font-semibold text-black">Top:</span>{" "}
-                    <span className="text-text-muted">{targetScent.notes.top}</span>
-                  </div>
-                  <div>
-                    <span className="font-semibold text-black">Mid:</span>{" "}
-                    <span className="text-text-muted">{targetScent.notes.mid}</span>
-                  </div>
-                  <div>
-                    <span className="font-semibold text-black">Base:</span>{" "}
-                    <span className="text-text-muted">{targetScent.notes.base}</span>
-                  </div>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <h1 className="mt-2 text-[30px] font-semibold leading-tight md:text-[40px]">
-                {bundle.name.replace("Scent", "")}
-                {bundle.name.includes("Scent") && <span className="accent"> Scent</span>}
-              </h1>
-              <p className="mt-3 text-[15px] leading-relaxed text-text-muted">{bundle.blurb}</p>
-            </>
-          )}
+          <p className="eyebrow mt-3 text-text-muted">
+            HARDCOVER PHOTOBOOK · 21×26CM · {BASE_PAGES} PAGES
+          </p>
+
+          <h1 className="mt-1 text-[32px] font-semibold leading-tight md:text-[42px]">
+            {bundle.name}
+          </h1>
+
+          <p className="mt-2.5 text-[15px] leading-relaxed text-text-muted">
+            {bundle.blurb}
+          </p>
 
           <div className="mt-5 flex items-center gap-3">
-            <span className="text-[28px] font-semibold">{total} AED</span>
+            <span className="text-[30px] font-semibold text-black">{total} AED</span>
             <span className="rounded-button border border-divider bg-bg-alt px-2.5 py-1 text-[12px] font-semibold text-text-dark">
-              {store.bundleId === "the-story-scent" ? `${BASE_PAGES} Pages + 80ml Scent` : `${BASE_PAGES} Pages Book Only`}
+              {bundle.includesScent > 0
+                ? `${BASE_PAGES} Pages + ${bundle.includesScent} Signature Scent`
+                : `${BASE_PAGES} Pages Book Only`}
             </span>
-            {store.extraPages > 0 && (
-              <span className="text-[13px] text-text-muted">
-                incl. {store.extraPages} extra pages
-              </span>
-            )}
           </div>
           <div className="mt-1 flex items-center gap-1.5 text-[13px] text-text-muted">
-            <span className="text-green-600">✓</span> In stock · made to order in UAE
+            <span className="text-green-600">✓</span> Made to order in UAE · WhatsApp design review
           </div>
 
           {/* Bundle tier selector */}
           <div className="mt-6">
             <p className="eyebrow mb-2 text-text-muted">Package tier</p>
             <div className="grid grid-cols-2 gap-2.5">
-              {BUNDLES.filter((b) => b.id === "the-story" || b.id === "the-story-scent").map((b) => (
+              {BUNDLES.map((b) => (
                 <button
                   key={b.id}
+                  type="button"
                   onClick={() => store.setBundle(b.id)}
-                  className={`flex flex-col items-start border p-3.5 text-left transition-colors ${
+                  className={`flex flex-col items-start rounded-md border p-3.5 text-left transition-colors ${
                     store.bundleId === b.id ? "border-black bg-bg-alt" : "border-divider hover:border-black"
                   }`}
                 >
@@ -196,37 +182,52 @@ export function ProductView({ slug }: { slug: string }) {
           <div className="mt-5">
             <p className="eyebrow mb-2 text-text-muted">Cover Design</p>
             <button
+              type="button"
               onClick={() => setModalOpen(true)}
-              className="flex w-full items-center justify-between border border-divider px-4 py-3 text-[14px] transition-colors hover:border-black"
+              className="flex w-full items-center justify-between rounded-md border border-divider px-4 py-3.5 text-[14px] transition-colors hover:border-black"
             >
-              <span>{template ? template.name : `Choose cover (${currentScent?.category ?? "Male/Female/Unisex"})`}</span>
+              <span>{store.templateId && template ? template.name : "Select Cover Template"}</span>
               <span className="text-text-muted">Browse templates ›</span>
             </button>
           </div>
 
           {/* Primary CTA */}
-          <button
-            onClick={() => setModalOpen(true)}
-            className="mt-6 flex items-center justify-center gap-2 rounded-button bg-black px-6 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-black-alt"
-          >
-            Start My Design Order
-          </button>
-          <a
-            href={waHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2.5 flex items-center justify-center gap-2 rounded-button border border-black px-6 py-3.5 text-[14px] font-semibold transition-colors hover:bg-black hover:text-white"
-          >
-            <WhatsAppGlyph className="h-5 w-5" /> Order on WhatsApp
-          </a>
+          <div className="mt-6 space-y-2.5">
+            <Link
+              href="/build/photos"
+              className="flex w-full items-center justify-center gap-2 rounded-button bg-black px-6 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-black-alt"
+            >
+              Start My Design Order
+            </Link>
+
+            <a
+              href={waHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center justify-center gap-2 rounded-button border border-black px-6 py-3.5 text-[14px] font-semibold transition-colors hover:bg-black hover:text-white"
+            >
+              <WhatsAppGlyph className="h-5 w-5" /> Quick Order on WhatsApp
+            </a>
+          </div>
+
           <p className="mt-2 text-center text-[12px] text-text-muted">
-            No payment on the site. You confirm everything on WhatsApp.
+            No payment on the site. You confirm your layout and details directly on WhatsApp.
           </p>
 
-          {/* Add more to your story (cross-sell) */}
-          <div className="mt-7">
-            <p className="eyebrow mb-3 text-text-muted">Add more to your story</p>
-            <div className="scroll-row flex gap-4 overflow-x-auto pb-3">
+          {/* Add more to your story (cross-sell scents) */}
+          <div className="mt-8 border-t border-divider pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="eyebrow text-text-muted">Optional Fragrance Pairing</p>
+                <h2 className="text-[17px] font-semibold text-black">Add more to your story</h2>
+              </div>
+              {selectedScent && (
+                <span className="text-[12px] font-semibold text-gold">
+                  Paired: {selectedScent.name}
+                </span>
+              )}
+            </div>
+            <div className="scroll-row mt-4 flex gap-4 overflow-x-auto pb-3">
               {SCENTS.map((s) => (
                 <div key={s.id} className="w-[260px] shrink-0">
                   <ScentCard
@@ -241,20 +242,15 @@ export function ProductView({ slug }: { slug: string }) {
           </div>
 
           {/* Accordions */}
-          <div className="mt-7 divide-y divide-divider border-y border-divider">
+          <div className="mt-8 divide-y divide-divider border-y border-divider">
             <Accordion title="Is this made for my phone photos?">
-              Yes. Upload at least 45 HD photos straight from your phone, no
-              professional camera needed. We handle the printing and layout from
-              there.
+              Yes. Upload at least 45 HD photos straight from your phone, Google Photos, or WhatsApp. We handle photo enhancement, layout, and printing from there.
             </Accordion>
-            <Accordion title="Pages & format">
-              Every book starts at 20 pages, hardcover, 21cm x 26cm. Need more
-              room for your story? Add extra pages during the ordering flow.
+            <Accordion title="Book format & specifications">
+              Every book comes as a 20-page hardcover (21cm × 26cm) crafted with premium linen and gold foil finishing, hand-designed by our team for your photos.
             </Accordion>
-            <Accordion title="Delivery. How ordering on WhatsApp works.">
-              Once you send your story details, our team confirms everything with
-              you on WhatsApp before printing. No checkout, no payment on the
-              site, just a quick conversation to get your book right.
+            <Accordion title="Delivery & WhatsApp Ordering">
+              Once you send your story details, our team confirms your digital preview with you on WhatsApp before printing. No checkout or payment on the site—just a direct, personal experience.
             </Accordion>
           </div>
         </div>
@@ -268,8 +264,9 @@ function Accordion({ title, children }: { title: string; children: React.ReactNo
   return (
     <div>
       <button
+        type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between py-4 text-left text-[15px] font-medium"
+        className="flex w-full items-center justify-between py-4 text-left text-[15px] font-medium transition-colors hover:text-black"
       >
         {title}
         <span className="text-xl text-text-muted">{open ? "−" : "+"}</span>
@@ -280,4 +277,3 @@ function Accordion({ title, children }: { title: string; children: React.ReactNo
     </div>
   );
 }
-
