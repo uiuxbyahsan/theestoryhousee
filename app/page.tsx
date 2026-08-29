@@ -24,16 +24,16 @@ export default function HomePage() {
         </Container>
       </div>
 
-      {/* Shop by story type */}
+      {/* Scent lineup */}
       <section className="bg-bg-alt py-20">
         <Container>
-          <Reveal className="mb-10">
-            <Headline as="h2" before="Shop by" accent="category" className="text-[28px] md:text-[40px]" />
+          <Reveal className="mb-10 text-center">
+            <Headline as="h2" before="The seven" accent="scents" className="text-[28px] md:text-[40px]" />
           </Reveal>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-            {CATEGORY_TILES.map((c, i) => (
-              <Reveal key={c.category} delay={i * 0.06}>
-                <CategoryCard category={c.category} title={c.title} copy={c.copy} scentId={c.scentId} />
+          <div className="grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
+            {SCENTS.map((s, i) => (
+              <Reveal key={s.id} delay={i * 0.05}>
+                <ScentCard scent={s} />
               </Reveal>
             ))}
           </div>
@@ -74,16 +74,16 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Scent lineup */}
+      {/* Shop by story type */}
       <section className="bg-bg-alt py-20">
         <Container>
-          <Reveal className="mb-10 text-center">
-            <Headline as="h2" before="The seven" accent="scents" className="text-[28px] md:text-[40px]" />
+          <Reveal className="mb-10">
+            <Headline as="h2" before="Shop by" accent="category" className="text-[28px] md:text-[40px]" />
           </Reveal>
-          <div className="grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
-            {SCENTS.map((s, i) => (
-              <Reveal key={s.id} delay={i * 0.05}>
-                <ScentCard scent={s} />
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+            {CATEGORY_TILES.map((c, i) => (
+              <Reveal key={c.category} delay={i * 0.06}>
+                <CategoryCard category={c.category} title={c.title} copy={c.copy} scentId={c.scentId} />
               </Reveal>
             ))}
           </div>
