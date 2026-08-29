@@ -178,10 +178,7 @@ export function ScentProductView({ scent }: { scent: Scent }) {
           {/* ── Dedicated Single-Step WhatsApp Order Form ── */}
           <div className="mt-8 rounded-lg border-2 border-black bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between border-b border-divider pb-4">
-              <div>
-                <span className="eyebrow text-text-muted">Direct Scent Order</span>
-                <h2 className="text-[20px] font-semibold text-black">Start Your Order</h2>
-              </div>
+              <h2 className="text-[20px] font-semibold text-black">Start Your Order</h2>
               <span className="text-[13px] font-semibold text-gold">Fast WhatsApp Delivery</span>
             </div>
 
