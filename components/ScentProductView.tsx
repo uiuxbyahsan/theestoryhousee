@@ -127,7 +127,7 @@ export function ScentProductView({ scent }: { scent: Scent }) {
         <div className="flex min-w-0 flex-col">
           {/* Eyebrow & Category */}
           <div className="flex items-center gap-2 text-[13px] text-text-muted">
-            <span className="text-gold">★★★★★</span> Signature 80ml Fine Fragrance
+            <span className="text-gold">★★★★★</span> Loved by storytellers across the UAE
           </div>
 
           <p className="eyebrow mt-3 flex items-center gap-1.5 text-text-muted">
