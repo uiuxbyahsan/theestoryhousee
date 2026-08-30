@@ -115,7 +115,7 @@ function ShopContent() {
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <Reveal>
-              <p className="eyebrow text-text-muted">Linen Hardcover Photobooks</p>
+              <p className="eyebrow text-text-muted">Photobook</p>
               <Headline
                 as="h2"
                 before="Every story deserves a"
