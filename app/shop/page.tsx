@@ -1,10 +1,12 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { Suspense, useMemo, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { SiteShell } from "@/components/SiteShell";
 import { Breadcrumb } from "@/components/Nav";
-import { Container, Reveal, Headline } from "@/components/ui";
+import { Container, Reveal, Headline, btnPrimaryInverse } from "@/components/ui";
 import { ScentCard } from "@/components/cards";
 import { SCENTS, CATEGORIES, type Category } from "@/lib/data";
 
@@ -105,6 +107,39 @@ function ShopContent() {
               No fragrances found for this category.
             </p>
           )}
+        </Container>
+      </section>
+
+      {/* Photobook Feature Section */}
+      <section className="bg-black py-20 text-text-white">
+        <Container>
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <Reveal>
+              <p className="eyebrow text-white/60">Linen Hardcover Photobooks</p>
+              <Headline
+                as="h2"
+                before="Every story deserves a"
+                accent="keepsake."
+                className="mt-3 text-[30px] md:text-[46px]"
+              />
+              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/70">
+                Turn your phone photos into a handcrafted 20-page linen photobook, finished with gold foil stamping and custom layout design in the UAE.
+              </p>
+              <Link href="/build/photos" className={`${btnPrimaryInverse} mt-7`}>
+                Create Your Own Book
+              </Link>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div className="relative aspect-[3/2] w-full overflow-hidden border border-white/10">
+                <Image
+                  src="/images/craftsmanship.jpg"
+                  alt="Handcrafted linen photobook craftsmanship"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </Reveal>
+          </div>
         </Container>
       </section>
     </SiteShell>
