@@ -49,25 +49,25 @@ export default function ScentStep() {
       <button
         type="button"
         onClick={() => chooseScent(null)}
-        className={`mb-8 flex w-full items-center justify-between border p-5 text-left transition-colors ${
+        className={`mb-8 flex w-full flex-col gap-4 border p-4 text-left transition-colors sm:flex-row sm:items-center sm:justify-between sm:p-5 ${
           hasChosen && scentId === null
             ? "border-black bg-bg-alt ring-1 ring-black"
             : "border-divider bg-card-bg hover:border-black"
         }`}
       >
-        <span className="flex items-center gap-4">
-          <span className="text-3xl">📖</span>
-          <span>
-            <span className="block text-[16px] font-semibold text-black">
+        <div className="flex items-start gap-3.5 sm:items-center sm:gap-4">
+          <span className="text-2xl sm:text-3xl shrink-0">📖</span>
+          <div className="min-w-0 flex-1">
+            <span className="block text-[15px] font-semibold text-black sm:text-[16px]">
               Continue with your photobook only
             </span>
-            <span className="block text-[13px] text-text-muted">
+            <span className="mt-0.5 block text-[13px] leading-snug text-text-muted">
               No 80ml signature fragrance added (Photobook 180 AED)
             </span>
-          </span>
-        </span>
+          </div>
+        </div>
         <span
-          className={`rounded-button px-4 py-2 text-[13px] font-semibold transition-colors ${
+          className={`inline-flex items-center justify-center rounded-button px-4 py-2.5 text-center text-[13px] font-semibold transition-colors shrink-0 ${
             hasChosen && scentId === null
               ? "bg-black text-white"
               : "border border-divider text-black hover:border-black"
@@ -77,9 +77,9 @@ export default function ScentStep() {
         </span>
       </button>
 
-      <div className="mb-8 flex items-center gap-4 text-[12px] font-semibold tracking-wider2 text-text-muted">
+      <div className="mb-8 flex items-center gap-3 text-center text-[11px] font-semibold tracking-wider2 text-text-muted sm:text-[12px]">
         <span className="h-px flex-1 bg-divider" />
-        OR PAIR WITH A SIGNATURE FRAGRANCE (+70 AED)
+        <span>OR PAIR WITH A SIGNATURE FRAGRANCE (+70 AED)</span>
         <span className="h-px flex-1 bg-divider" />
       </div>
 
