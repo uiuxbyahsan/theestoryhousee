@@ -1,8 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
 import { Hero } from "@/components/Hero";
-import { Container, Reveal, Headline, btnPrimary } from "@/components/ui";
+import { Container, Reveal, Headline } from "@/components/ui";
 import { ScentCard } from "@/components/cards";
 import { SCENTS } from "@/lib/data";
 
@@ -56,9 +55,6 @@ export default function HomePage() {
                 Seven signature scents crafted for every kind of memory.
                 Your book comes paired with the one that fits your story.
               </p>
-              <Link href="/build/photos" className={`${btnPrimary} mt-7`}>
-                Find your scent
-              </Link>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="relative aspect-[3/2] w-full overflow-hidden border border-divider">
