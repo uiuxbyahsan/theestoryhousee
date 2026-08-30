@@ -305,8 +305,8 @@ export function ScentProductView({ scent }: { scent: Scent }) {
                 >
                   <WhatsAppGlyph className="h-5 w-5" /> Start Your Order on WhatsApp · {total} AED
                 </a>
-                <p className="mt-2.5 text-center text-[12px] text-text-muted lg:whitespace-nowrap">
-                  No payment on site. Send this pre-filled message on WhatsApp and our team will confirm delivery details with you.
+                <p className="mt-2.5 text-center text-[12px] text-text-muted">
+                  No payment on site. You confirm everything on WhatsApp.
                 </p>
               </div>
             </form>
