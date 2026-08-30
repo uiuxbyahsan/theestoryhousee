@@ -300,7 +300,7 @@ export function ScentProductView({ scent }: { scent: Scent }) {
                   rel="noopener noreferrer"
                   className="flex w-full items-center justify-center gap-2.5 rounded-button bg-[#25D366] px-6 py-4 text-[15px] font-semibold text-white shadow-sm transition-all hover:bg-[#1EBE5D] hover:shadow"
                 >
-                  <WhatsAppGlyph className="h-5 w-5" /> Start Your Order on WhatsApp · {total} AED
+                  <WhatsAppGlyph className="h-5 w-5" /> Start Your Order on WhatsApp
                 </a>
                 <p className="mt-2.5 text-center text-[12px] text-text-muted">
                   No payment on site. You confirm everything on WhatsApp.
