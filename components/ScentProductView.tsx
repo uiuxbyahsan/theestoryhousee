@@ -149,9 +149,6 @@ export function ScentProductView({ scent }: { scent: Scent }) {
           {/* Pricing Row */}
           <div className="mt-5 flex items-center gap-3 border-b border-divider pb-5">
             <span className="text-[32px] font-semibold text-black">{scent.price} AED</span>
-            <span className="rounded-button border border-divider bg-bg-alt px-3 py-1 text-[12px] font-semibold text-text-dark">
-              80ml Eau de Parfum
-            </span>
             <span className="ml-auto flex items-center gap-1.5 text-[13px] text-text-muted">
               <span className="text-green-600">✓</span> In stock · UAE Delivery
             </span>
