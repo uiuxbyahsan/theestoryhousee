@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
 import { Hero } from "@/components/Hero";
-import { Container, Reveal, Headline, btnPrimary, btnPrimaryInverse, btnGhost } from "@/components/ui";
-import { ScentCard, CategoryCard } from "@/components/cards";
-import { SCENTS, CATEGORY_TILES } from "@/lib/data";
+import { Container, Reveal, Headline, btnPrimaryInverse } from "@/components/ui";
+import { ScentCard } from "@/components/cards";
+import { SCENTS } from "@/lib/data";
 
 export default function HomePage() {
   return (
@@ -70,22 +70,6 @@ export default function HomePage() {
                 />
               </div>
             </Reveal>
-          </div>
-        </Container>
-      </section>
-
-      {/* Shop by story type */}
-      <section className="bg-bg-alt py-20">
-        <Container>
-          <Reveal className="mb-10">
-            <Headline as="h2" before="Shop by" accent="category" className="text-[28px] md:text-[40px]" />
-          </Reveal>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-            {CATEGORY_TILES.map((c, i) => (
-              <Reveal key={c.category} delay={i * 0.06}>
-                <CategoryCard category={c.category} title={c.title} copy={c.copy} scentId={c.scentId} />
-              </Reveal>
-            ))}
           </div>
         </Container>
       </section>
