@@ -107,10 +107,16 @@ export function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25 }}
-          className="mt-8 flex flex-col gap-3 sm:flex-row"
+          className="mt-8 flex flex-col items-center justify-center gap-3.5 sm:flex-row"
         >
-          <Link href="/shop" className={btnPrimaryInverse}>
-            Begin Your Story
+          <Link href="/build/photos" className={btnPrimaryInverse}>
+            Design Your Book
+          </Link>
+          <Link
+            href="/shop"
+            className="inline-flex items-center justify-center gap-2 border border-white/90 bg-black/30 px-6 py-3 text-[14px] font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-black"
+          >
+            Explore Signature Scents
           </Link>
         </motion.div>
 
