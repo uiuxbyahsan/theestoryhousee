@@ -1,19 +1,50 @@
+import Image from "next/image";
 import { LogoMark } from "./Logo";
 import type { Scent } from "@/lib/data";
 
-// A faithful CSS/SVG recreation of the real Story House perfume bottle so
-// every scent has a consistent visual (final photography swaps in later).
+// Renders the real product photography for a scent, kept in the exact same
+// footprint the CSS placeholder used so every location swaps at once with no
+// layout change. Falls back to the CSS/SVG bottle if a scent has no photo.
 export function ScentBottle({
   scent,
   label = "black",
   className = "",
+  fill = false,
 }: {
   scent: Scent;
   label?: "black" | "gold";
   className?: string;
+  // When true, the photo fills its parent container (object-cover, 100%x100%)
+  // instead of sitting at a fixed small width. Parent must be `relative`.
+  fill?: boolean;
 }) {
   const goldLabel = label === "gold";
   const words = scent.name.toUpperCase().split(" ");
+
+  if (scent.image) {
+    if (fill) {
+      return (
+        <Image
+          src={scent.image}
+          alt={`${scent.name} 80ml Eau de Parfum`}
+          fill
+          sizes="(max-width: 640px) 90vw, 480px"
+          className={`object-cover object-center ${className}`}
+        />
+      );
+    }
+    return (
+      <div className={`relative mx-auto aspect-[3/5] w-full max-w-[180px] ${className}`}>
+        <Image
+          src={scent.image}
+          alt={`${scent.name} 80ml Eau de Parfum`}
+          fill
+          sizes="(max-width: 640px) 45vw, 200px"
+          className="object-cover object-center"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={`relative mx-auto aspect-[3/5] w-full max-w-[180px] ${className}`}>

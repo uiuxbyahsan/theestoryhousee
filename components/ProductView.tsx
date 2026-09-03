@@ -112,7 +112,7 @@ function BookProductView({ slug }: { slug: string }) {
                 type="button"
                 onClick={() => setActiveImg(i)}
                 className={`relative aspect-square w-16 shrink-0 overflow-hidden border transition-colors ${
-                  activeImg === i ? "border-black ring-1 ring-black" : "border-divider opacity-75 hover:opacity-100"
+                  activeImg === i ? "border-gold ring-1 ring-gold" : "border-divider opacity-75 hover:opacity-100"
                 }`}
                 aria-label={`View image ${i + 1}`}
               >
@@ -155,7 +155,7 @@ function BookProductView({ slug }: { slug: string }) {
             </span>
           </div>
           <div className="mt-1 flex items-center gap-1.5 text-[13px] text-text-muted">
-            <span className="text-green-600">✓</span> Made to order in UAE · WhatsApp design review
+            <span className="text-gold">✓</span> Made to order in UAE · WhatsApp design review
           </div>
 
           {/* Bundle tier selector */}
@@ -168,7 +168,7 @@ function BookProductView({ slug }: { slug: string }) {
                   type="button"
                   onClick={() => store.setBundle(b.id)}
                   className={`flex flex-col items-start rounded-md border p-3.5 text-left transition-colors ${
-                    store.bundleId === b.id ? "border-black bg-bg-alt" : "border-divider hover:border-black"
+                    store.bundleId === b.id ? "border-gold bg-bg-alt" : "border-divider hover:border-black"
                   }`}
                 >
                   <span className="text-[13px] font-semibold leading-tight">{b.name}</span>
@@ -195,7 +195,7 @@ function BookProductView({ slug }: { slug: string }) {
           <div className="mt-6 space-y-2.5">
             <Link
               href="/build/photos"
-              className="flex w-full items-center justify-center gap-2 rounded-button bg-black px-6 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-black-alt"
+              className="flex w-full items-center justify-center gap-2 rounded-button bg-gold px-6 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-gold-light"
             >
               Start My Design Order
             </Link>

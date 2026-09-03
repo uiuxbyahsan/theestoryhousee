@@ -143,7 +143,7 @@ export function BuilderChrome({
             <button
               onClick={handleNext}
               disabled={nextDisabled}
-              className="rounded-button bg-black px-7 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-black-alt disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-button bg-gold px-7 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-gold-light disabled:cursor-not-allowed disabled:opacity-40"
             >
               {nextLabel}
             </button>

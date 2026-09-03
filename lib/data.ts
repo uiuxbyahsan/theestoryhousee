@@ -22,6 +22,7 @@ export interface Scent {
   category: Category;
   ml: string;
   price: number; // AED, retail/cost
+  image: string; // real product photography
   tagline: string;
   notes: { top: string; mid: string; base: string };
 }
@@ -33,6 +34,7 @@ export const SCENTS: Scent[] = [
     category: "Female",
     ml: "80ml",
     price: 70,
+    image: "/images/product-velvet-nights.jpg",
     tagline: "Candlelight, slow dances, midnight vows.",
     notes: { top: "Saffron, Plum", mid: "Rose, Oud", base: "Amber, Vanilla" },
   },
@@ -42,6 +44,7 @@ export const SCENTS: Scent[] = [
     category: "Male",
     ml: "80ml",
     price: 70,
+    image: "/images/product-his-story.jpg",
     tagline: "Late nights, loyalty, the ones you choose.",
     notes: { top: "Grapefruit, Cardamom", mid: "Lavender, Vetiver", base: "Leather, Tonka" },
   },
@@ -51,6 +54,7 @@ export const SCENTS: Scent[] = [
     category: "Female",
     ml: "80ml",
     price: 70,
+    image: "/images/product-her-story.jpg",
     tagline: "Soft petals and the promise of forever.",
     notes: { top: "Pink Pepper, Pear", mid: "Rose, Peony", base: "Vanilla, Musk" },
   },
@@ -60,6 +64,7 @@ export const SCENTS: Scent[] = [
     category: "Unisex",
     ml: "80ml",
     price: 70,
+    image: "/images/product-sunlit-memories.jpg",
     tagline: "Golden afternoons you never wanted to end.",
     notes: { top: "Mandarin, Bergamot", mid: "Orange Blossom, Jasmine", base: "White Musk, Sandalwood" },
   },
@@ -69,6 +74,7 @@ export const SCENTS: Scent[] = [
     category: "Male",
     ml: "80ml",
     price: 70,
+    image: "/images/product-royal-memories.jpg",
     tagline: "A quiet warmth held close, always.",
     notes: { top: "Incense, Bergamot", mid: "Iris, Violet", base: "Sandalwood, Amber" },
   },
@@ -78,6 +84,7 @@ export const SCENTS: Scent[] = [
     category: "Female",
     ml: "80ml",
     price: 70,
+    image: "/images/product-souvenir.jpg",
     tagline: "Sun-warmed streets and the ache of leaving.",
     notes: { top: "Bergamot, Sea Salt", mid: "Fig Leaf, Neroli", base: "Cedar, Amber" },
   },
@@ -87,6 +94,7 @@ export const SCENTS: Scent[] = [
     category: "Unisex",
     ml: "80ml",
     price: 70,
+    image: "/images/product-secret-garden.jpg",
     tagline: "Clean cotton and the hush of first mornings.",
     notes: { top: "White Tea, Pear", mid: "Lily, Freesia", base: "Cashmere Musk, Powder" },
   },

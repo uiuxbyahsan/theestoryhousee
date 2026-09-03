@@ -86,7 +86,7 @@ export function TemplateModal({
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search for a template…"
-                className="w-full rounded-button border border-divider bg-white px-4 py-2.5 text-[14px] outline-none focus:border-black"
+                className="w-full rounded-button border border-divider bg-transparent px-4 py-2.5 text-[14px] outline-none focus:border-black"
               />
               <div className="scroll-row mt-3 flex gap-2 overflow-x-auto">
                 <Tab active={category === "All"} onClick={() => setCategory("All")}>
@@ -132,7 +132,7 @@ export function TemplateModal({
               <button
                 disabled={!picked}
                 onClick={confirm}
-                className="rounded-button bg-black px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-black-alt disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-button bg-gold px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-gold-light disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Continue
               </button>
@@ -157,7 +157,7 @@ function Tab({
     <button
       onClick={onClick}
       className={`shrink-0 rounded-button border px-3 py-1.5 text-[13px] font-medium transition-colors ${
-        active ? "border-black bg-black text-white" : "border-divider text-black hover:border-black"
+        active ? "border-gold bg-gold text-white" : "border-divider text-black hover:border-black"
       }`}
     >
       {children}

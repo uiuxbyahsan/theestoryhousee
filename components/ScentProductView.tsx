@@ -85,11 +85,7 @@ export function ScentProductView({ scent }: { scent: Scent }) {
         <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           <div className="relative aspect-square w-full overflow-hidden border border-divider bg-bg-alt">
             {activeImg === 0 ? (
-              <div className="flex h-full w-full items-center justify-center p-8">
-                <div className="w-[180px] drop-shadow-lg transition-transform hover:scale-105">
-                  <ScentBottle scent={scent} />
-                </div>
-              </div>
+              <ScentBottle scent={scent} fill />
             ) : (
               <Image
                 key={GALLERY[activeImg].src}
@@ -108,16 +104,12 @@ export function ScentProductView({ scent }: { scent: Scent }) {
                 type="button"
                 onClick={() => setActiveImg(i)}
                 className={`relative aspect-square w-16 shrink-0 overflow-hidden border transition-colors ${
-                  activeImg === i ? "border-black ring-1 ring-black" : "border-divider opacity-75 hover:opacity-100"
+                  activeImg === i ? "border-gold ring-1 ring-gold" : "border-divider opacity-75 hover:opacity-100"
                 }`}
                 aria-label={`View image ${i + 1}`}
               >
                 {item.type === "bottle" ? (
-                  <div className="flex h-full w-full items-center justify-center bg-bg-alt p-2">
-                    <div className="w-[28px]">
-                      <ScentBottle scent={scent} />
-                    </div>
-                  </div>
+                  <ScentBottle scent={scent} fill />
                 ) : (
                   <Image src={item.src} alt="" fill className="object-cover" />
                 )}
@@ -150,25 +142,25 @@ export function ScentProductView({ scent }: { scent: Scent }) {
           <div className="mt-5 flex items-center gap-3 border-b border-divider pb-5">
             <span className="text-[32px] font-semibold text-black">{scent.price} AED</span>
             <span className="ml-auto flex items-center gap-1.5 text-[13px] text-text-muted">
-              <span className="text-green-600">✓</span> In stock · UAE Delivery
+              <span className="text-gold">✓</span> In stock · UAE Delivery
             </span>
           </div>
 
           {/* Fragrance Notes Breakdown */}
-          <div className="mt-6 border border-divider bg-bg-alt p-5">
+          <div className="mt-6 border border-divider bg-card-bg p-5">
             <p className="eyebrow mb-3 font-semibold tracking-wider text-text-muted">
               Fragrance Notes Breakdown
             </p>
             <div className="grid grid-cols-1 gap-3 text-[13px] sm:grid-cols-3">
-              <div className="rounded border border-divider/60 bg-white/60 p-3">
+              <div className="rounded border border-divider/60 bg-transparent p-3">
                 <span className="block text-[11px] font-bold uppercase tracking-wider text-text-muted">Top Notes</span>
                 <span className="mt-1 block font-semibold text-black">{scent.notes.top}</span>
               </div>
-              <div className="rounded border border-divider/60 bg-white/60 p-3">
-                <span className="block text-[11px] font-bold uppercase tracking-wider text-text-muted">Heart Notes</span>
+              <div className="rounded border border-divider/60 bg-transparent p-3">
+                <span className="block text-[11px] font-bold uppercase tracking-wider text-text-muted">Mid Notes</span>
                 <span className="mt-1 block font-semibold text-black">{scent.notes.mid}</span>
               </div>
-              <div className="rounded border border-divider/60 bg-white/60 p-3">
+              <div className="rounded border border-divider/60 bg-transparent p-3">
                 <span className="block text-[11px] font-bold uppercase tracking-wider text-text-muted">Base Notes</span>
                 <span className="mt-1 block font-semibold text-black">{scent.notes.base}</span>
               </div>
@@ -176,7 +168,7 @@ export function ScentProductView({ scent }: { scent: Scent }) {
           </div>
 
           {/* ── Dedicated Single-Step WhatsApp Order Form ── */}
-          <div className="mt-8 rounded-lg border-2 border-black bg-white p-6 shadow-sm">
+          <div className="mt-8 rounded-lg border border-gold bg-card-bg p-6 shadow-sm">
             <div className="flex items-center justify-between border-b border-divider pb-4">
               <h2 className="text-[20px] font-semibold text-black">Start Your Order</h2>
               <span className="text-[13px] font-semibold text-gold">Fast WhatsApp Delivery</span>
@@ -195,7 +187,7 @@ export function ScentProductView({ scent }: { scent: Scent }) {
                   Quantity ({scent.name})
                 </label>
                 <div className="mt-1.5 flex items-center gap-3">
-                  <div className="flex items-center rounded-button border border-divider bg-bg-alt">
+                  <div className="flex items-center rounded-button border border-divider">
                     <button
                       type="button"
                       onClick={() => handleQuantityChange(-1)}
@@ -269,7 +261,7 @@ export function ScentProductView({ scent }: { scent: Scent }) {
                   placeholder="e.g. Sarah Al Hashimi"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
-                  className="mt-1.5 w-full rounded-button border border-divider bg-bg-alt px-3.5 py-2.5 text-[14px] text-black transition-colors placeholder:text-text-muted/60 focus:border-black focus:bg-white focus:outline-none"
+                  className="mt-1.5 w-full rounded-button border border-divider bg-transparent px-3.5 py-2.5 text-[14px] text-black transition-colors placeholder:text-text-muted/60 focus:border-black focus:outline-none"
                 />
               </div>
 
@@ -282,7 +274,7 @@ export function ScentProductView({ scent }: { scent: Scent }) {
                   id={deliveryId}
                   value={deliveryArea}
                   onChange={(e) => setDeliveryArea(e.target.value)}
-                  className="mt-1.5 w-full rounded-button border border-divider bg-bg-alt px-3.5 py-2.5 text-[14px] text-black transition-colors focus:border-black focus:bg-white focus:outline-none"
+                  className="mt-1.5 w-full rounded-button border border-divider bg-transparent px-3.5 py-2.5 text-[14px] text-black transition-colors focus:border-black focus:outline-none"
                 >
                   {EMIRATES.map((emirate) => (
                     <option key={emirate} value={emirate}>
@@ -298,7 +290,7 @@ export function ScentProductView({ scent }: { scent: Scent }) {
                   href={waHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2.5 rounded-button bg-[#25D366] px-6 py-4 text-[15px] font-semibold text-white shadow-sm transition-all hover:bg-[#1EBE5D] hover:shadow"
+                  className="flex w-full items-center justify-center gap-2.5 rounded-button bg-gold px-6 py-4 text-[15px] font-semibold text-white shadow-sm transition-all hover:bg-gold-light hover:shadow"
                 >
                   <WhatsAppGlyph className="h-5 w-5" /> Start Your Order on WhatsApp
                 </a>

@@ -67,11 +67,9 @@ export function ScentModal({
 
             {/* Content */}
             <div className="overflow-y-auto p-6">
-              {/* Bottle preview */}
-              <div className="flex aspect-[4/3] items-center justify-center overflow-hidden border border-divider bg-bg-alt">
-                <div className="w-[110px]">
-                  <ScentBottle scent={scent} />
-                </div>
+              {/* Bottle preview — fills the frame */}
+              <div className="relative aspect-square overflow-hidden border border-divider bg-bg-alt">
+                <ScentBottle scent={scent} fill />
               </div>
 
               {/* Notes breakdown */}
@@ -108,11 +106,7 @@ export function ScentModal({
                     onSelect();
                     onClose();
                   }}
-                  className={`rounded-button px-6 py-2.5 text-[13px] font-semibold transition-colors ${
-                    selected
-                      ? "bg-black text-white"
-                      : "border border-black bg-black text-white hover:bg-black-alt"
-                  }`}
+                  className="rounded-button bg-gold px-6 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-gold-light"
                 >
                   {selected ? "Selected ✓" : "Pair with Book"}
                 </button>

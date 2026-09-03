@@ -3,14 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #ffffff;
-  --color-bg-alt: #fbfbfa;
-  --color-black: #111111;
-  --color-tan: #d9c9a3;
+  --color-bg: #f8f6f2;
+  --color-bg-alt: #f8f6f2;
+  --color-black: #0d0d0d;
+  --color-tan: #e4ce8c;
   --color-tan-text: #6b5a3a;
   --color-text-muted: #6b6b6b;
-  --color-divider: #ecebe8;
-  --color-gold: #c6a15b;
+  --color-divider: #e3d7be;
+  --color-gold: #c9a227;
+  --color-gold-light: #e4ce8c;
+  --color-card-bg: #f8f6f2;
 }
 
 html {

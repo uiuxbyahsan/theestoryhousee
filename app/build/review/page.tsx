@@ -106,7 +106,7 @@ export default function ReviewStep() {
       {/* Send */}
       <button
         onClick={send}
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-button bg-black px-6 py-4 text-[16px] font-semibold text-white transition-colors hover:bg-black-alt"
+        className="mt-6 flex w-full items-center justify-center gap-2 rounded-button bg-gold px-6 py-4 text-[16px] font-semibold text-white transition-colors hover:bg-gold-light"
       >
         Send My Story to WhatsApp
       </button>

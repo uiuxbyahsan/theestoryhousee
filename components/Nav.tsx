@@ -24,7 +24,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-divider bg-bg">
+    <header className="sticky top-0 z-50 bg-bg">
       {/* Top promo bar — built now, left empty until a real offer exists
           (Section 4.4). Toggle hidden={false} + copy when there's an offer. */}
       <div hidden className="bg-black py-2 text-center text-[12px] tracking-wider2 text-text-white" />
@@ -70,7 +70,7 @@ export function Nav() {
         <div className="flex items-center justify-end">
           <Link
             href="/build/photos"
-            className="hidden rounded-button bg-black px-4 py-2.5 text-[14px] font-semibold text-text-white transition-colors hover:bg-black-alt sm:inline-flex"
+            className="hidden rounded-button bg-gold px-4 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-gold-light sm:inline-flex"
           >
             Create Book
           </Link>
@@ -94,7 +94,7 @@ export function Nav() {
             <Link
               href="/build/photos"
               onClick={() => setOpen(false)}
-              className="mt-2 rounded-button bg-black px-4 py-3 text-center text-[15px] font-semibold text-text-white"
+              className="mt-2 rounded-button bg-gold px-4 py-3 text-center text-[15px] font-semibold text-white"
             >
               Create Book
             </Link>

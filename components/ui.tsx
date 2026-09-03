@@ -4,18 +4,16 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-// Shared button class strings (Section 4.3 — sharp, 2px radius, flat).
+// Shared button class strings — gold primary buttons, black text.
 export const btnPrimary =
-  "inline-flex items-center justify-center gap-2 rounded-button bg-black px-6 py-3 text-[14px] font-semibold text-text-white transition-colors hover:bg-black-alt disabled:cursor-not-allowed disabled:opacity-40";
+  "inline-flex items-center justify-center gap-2 rounded-button bg-gold px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-gold-light disabled:cursor-not-allowed disabled:opacity-40";
 
-// Inverse of btnPrimary — white button with black text, for use on dark
-// backgrounds (hero overlay, black sections). Kept as its own constant so
-// there's no text-color/bg-color class conflict with btnPrimary.
+// Same gold button, for use on dark backgrounds (hero overlay, black sections).
 export const btnPrimaryInverse =
-  "inline-flex items-center justify-center gap-2 rounded-button bg-white px-6 py-3 text-[14px] font-semibold text-black transition-colors hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-40";
+  "inline-flex items-center justify-center gap-2 rounded-button bg-gold px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-gold-light disabled:cursor-not-allowed disabled:opacity-40";
 
 export const btnSecondary =
-  "inline-flex items-center justify-center gap-2 rounded-button border border-black bg-white px-6 py-3 text-[14px] font-semibold text-black transition-colors hover:bg-black hover:text-white";
+  "inline-flex items-center justify-center gap-2 rounded-button border border-gold bg-transparent px-6 py-3 text-[14px] font-semibold text-black transition-colors hover:bg-gold hover:text-white";
 
 export const btnGhost =
   "inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-wider2 text-black transition-opacity hover:opacity-60";

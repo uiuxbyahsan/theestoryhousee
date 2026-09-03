@@ -121,7 +121,7 @@ export function BundleCard({
             {visual}
           </div>
         )}
-        <span className="absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-icon-button bg-white text-black shadow-md transition-transform group-hover:scale-105">
+        <span className="absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center text-white transition-transform [filter:drop-shadow(0_1px_3px_rgba(0,0,0,0.55))] group-hover:scale-110">
           <EyeIcon />
         </span>
       </div>
@@ -183,24 +183,27 @@ export function ScentCard({
           <TanBadge>Recommended for your story</TanBadge>
         </span>
       )}
-      <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-bg-alt">
-        <div className="w-[92px]">
-          <ScentBottle scent={scent} />
-        </div>
+      <div className="relative aspect-[3/4] overflow-hidden bg-bg-alt">
+        <Image
+          src={scent.image}
+          alt={`${scent.name} 80ml Eau de Parfum`}
+          fill
+          sizes="(max-width: 640px) 90vw, 360px"
+          className="object-cover"
+        />
         <button
           type="button"
           onClick={handleQuickView}
           aria-label={`Quick view ${scent.name}`}
           title={`Quick view ${scent.name}`}
-          className="absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-icon-button bg-white text-black shadow-md transition-transform group-hover:scale-105 hover:scale-105"
+          className="absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center text-white transition-transform [filter:drop-shadow(0_1px_3px_rgba(0,0,0,0.55))] group-hover:scale-110 hover:scale-110"
         >
           <EyeIcon />
         </button>
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4 md:p-5">
         <div className="flex items-center justify-between gap-2">
-          <span className="eyebrow flex items-center gap-1.5 text-text-muted">
-            <SparkleIcon className="h-2.5 w-2.5 text-gold" />
+          <span className="eyebrow text-text-muted">
             FOR {scent.category.toUpperCase()} · 80ML
           </span>
           <span className="text-[13px] font-semibold text-black">
@@ -228,11 +231,7 @@ export function ScentCard({
               e.stopPropagation();
               onSelect();
             }}
-            className={`mt-2 rounded-button px-4 py-2.5 text-[13px] font-semibold transition-colors ${
-              selected
-                ? "bg-black text-white"
-                : "border border-black hover:bg-black hover:text-white"
-            }`}
+            className="mt-2 rounded-button bg-gold px-4 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-gold-light"
           >
             {selected ? "Selected ✓" : buttonLabel}
           </button>
@@ -246,7 +245,7 @@ export function ScentCard({
       {onSelect ? (
         <div
           onClick={onSelect}
-          className={`group relative flex h-full cursor-pointer flex-col border bg-card-bg transition-colors ${
+          className={`group relative flex h-full cursor-pointer flex-col border bg-card-bg transition-all duration-[600ms] ease-out will-change-transform hover:-translate-y-1.5 hover:shadow-xl ${
             selected ? "border-black" : "border-divider hover:border-black"
           }`}
         >
@@ -255,7 +254,7 @@ export function ScentCard({
       ) : (
         <Link
           href={targetHref}
-          className={`group relative flex h-full flex-col border bg-card-bg transition-colors hover:border-black ${
+          className={`group relative flex h-full flex-col border bg-card-bg transition-all duration-[600ms] ease-out will-change-transform hover:-translate-y-1.5 hover:border-black hover:shadow-xl ${
             selected ? "border-black" : "border-divider"
           }`}
         >

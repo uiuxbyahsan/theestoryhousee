@@ -6,12 +6,14 @@ import { SIMPLE_WHATSAPP_HREF } from "@/lib/order";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-divider bg-black text-text-white">
-      {/* Oversized wordmark teaser (Section 4.4, item 9) */}
-      <div className="overflow-hidden border-b border-white/10">
-        <Container className="pt-16">
-          <p className="select-none whitespace-nowrap text-[19vw] leading-[0.8] tracking-tight text-white/[0.06] md:text-[13vw]">
-            <span className="accent text-white/[0.1]">Scent</span> Your Story
+    <footer className="mt-24 bg-black text-text-white">
+      {/* Oversized wordmark teaser: one deliberate exception to the mixed-font
+          headline system — the whole wordmark is a single Playfair Display
+          typeface, centered, fluidly sized to fit fully (no cropping). */}
+      <div className="border-b border-white/10">
+        <Container className="py-12 text-center">
+          <p className="accent select-none whitespace-nowrap text-[clamp(1.75rem,8.5vw,7rem)] leading-[1.15] text-white/[0.1]">
+            Scent Your Story
           </p>
         </Container>
       </div>

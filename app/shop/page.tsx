@@ -67,7 +67,7 @@ function ShopContent() {
                 onClick={() => handleFilterChange("All")}
                 className={`rounded-button px-4 py-2 text-[13px] font-semibold transition-colors ${
                   selectedCategory === "All"
-                    ? "bg-black text-white"
+                    ? "bg-gold text-white"
                     : "border border-divider bg-card-bg text-text-muted hover:border-black hover:text-black"
                 }`}
               >
@@ -82,7 +82,7 @@ function ShopContent() {
                     onClick={() => handleFilterChange(c)}
                     className={`rounded-button px-4 py-2 text-[13px] font-semibold transition-colors ${
                       selectedCategory === c
-                        ? "bg-black text-white"
+                        ? "bg-gold text-white"
                         : "border border-divider bg-card-bg text-text-muted hover:border-black hover:text-black"
                     }`}
                   >
@@ -111,7 +111,7 @@ function ShopContent() {
       </section>
 
       {/* Photobook Feature Section */}
-      <section className="border-t border-divider bg-white py-20 text-black">
+      <section className="bg-white py-20 text-black">
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <Reveal>

@@ -22,3 +22,6 @@ npm-debug.log*
 /images
 /perfume images
 WhatsApp Unknown*
+
+# typescript build cache
+*.tsbuildinfo

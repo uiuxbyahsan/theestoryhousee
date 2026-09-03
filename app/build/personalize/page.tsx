@@ -91,7 +91,7 @@ export default function PersonalizeStep() {
 }
 
 const inputCls =
-  "w-full rounded-button border border-divider bg-white px-4 py-3 text-[14px] outline-none focus:border-black";
+  "w-full rounded-button border border-divider bg-transparent px-4 py-3 text-[14px] outline-none focus:border-black";
 
 function Field({
   label,
