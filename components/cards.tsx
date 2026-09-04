@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ScentBottle } from "./ScentBottle";
@@ -145,6 +146,45 @@ export function BundleCard({
   );
 }
 
+// Optimized (next/image) + animatable image for the crossfade.
+const MotionImage = motion.create(Image);
+
+// Product card image: the clean staged shot at rest, crossfading into the
+// dark gift-box photo on hover (Framer Motion, ~600ms, synced with the card's
+// hover lift). Both images optimized via next/image.
+function CardImage({ scent, hovered }: { scent: Scent; hovered: boolean }) {
+  const transition = { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const };
+  return (
+    <>
+      {/* Default (at rest): dark gift-box photo — every scent has one, all
+          dark like His Story, so the resting grid reads uniformly dark with
+          no white backgrounds. */}
+      <MotionImage
+        src={scent.image}
+        alt={`${scent.name} 80ml Eau de Parfum`}
+        fill
+        sizes="(max-width: 640px) 90vw, 360px"
+        initial={false}
+        animate={{ opacity: hovered ? 0 : 1 }}
+        transition={transition}
+        className="object-cover"
+      />
+      {/* Hover: staged shot (book + ingredients), crossfaded over the default */}
+      <MotionImage
+        src={scent.imageDefault}
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="(max-width: 640px) 90vw, 360px"
+        initial={false}
+        animate={{ opacity: hovered ? 1 : 0 }}
+        transition={transition}
+        className="object-cover"
+      />
+    </>
+  );
+}
+
 // Scent showcase card — unified design used sitewide (reference design)
 export function ScentCard({
   scent,
@@ -164,6 +204,7 @@ export function ScentCard({
   href?: string;
 }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const targetHref = href ?? `/product/${scent.id}`;
 
   function handleQuickView(e: React.MouseEvent) {
@@ -183,14 +224,8 @@ export function ScentCard({
           <TanBadge>Recommended for your story</TanBadge>
         </span>
       )}
-      <div className="relative aspect-[3/4] overflow-hidden bg-bg-alt">
-        <Image
-          src={scent.image}
-          alt={`${scent.name} 80ml Eau de Parfum`}
-          fill
-          sizes="(max-width: 640px) 90vw, 360px"
-          className="object-cover"
-        />
+      <div className="relative flex-1 overflow-hidden bg-bg-alt">
+        <CardImage scent={scent} hovered={hovered} />
         <button
           type="button"
           onClick={handleQuickView}
@@ -201,7 +236,7 @@ export function ScentCard({
           <EyeIcon />
         </button>
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-4 md:p-5">
+      <div className="flex flex-col gap-2 p-4 md:p-5">
         <div className="flex items-center justify-between gap-2">
           <span className="eyebrow text-text-muted">
             FOR {scent.category.toUpperCase()} · 80ML
@@ -245,7 +280,9 @@ export function ScentCard({
       {onSelect ? (
         <div
           onClick={onSelect}
-          className={`group relative flex h-full cursor-pointer flex-col border bg-card-bg transition-all duration-[600ms] ease-out will-change-transform hover:-translate-y-1.5 hover:shadow-xl ${
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          className={`group relative flex h-[500px] cursor-pointer flex-col border bg-card-bg transition-all duration-[600ms] ease-out will-change-transform hover:-translate-y-1.5 hover:shadow-xl ${
             selected ? "border-black" : "border-divider hover:border-black"
           }`}
         >
@@ -254,7 +291,9 @@ export function ScentCard({
       ) : (
         <Link
           href={targetHref}
-          className={`group relative flex h-full flex-col border bg-card-bg transition-all duration-[600ms] ease-out will-change-transform hover:-translate-y-1.5 hover:border-black hover:shadow-xl ${
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          className={`group relative flex h-[500px] flex-col border bg-card-bg transition-all duration-[600ms] ease-out will-change-transform hover:-translate-y-1.5 hover:border-black hover:shadow-xl ${
             selected ? "border-black" : "border-divider"
           }`}
         >

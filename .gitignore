@@ -21,6 +21,9 @@ npm-debug.log*
 # raw source assets (originals live here; the site uses /public/images)
 /images
 /perfume images
+/perfume images Hover
+/Perfumes main images by default
+/Scent Your Story section image
 WhatsApp Unknown*
 
 # typescript build cache

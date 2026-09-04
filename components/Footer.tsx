@@ -7,12 +7,14 @@ import { SIMPLE_WHATSAPP_HREF } from "@/lib/order";
 export function Footer() {
   return (
     <footer className="mt-24 bg-black text-text-white">
-      {/* Oversized wordmark teaser: one deliberate exception to the mixed-font
+      {/* Oversized wordmark: one deliberate exception to the mixed-font
           headline system — the whole wordmark is a single Playfair Display
-          typeface, centered, fluidly sized to fit fully (no cropping). */}
+          typeface. Centered, one line at every breakpoint (fluid clamp),
+          sized to nearly fill the same container width as the footer grid,
+          fully visible with no cropping. */}
       <div className="border-b border-white/10">
-        <Container className="py-12 text-center">
-          <p className="accent select-none whitespace-nowrap text-[clamp(1.75rem,8.5vw,7rem)] leading-[1.15] text-white/[0.1]">
+        <Container className="py-10">
+          <p className="accent block w-full select-none whitespace-nowrap text-center leading-[1.05] text-white/[0.12] text-[clamp(2rem,11.5vw,9.75rem)]">
             Scent Your Story
           </p>
         </Container>

@@ -22,7 +22,8 @@ export interface Scent {
   category: Category;
   ml: string;
   price: number; // AED, retail/cost
-  image: string; // real product photography
+  image: string; // dark gift-box hover photo (crossfade target on cards)
+  imageDefault: string; // clean staged shot shown at rest; crossfades to `image` on hover
   tagline: string;
   notes: { top: string; mid: string; base: string };
 }
@@ -35,6 +36,7 @@ export const SCENTS: Scent[] = [
     ml: "80ml",
     price: 70,
     image: "/images/product-velvet-nights.jpg",
+    imageDefault: "/images/product-velvet-nights-main.png",
     tagline: "Candlelight, slow dances, midnight vows.",
     notes: { top: "Saffron, Plum", mid: "Rose, Oud", base: "Amber, Vanilla" },
   },
@@ -45,6 +47,7 @@ export const SCENTS: Scent[] = [
     ml: "80ml",
     price: 70,
     image: "/images/product-his-story.jpg",
+    imageDefault: "/images/product-his-story-main.png",
     tagline: "Late nights, loyalty, the ones you choose.",
     notes: { top: "Grapefruit, Cardamom", mid: "Lavender, Vetiver", base: "Leather, Tonka" },
   },
@@ -55,6 +58,7 @@ export const SCENTS: Scent[] = [
     ml: "80ml",
     price: 70,
     image: "/images/product-her-story.jpg",
+    imageDefault: "/images/product-her-story-main.png",
     tagline: "Soft petals and the promise of forever.",
     notes: { top: "Pink Pepper, Pear", mid: "Rose, Peony", base: "Vanilla, Musk" },
   },
@@ -65,6 +69,7 @@ export const SCENTS: Scent[] = [
     ml: "80ml",
     price: 70,
     image: "/images/product-sunlit-memories.jpg",
+    imageDefault: "/images/product-sunlit-memories-main.png",
     tagline: "Golden afternoons you never wanted to end.",
     notes: { top: "Mandarin, Bergamot", mid: "Orange Blossom, Jasmine", base: "White Musk, Sandalwood" },
   },
@@ -75,6 +80,7 @@ export const SCENTS: Scent[] = [
     ml: "80ml",
     price: 70,
     image: "/images/product-royal-memories.jpg",
+    imageDefault: "/images/product-royal-memories-main.png",
     tagline: "A quiet warmth held close, always.",
     notes: { top: "Incense, Bergamot", mid: "Iris, Violet", base: "Sandalwood, Amber" },
   },
@@ -85,6 +91,7 @@ export const SCENTS: Scent[] = [
     ml: "80ml",
     price: 70,
     image: "/images/product-souvenir.jpg",
+    imageDefault: "/images/product-souvenir-main.png",
     tagline: "Sun-warmed streets and the ache of leaving.",
     notes: { top: "Bergamot, Sea Salt", mid: "Fig Leaf, Neroli", base: "Cedar, Amber" },
   },
@@ -95,6 +102,7 @@ export const SCENTS: Scent[] = [
     ml: "80ml",
     price: 70,
     image: "/images/product-secret-garden.jpg",
+    imageDefault: "/images/product-secret-garden-main.png",
     tagline: "Clean cotton and the hush of first mornings.",
     notes: { top: "White Tea, Pear", mid: "Lily, Freesia", base: "Cashmere Musk, Powder" },
   },
